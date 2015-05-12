@@ -1,0 +1,25 @@
+.page-content{
+	padding-left: 2em;
+	padding-right: 2em;
+	padding-top: 8em;
+	height: 100%;
+  	overflow-y: scroll;
+  	-webkit-overflow-scrolling: touch;
+}
+
+.menu{
+	width: 100%;
+	background-color: white;
+	position: fixed;
+	top: 0;
+	padding: 1em;
+	z-index: 1;
+}
+
+.text-center{
+	text-align: center;
+}
+
+.text-right{
+	text-align: right;
+}
