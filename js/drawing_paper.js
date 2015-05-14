@@ -36,7 +36,7 @@ function draw_line(canvas, start_x, start_y, end_x, end_y, next, image_context){
   path.onFrame = function(){
     if(path.amount < 100){
       path.removeSegments();
-      make_line_path(path, start_x, start_y, end_x, end_y, path.amount += 2);
+      make_line_path(path, start_x, start_y, end_x, end_y, path.amount += 10);
       paper.view.draw();
     }
     else if(!path.completed){
