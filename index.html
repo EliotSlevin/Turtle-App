@@ -47,70 +47,10 @@
             </div>
         </div>
     </div>
-    <div class="page-content">
-        <div class="ui three column grid">
-            <div class="column">
-                <div class="ui fluid card">
-                    <div class="image"> <img src="img/viewport.png"> </div>
-                    <div class="content"> <a class="header">Sketch Name</a> </div>
-                </div>
-                <div class="ui fluid card">
-                    <div class="image"> <img src="img/viewport.png"> </div>
-                    <div class="content"> <a class="header">Sketch Name</a> </div>
-                </div>
-                <div class="ui fluid card">
-                    <div class="image"> <img src="img/viewport.png"> </div>
-                    <div class="content"> <a class="header">Sketch Name</a> </div>
-                </div>
-                <div class="ui fluid card">
-                    <div class="image"> <img src="img/viewport.png"> </div>
-                    <div class="content"> <a class="header">Sketch Name</a> </div>
-                </div>
-            </div>
-            <div class="column">
-                <div class="ui fluid card">
-                    <div class="image"> <img src="img/viewport.png"> </div>
-                    <div class="content"> <a class="header">Sketch Name</a> </div>
-                </div>
-                <div class="ui fluid card">
-                    <div class="image"> <img src="img/viewport.png"> </div>
-                    <div class="content"> <a class="header">Sketch Name</a> </div>
-                </div>
-                <div class="ui fluid card">
-                    <div class="image"> <img src="img/viewport.png"> </div>
-                    <div class="content"> <a class="header">Sketch Name</a> </div>
-                </div>
-                <div class="ui fluid card">
-                    <div class="image"> <img src="img/viewport.png"> </div>
-                    <div class="content"> <a class="header">Sketch Name</a> </div>
-                </div>
-            </div>
-            <div class="column">
-                <div class="ui fluid card">
-                    <div class="image"> <img src="img/viewport.png"> </div>
-                    <div class="content"> <a class="header">Sketch Name</a> </div>
-                </div>
-                <div class="ui fluid card">
-                    <div class="image"> <img src="img/viewport.png"> </div>
-                    <div class="content"> <a class="header">Sketch Name</a> </div>
-                </div>
-                <div class="ui fluid card">
-                    <div class="image"> <img src="img/viewport.png"> </div>
-                    <div class="content"> <a class="header">Sketch Name</a> </div>
-                </div>
-                <div class="ui fluid card">
-                    <div class="image"> <img src="img/viewport.png"> </div>
-                    <div class="content"> <a class="header">Sketch Name</a> </div>
-                </div>
-            </div>
-        </div>
+    <div class="sketch-browser"></div>
+        
     </div>
-
-
-
-      </div>
       
-
 
 <div class="pt-page pt-page-2">
        
@@ -180,15 +120,86 @@
 
 
 
-<script src="lib/cordova-2.5.0.js"></script>
+
+
+
+
+<script id="sketch-browser-template" type="text/x-handlebars-template">
+  <div class="ui three column grid">
+            <div class="column">
+                <div class="ui fluid card">
+                    <div class="image"> <img src="img/viewport.png"> </div>
+                    <div class="content"> <a class="header">Sketch Name</a> </div>
+                </div>
+                <div class="ui fluid card">
+                    <div class="image"> <img src="img/viewport.png"> </div>
+                    <div class="content"> <a class="header">Sketch Name</a> </div>
+                </div>
+                <div class="ui fluid card">
+                    <div class="image"> <img src="img/viewport.png"> </div>
+                    <div class="content"> <a class="header">Sketch Name</a> </div>
+                </div>
+                <div class="ui fluid card">
+                    <div class="image"> <img src="img/viewport.png"> </div>
+                    <div class="content"> <a class="header">Sketch Name</a> </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="ui fluid card">
+                    <div class="image"> <img src="img/viewport.png"> </div>
+                    <div class="content"> <a class="header">Sketch Name</a> </div>
+                </div>
+                <div class="ui fluid card">
+                    <div class="image"> <img src="img/viewport.png"> </div>
+                    <div class="content"> <a class="header">Sketch Name</a> </div>
+                </div>
+                <div class="ui fluid card">
+                    <div class="image"> <img src="img/viewport.png"> </div>
+                    <div class="content"> <a class="header">Sketch Name</a> </div>
+                </div>
+                <div class="ui fluid card">
+                    <div class="image"> <img src="img/viewport.png"> </div>
+                    <div class="content"> <a class="header">Sketch Name</a> </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="ui fluid card">
+                    <div class="image"> <img src="img/viewport.png"> </div>
+                    <div class="content"> <a class="header">Sketch Name</a> </div>
+                </div>
+                <div class="ui fluid card">
+                    <div class="image"> <img src="img/viewport.png"> </div>
+                    <div class="content"> <a class="header">Sketch Name</a> </div>
+                </div>
+                <div class="ui fluid card">
+                    <div class="image"> <img src="img/viewport.png"> </div>
+                    <div class="content"> <a class="header">Sketch Name</a> </div>
+                </div>
+                <div class="ui fluid card">
+                    <div class="image"> <img src="img/viewport.png"> </div>
+                    <div class="content"> <a class="header">Sketch Name</a> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+
+
+
+
+
+
+
+
 <script src="lib/fastclick.js"></script>
 <script src="lib/jquery-1.9.1.min.js"></script>
-<script src="pageslider.js"></script>
 
 <script src="semantic/semantic.js"></script>
 <script src="lib/jquery-ui.min.js"></script>
 <script src="lib/jquery.ui.touch-punch.min.js"></script>
 <script src="lib/paper-full.min.js"></script>
+<script  src="lib/handlebars-v3.0.3.js"></script>
 <script src="js/execution_pane.js"></script>
 <script src="js/code_palette.js"></script>
 <script src="js/drawing_paper.js"></script>
