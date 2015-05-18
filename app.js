@@ -25,7 +25,25 @@ $(document).ready(function() {
     var source   = $("#sketch-browser-template").html();
     var template = Handlebars.compile(source);
 
-    $(".sketch-browser").html(template);
+    var context = {
+      sketch: [
+        "First Sketch",
+        "Demo Program",
+        "Sketch example",
+        "Sketch example",
+        "Sketch example",
+        "Sketch example",
+        "Sketch example",
+        "Sketch example",
+        "Sketch example",
+        "Sketch example",
+        "Sketch example"
+      ]
+    }
+
+    var html = template(context);
+
+    $(".sketch-browser").html(html);
 
 
 

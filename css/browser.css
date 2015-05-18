@@ -23,3 +23,11 @@
 .text-right{
 	text-align: right;
 }
+
+.ui.cards{
+	justify-content: center;
+}
+
+.fluid.third{
+	width: 30% !important;
+}

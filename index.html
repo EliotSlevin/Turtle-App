@@ -41,9 +41,6 @@
                         <div class="ui button">Popular</div>
                     </div>
                 </div>
-                <div class="column text-right">
-                    <div class="ui huge basic icon button"> <i class="setting icon"></i> </div>
-                </div>
             </div>
         </div>
     </div>
@@ -125,66 +122,15 @@
 
 
 <script id="sketch-browser-template" type="text/x-handlebars-template">
-  <div class="ui three column grid">
-            <div class="column">
-                <div class="ui fluid card">
+    <div class="ui cards">
+            {{#each sketch}}
+                <div class="ui card fluid third">
                     <div class="image"> <img src="img/viewport.png"> </div>
-                    <div class="content"> <a class="header">Sketch Name</a> </div>
+                    <div class="content"> <a class="header">{{this}}</a> </div>
                 </div>
-                <div class="ui fluid card">
-                    <div class="image"> <img src="img/viewport.png"> </div>
-                    <div class="content"> <a class="header">Sketch Name</a> </div>
-                </div>
-                <div class="ui fluid card">
-                    <div class="image"> <img src="img/viewport.png"> </div>
-                    <div class="content"> <a class="header">Sketch Name</a> </div>
-                </div>
-                <div class="ui fluid card">
-                    <div class="image"> <img src="img/viewport.png"> </div>
-                    <div class="content"> <a class="header">Sketch Name</a> </div>
-                </div>
-            </div>
-            <div class="column">
-                <div class="ui fluid card">
-                    <div class="image"> <img src="img/viewport.png"> </div>
-                    <div class="content"> <a class="header">Sketch Name</a> </div>
-                </div>
-                <div class="ui fluid card">
-                    <div class="image"> <img src="img/viewport.png"> </div>
-                    <div class="content"> <a class="header">Sketch Name</a> </div>
-                </div>
-                <div class="ui fluid card">
-                    <div class="image"> <img src="img/viewport.png"> </div>
-                    <div class="content"> <a class="header">Sketch Name</a> </div>
-                </div>
-                <div class="ui fluid card">
-                    <div class="image"> <img src="img/viewport.png"> </div>
-                    <div class="content"> <a class="header">Sketch Name</a> </div>
-                </div>
-            </div>
-            <div class="column">
-                <div class="ui fluid card">
-                    <div class="image"> <img src="img/viewport.png"> </div>
-                    <div class="content"> <a class="header">Sketch Name</a> </div>
-                </div>
-                <div class="ui fluid card">
-                    <div class="image"> <img src="img/viewport.png"> </div>
-                    <div class="content"> <a class="header">Sketch Name</a> </div>
-                </div>
-                <div class="ui fluid card">
-                    <div class="image"> <img src="img/viewport.png"> </div>
-                    <div class="content"> <a class="header">Sketch Name</a> </div>
-                </div>
-                <div class="ui fluid card">
-                    <div class="image"> <img src="img/viewport.png"> </div>
-                    <div class="content"> <a class="header">Sketch Name</a> </div>
-                </div>
-            </div>
-        </div>
+            {{/each}}
     </div>
 </script>
-
-
 
 
 
