@@ -40,10 +40,10 @@ function draw_execution_pane(){
   for(var i = 0;i < execution_pane.blocks.length;i ++){
     var block = execution_pane.blocks[i];
     if(block.multi_block){
-      draw_multi_code_block(parent_dom_element, block, i);
+      draw_multi_code_block(parent_dom_element, execution_pane.blocks, i);
     }
     else{
-      draw_normal_code_block(parent_dom_element, block, i);
+      draw_normal_code_block(parent_dom_element, execution_pane.blocks, i);
     }
   }
 
@@ -59,10 +59,15 @@ function draw_execution_pane(){
   * @param block The Block object (As described in the data structures file) to draw
   * @param index The index of the above block object in the execution_pane object
   **/
-function draw_normal_code_block(parent_dom_object, block, index){
+function draw_normal_code_block(parent_dom_object, parent_block_array, index){
+  var block = parent_block_array[index];
+  console.log(parent_block_array);
   var codeblock_div = $(block.palette_id).clone();
-  console.log(codeblock_div.html());
-  codeblock_div.addClass("execution_pane_block").attr('code_palette_index', block.palette_index).data('execution_pane_reference', block);
+  codeblock_div.addClass("execution_pane_block").data('execution_pane_reference', block);
+  codeblock_div.draggable({helper: function(){
+    parent_block_array.pop(index);
+    return codeblock_div.addClass("in_execution_pane");
+  }, zindex: 2500, revert:"invalid"});
   if(parent_dom_object)parent_dom_object.append(codeblock_div);
   else return codeblock_div;
 }
@@ -71,7 +76,8 @@ function draw_normal_code_block(parent_dom_object, block, index){
   * Called to draw a multi-code-block, i.e. a code block that can contain
   * other code blocks
   **/
-function draw_multi_code_block(parent_dom_object, block, index){
+function draw_multi_code_block(parent_dom_object, parent_block_array, index){
+  var block = parent_block_array[index];
   var multiblock_div = $(block.palette_id).clone();
   multiblock_div.removeAttr("id");
   multiblock_div.addClass('execution_pane_block').addClass('multiblock');
@@ -82,10 +88,10 @@ function draw_multi_code_block(parent_dom_object, block, index){
     var codeblock_div = $("<div />");
     //The size here will need to be adjusted when we are not resizing the large image
     if(block.blocks[j].multi_block){
-      draw_multi_code_block(contents_div, block.blocks[j], j, block);
+      draw_multi_code_block(contents_div, block.blocks, j);
     }
     else{
-      draw_normal_code_block(contents_div, block.blocks[j], j, block);
+      draw_normal_code_block(contents_div, block.blocks, j);
     }
     contents_div.append(codeblock_div);
   }
@@ -100,11 +106,17 @@ function draw_multi_code_block(parent_dom_object, block, index){
   * Called when a code block is dropped onto the execution pane
   **/
 function on_drop_on_execution_pane(event, ui){
-  var palette_index = Number(ui.draggable.attr("code_palette_index"));
-  var template = palette.blocks[palette_index];
-  var new_execution_block = new CodeBlock(template.name, template.palette_id, template.action, template.multi_block);
-  new_execution_block.execution_pane_index = execution_pane.blocks.length;
-  execution_pane.blocks.push(new_execution_block);
+  if($(this) != ui.draggable.parent()){
+    var palette_index = Number(ui.draggable.attr("code_palette_index"));
+    var template = palette.blocks[palette_index];
+    var new_execution_block = new CodeBlock(template.name, template.palette_id, template.action, template.multi_block);
+    execution_pane.blocks.push(new_execution_block);
+    new_execution_block.execution_pane_index = execution_pane.blocks.length;
+  }
+  else{
+
+    ui.draggable.removeClass("in_execution_pane");
+  }
   draw_execution_pane();
 }
 
@@ -113,12 +125,17 @@ function on_drop_on_execution_pane(event, ui){
   * execution pane
   **/
 function on_drop_on_multi_block(event, ui){
-  var parent_block = $(this).data("execution_pane_reference");
-  console.log(ui.draggable.attr("code_palette_index"));
-  var template = palette.blocks[ui.draggable.attr("code_palette_index")];
-  var new_execution_block = new CodeBlock(template.name, template.palette_id, template.action, template.multi_block);
+  if($(this) != ui.draggable.parent()){
+    var parent_block = $(this).data("execution_pane_reference");
+    console.log(ui.draggable.attr("code_palette_index"));
+    var template = palette.blocks[ui.draggable.attr("code_palette_index")];
+    var new_execution_block = new CodeBlock(template.name, template.palette_id, template.action, template.multi_block);
 
-  parent_block.blocks.push(new_execution_block);
+    parent_block.blocks.push(new_execution_block);
+  }
+  else{
+      ui.draggable.removeClass("in_execution_pane");
+  }
   draw_execution_pane();
 }
 

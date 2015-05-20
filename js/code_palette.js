@@ -80,7 +80,6 @@ var loop = new CodeBlock("loop", "#loop", function(drawing_context, canvas, next
   var max_runs = 5;
   function run_next_block(){
     self.blocks[i].action(drawing_context, canvas, function(){
-      console.log(run_count);
       if(++i >= self.blocks.length){
         i = 0;
         if(++run_count == max_runs){
@@ -92,7 +91,8 @@ var loop = new CodeBlock("loop", "#loop", function(drawing_context, canvas, next
     });
   }
   console.log("Running loop");
-  run_next_block();
+  if(self.blocks.length > i)run_next_block();
+  else next();
 }, true);
 
 /**
@@ -104,7 +104,7 @@ function init_palette(){
   for(var block = 0;block < palette.blocks.length;block ++){
     var id = palette.blocks[block].palette_id;
     console.log("Making ", id, " draggable");
-    $(id).draggable({zindex: 2500, helper:"clone"});
+    $(id).draggable({zindex: 2500, helper:"clone", revert:"invalid", appendTo:"body"});
     $(id).attr("code_palette_index", block);
   }
 
