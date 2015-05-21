@@ -8,7 +8,9 @@ function make_default_context(){
     fill_color: "white",
     stroke_color: "white",
     stroke_weight: 2,
-    pen_down: true
+    pen_down: true,
+    speed: 10,
+    alpha_speed: 10
   };
 }
 
@@ -36,10 +38,10 @@ function draw_line(canvas, start_x, start_y, end_x, end_y, next, image_context){
   path.onFrame = function(){
     if(path.amount < 100){
       path.removeSegments();
-      make_line_path(path, start_x, start_y, end_x, end_y, path.amount += 10);
+      make_line_path(path, start_x, start_y, end_x, end_y, path.amount += image_context.speed);
       paper.view.draw();
     }
-    else if(!path.completed){
+    if(!path.completed && path.amount >= 100){
       path.amount = 100;
       path.completed = true;
       if(next)next();
@@ -98,11 +100,12 @@ function draw_rect(canvas, x, y, w, h, next, image_context){
     path.onFrame = function(){
       if(path.amount < 100){
         path.removeSegments();
-        make_rect_path(path, x, y, w, h, path.amount += 2);
+        make_rect_path(path, x, y, w, h, path.amount += image_context.speed);
         paper.view.draw();
       }
-      else if(!path.completed){
-        path.alpha += 10;
+
+      if(!path.completed && path.amount >= 100){
+        path.alpha += image_context.alpha_speed;
         path.alpha = Math.min(path.alpha, 255);
         path.fillColor = new paper.Color(1, 1, 1, path.alpha / 255.);
         if(path.alpha == 255){
@@ -140,11 +143,11 @@ function draw_ellipse(canvas, x, y, w, h, next, image_context){
   path.onFrame = function(){
     if(path.amount < 100){
       path.removeSegments();
-      make_ellipse_path(path, x, y, w, h, path.amount += 2);
+      make_ellipse_path(path, x, y, w, h, path.amount += image_context.speed);
       paper.view.draw();
     }
-    else if(!path.completed){
-      path.alpha += 10;
+    if(!path.completed && path.amount >= 100){
+      path.alpha += image_context.speed * 5;
       path.alpha = Math.min(path.alpha, 255);
       path.fillColor = new paper.Color(1, 1, 1, path.alpha / 255.);
       if(path.alpha == 255){

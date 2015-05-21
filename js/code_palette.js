@@ -18,7 +18,6 @@ var jump = new CodeBlock("jump", "#jump", function(drawing_context, canvas, next
 });
 
 var move = new CodeBlock("move", "#move", function(drawing_context, canvas, next){
-  console.log("Move!");
   if(drawing_context.pen_down){
     var start_x = drawing_context.pen_x;
     var start_y = drawing_context.pen_y;
@@ -79,7 +78,9 @@ var loop = new CodeBlock("loop", "#loop", function(drawing_context, canvas, next
   var run_count = 0;
   var max_runs = 5;
   function run_next_block(){
+    self.blocks[i].dom_element.addClass("running");
     self.blocks[i].action(drawing_context, canvas, function(){
+      self.blocks[i].dom_element.removeClass("running");
       if(++i >= self.blocks.length){
         i = 0;
         if(++run_count == max_runs){
@@ -100,21 +101,18 @@ var loop = new CodeBlock("loop", "#loop", function(drawing_context, canvas, next
   **/
 function init_palette(){
   //Preload Images
-
   for(var block = 0;block < palette.blocks.length;block ++){
     var id = palette.blocks[block].palette_id;
-    $(id).draggable({zindex: 2500, helper:"clone", revert:"invalid", appendTo:"body", containment: 'window', scroll:false});
+    $(id).draggable({zindex: 2500, helper:"clone", revert:"invalid", appendTo:"body", containment: 'window'});
     $(id).attr("code_palette_index", block);
   }
-
 }
 
 /**
   * Constructs the DOM for the code palette. Could possible be done in the
   * HTML but sort of annoying to link back to CodeBlock Objects. (See the code_palette_index attribute)
   **/
-function draw_palette(width, height){
-}
+function draw_palette(width, height){}
 
 palette = {
   blocks: [

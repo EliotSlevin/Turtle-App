@@ -14,15 +14,19 @@ function run_execution(canvas){
   canvas.project.activeLayer.removeChildren();
   var context = make_default_context();
 
-
   //Recurse down the program tree, waiting for each instruction to finish before running the next
   var i = 0;
   function run_next_block(){
+    execution_pane.blocks[i].dom_element.addClass("running");
     execution_pane.blocks[i].action(context, canvas, function(){
-      if(++i >= execution_pane.blocks.length)return;
+      execution_pane.blocks[i].dom_element.removeClass("running");
+      if(++i >= execution_pane.blocks.length){
+        return;
+      }
       run_next_block();
     });
   }
+  $(".running").removeClass("running");//Clear current running, if it exists
   run_next_block();
 }
 
@@ -61,13 +65,16 @@ function draw_execution_pane(){
   **/
 function draw_normal_code_block(parent_dom_object, parent_block_array, index){
   var block = parent_block_array[index];
-  console.log(parent_block_array);
   var codeblock_div = $(block.palette_id).clone();
+  block.dom_element = codeblock_div;
+  codeblock_div.removeAttr("id");//Prevents destroying our DOM by having multiple element with the same ID
   codeblock_div.addClass("execution_pane_block").data('execution_pane_reference', block);
+
   codeblock_div.draggable({helper: function(){
     parent_block_array.splice(index, 1);
     return codeblock_div.addClass("in_execution_pane");
-  }, zindex: 2500, revert:"invalid"});
+  }, zindex: 2500, revert:"invalid", appendTo: "body"});
+
   if(parent_dom_object)parent_dom_object.append(codeblock_div);
   else return codeblock_div;
 }
@@ -82,9 +89,9 @@ function draw_multi_code_block(parent_dom_object, parent_block_array, index){
   multiblock_div.removeAttr("id");
   multiblock_div.addClass('execution_pane_block').addClass('multiblock');
   multiblock_div.attr('code_palette_index', block.palette_index).data('execution_pane_reference', block);
-
- var contents_div = $("<div class='multiblock_contents'>");
- for(var j = 0;j < block.blocks.length;j ++){
+  block.dom_element = multiblock_div;
+  var contents_div = $("<div class='multiblock_contents'>");
+  for(var j = 0;j < block.blocks.length;j ++){
     var codeblock_div = $("<div />");
     //The size here will need to be adjusted when we are not resizing the large image
     if(block.blocks[j].multi_block){

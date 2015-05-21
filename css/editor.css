@@ -4,6 +4,10 @@ body{
   position: fixed;
 }
 
+.running{
+  background-color: rgba(1, 1, 1, 0.2);
+}
+
 .left-side{
   width: 50%;
   height: 100%;
