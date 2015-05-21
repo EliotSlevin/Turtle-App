@@ -65,7 +65,7 @@ function draw_normal_code_block(parent_dom_object, parent_block_array, index){
   var codeblock_div = $(block.palette_id).clone();
   codeblock_div.addClass("execution_pane_block").data('execution_pane_reference', block);
   codeblock_div.draggable({helper: function(){
-    parent_block_array.pop(index);
+    parent_block_array.splice(index, 1);
     return codeblock_div.addClass("in_execution_pane");
   }, zindex: 2500, revert:"invalid"});
   if(parent_dom_object)parent_dom_object.append(codeblock_div);
@@ -114,7 +114,6 @@ function on_drop_on_execution_pane(event, ui){
     new_execution_block.execution_pane_index = execution_pane.blocks.length;
   }
   else{
-
     ui.draggable.removeClass("in_execution_pane");
   }
   draw_execution_pane();
