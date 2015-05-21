@@ -71,9 +71,9 @@ function draw_normal_code_block(parent_dom_object, parent_block_array, index){
   codeblock_div.addClass("execution_pane_block").data('execution_pane_reference', block);
 
   codeblock_div.draggable({helper: function(){
-    parent_block_array.splice(index, 1);
-    return codeblock_div.addClass("in_execution_pane");
-  }, zindex: 2500, revert:"invalid", appendTo: "body"});
+    var block =  parent_block_array.splice(index, 1);
+    return codeblock_div.data('block_ref', block);
+  }, zindex: 2500, appendTo: "body"});
 
   if(parent_dom_object)parent_dom_object.append(codeblock_div);
   else return codeblock_div;
@@ -103,6 +103,11 @@ function draw_multi_code_block(parent_dom_object, parent_block_array, index){
     contents_div.append(codeblock_div);
   }
 
+  multiblock_div.draggable({helper: function(){
+    var block = parent_block_array.splice(index, 1);
+    return multiblock_div.data('block_ref', block);
+  }, zindex: 2500, appendTo: "body"});
+
   multiblock_div.append(contents_div);
 
   if(parent_dom_object)parent_dom_object.append(multiblock_div);
@@ -113,17 +118,7 @@ function draw_multi_code_block(parent_dom_object, parent_block_array, index){
   * Called when a code block is dropped onto the execution pane
   **/
 function on_drop_on_execution_pane(event, ui){
-  if($(this) != ui.draggable.parent()){
-    var palette_index = Number(ui.draggable.attr("code_palette_index"));
-    var template = palette.blocks[palette_index];
-    var new_execution_block = new CodeBlock(template.name, template.palette_id, template.action, template.multi_block);
-    execution_pane.blocks.push(new_execution_block);
-    new_execution_block.execution_pane_index = execution_pane.blocks.length;
-  }
-  else{
-    ui.draggable.removeClass("in_execution_pane");
-  }
-  draw_execution_pane();
+  drop_on(ui.draggable, $(this), execution_pane);
 }
 
 /**
@@ -131,16 +126,17 @@ function on_drop_on_execution_pane(event, ui){
   * execution pane
   **/
 function on_drop_on_multi_block(event, ui){
-  if($(this) != ui.draggable.parent()){
-    var parent_block = $(this).data("execution_pane_reference");
-    console.log(ui.draggable.attr("code_palette_index"));
-    var template = palette.blocks[ui.draggable.attr("code_palette_index")];
-    var new_execution_block = new CodeBlock(template.name, template.palette_id, template.action, template.multi_block);
+  drop_on(ui.draggable, $(this), $(this).data("execution_pane_reference"));
+}
 
+function drop_on(dropped, dropped_on, parent_block){
+  if(dropped_on != dropped.parent()){
+    var palette_index = Number(dropped.attr("code_palette_index"));
+    var template = palette.blocks[palette_index];
+    var existing_block = dropped.data('block_ref');
+    var new_execution_block = (existing_block ? existing_block['0'] : new CodeBlock(template.name, template.palette_id, template.action, template.multi_block));
+    new_execution_block.palette_index = palette_index;
     parent_block.blocks.push(new_execution_block);
-  }
-  else{
-      ui.draggable.removeClass("in_execution_pane");
   }
   draw_execution_pane();
 }
