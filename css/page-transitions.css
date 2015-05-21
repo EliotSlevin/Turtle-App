@@ -1,0 +1,118 @@
+html, body { height: 100%; overflow: hidden;
+	
+	background-color: black;
+
+}
+
+
+
+.pt-page {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	visibility: hidden;
+	overflow: hidden;
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	backface-visibility: hidden;
+	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+}
+
+.pt-page-1{
+	background-color: #f7f7f7;
+}
+
+.pt-page-2{
+	background-color: white;
+}
+
+.pt-page-current,
+.no-js .pt-page {
+	visibility: visible;
+	z-index: 1;
+}
+
+
+.pt-page-ontop {
+	z-index: 10;
+}
+
+
+/* animation sets */
+
+
+.pt-page-moveFromLeft {
+	-webkit-animation: moveFromLeft .6s ease both;
+	animation: moveFromLeft .6s ease both;
+}
+
+.pt-page-reverseMoveFromLeft {
+	-webkit-animation: reverseMoveFromLeft .6s ease both;
+	animation: reverseMoveFromLeft .6s ease both;
+}
+
+
+.pt-page-fade {
+	-webkit-animation: fade .7s ease both;
+	animation: fade .7s ease both;
+}
+
+.pt-page-reverseFade {
+	-webkit-animation: reverseFade .7s ease both;
+	animation: reverseFade .7s ease both;
+}
+
+
+/* move from / to  */
+
+
+@-webkit-keyframes moveFromLeft {
+	from { -webkit-transform: translateX(-100%); }
+}
+@keyframes moveFromLeft {
+	from { -webkit-transform: translateX(-100%); transform: translateX(-100%); }
+}
+
+
+@-webkit-keyframes reverseMoveFromLeft {
+	from { -webkit-transform: translateX(0%); }
+	to { -webkit-transform: translateX(-100%); }
+}
+@keyframes reverseMoveFromLeft {
+	from { -webkit-transform: translateX(0%); transform: translateX(0%); }
+	to { -webkit-transform: translateX(-100%); transform: translateX(-100%); }
+}
+
+/* fade */
+@-webkit-keyframes fade {
+	from { }
+	to { opacity: 0.3; }
+}
+@keyframes fade {
+	from { }
+	to { opacity: 0.3; }
+}
+
+/* reverse fade */
+@-webkit-keyframes reverseFade {
+	from { opacity: 0.3; }
+	to { opacity: 1; }
+}
+@keyframes reverseFade {
+	from { opacity: 0.3; }
+	to { opacity: 1; }
+}
+
+
+
+
+
+
+
