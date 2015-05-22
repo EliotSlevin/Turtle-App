@@ -1,0 +1,118 @@
+
+.running{
+  background-color: rgba(1, 0, 0, 0.2);
+}
+
+.left-side{
+  width: 50%;
+  height: 100%;
+  float: left;
+}
+
+.multiblock_contents{
+  padding-left: 20px;
+  padding-top: 20px;
+  display: block;
+  float: left;
+  width: 100%;
+  background-color: rgba(255,255,255,0.05) !important;
+}
+
+.multiblock_contents .command{
+  padding: 0px !important;
+  display: inline !important;
+  clear: left;
+}
+
+
+.execution_pane_block{
+  z-index: 100;
+}
+
+.ui-draggable-dragging{
+  z-index: 1000;
+}
+
+#paper_canvas{
+  background-color: black;
+}
+
+.right-side{
+  width: 50%;
+  height: 100%;
+  float: right;
+}
+
+.viewport > canvas{
+	width: 100%;
+	height: 50%;
+	overflow: hidden;
+}
+
+.viewport img{
+	width: 100%;
+}
+
+.palette{
+	padding: 1em;
+	padding-top: 2em;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	height: 50%;
+}
+
+.palette .divider{
+	padding-top: 1em;
+}
+
+
+.editor-menu{
+	width: 100%;
+	z-index: 1;
+	height: 40px;
+	background-color: black;
+	color: white;
+}
+
+.editor-menu div{
+	display: inline-block;
+	line-height: 40px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.program{
+	height: calc(100% - 40px);
+	background-color: rgba(0,0,0,0.75);
+	overflow-y: scroll;
+	overflow-x: hidden;
+  	-webkit-overflow-scrolling: touch;
+}
+
+.program .command{
+	display: inline-block;
+  	clear: left;
+  	float: left;
+}
+
+
+
+.command{
+	color: white;
+	display: inline-block;
+	margin: 20px;
+}
+
+.command div{
+	display: block;
+	float: left;
+	color: white;
+	background-color: lightblue;
+	padding: 10px;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.command .parameter{
+	background-color: #555;
+}
