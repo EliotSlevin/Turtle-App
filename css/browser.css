@@ -1,11 +1,22 @@
 .sketch-browser{
-	padding-left: 2em;
-	padding-right: 2em;
-	padding-top: 8em;
 	height: 100%;
   	overflow-y: scroll;
   	-webkit-overflow-scrolling: touch;
+  	padding-top: 4em;
+  	
 }
+
+.sketch-file{
+	width: 33.33%;
+	float: left;
+	
+	padding: 1em;
+}
+
+.sketch-file img{
+	width: 100%;
+}
+
 
 .menu{
 	width: 100%;
@@ -16,18 +27,30 @@
 	z-index: 1;
 }
 
-.text-center{
+.pills{
+	display: block;
+	position: absolute;
+	top: 6px;
+	left: calc(50% - 150px);
+}
+
+.pills div{
+	width: 150px;
 	text-align: center;
+	background-color: #D1D1D1;
+	padding: 10px;
+	float: left;
+
 }
 
-.text-right{
-	text-align: right;
+.pills div:first-child{
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	color: white;
+	background-color: #676767;
 }
 
-.ui.cards{
-	-webkit-justify-content: center;
-}
-
-.fluid.third{
-	width: 30% !important;
+.pills div:nth-child(2){
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
 }

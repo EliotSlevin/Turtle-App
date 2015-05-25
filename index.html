@@ -11,6 +11,9 @@
     <link rel="stylesheet" type="text/css" href="css/browser.css">
     <link rel="stylesheet" type="text/css" href="css/page-transitions.css" />
     <script src="lib/modernizr.custom.js"></script>
+
+    <!-- External resources -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 </head>
 
 </head>
@@ -20,9 +23,12 @@
     <div class="pt-page pt-page-1">
 
         <div class="menu">
-            <span id="forward">New Sketch</span>
-            <span>My Sketches</span>
-            <span>Popular</span>
+            <span id="forward"> <i class="fa fa-file-o"></i> New Sketch</span>
+
+            <div class="pills">
+                <div>My Sketches</div>
+                <div>Popular</div>
+            </div>
         </div>
 
         <div class="sketch-browser"></div>
@@ -40,55 +46,55 @@
             <div class="palette">
 
                 <div class="command" id="loop">
-                    <div>Loop</div>
+                    <div class="name">Loop</div>
                     <div class="parameter">Times</div>
                 </div>
 
                 <div class="command" id="jump">
-                     <div>Jump To</div>
+                     <div class="name">Jump To</div>
                     <div class="parameter">Position</div>
                 </div>
 
                 <hr>
 
                 <div class="command" id="move">
-                    <div>Move</div>
+                    <div class="name">Move</div>
                     <div class="parameter">Distance</div>
                 </div>
                 <div class="command" id="rotate">
-                    <div>Rotate</div>
+                    <div class="name">Rotate</div>
                     <div class="parameter">Angle</div>
                 </div>
 
                 <hr>
 
                 <div class="command" id="pen_down">
-                    <div>Pen Down</div>
+                    <div class="name">Pen Down</div>
                 </div>
                 <div class="command" id="pen_up">
-                    <div>Pen Up</div>
+                    <div class="name">Pen Up</div>
                 </div>
                 <div class="command" id="circle">
-                    <div>Draw Circle</div>
+                    <div class="name">Draw Circle</div>
                     <div class="parameter">Radius</div>
                 </div>
                 <div class="command" id="triangle">
-                    <div>Draw Triangle</div>
+                    <div class="name">Draw Triangle</div>
                     <div class="parameter">Radius</div>
                 </div>
                 <div class="command" id="rectangle">
-                    <div>Draw Rectangle</div>
+                    <div class="name">Draw Rectangle</div>
                     <div class="parameter">Width, Height</div>
                 </div>
 
                 <hr>
 
                 <div class="command" id="set_stroke">
-                    <div>Set Stroke</div>
+                    <div class="name">Set Stroke</div>
                     <div class="parameter">Color, Weight</div>
                 </div>
                 <div class="command" id="set_fill">
-                    <div>Set fill</div>
+                    <div class="name">Set fill</div>
                     <div class="parameter">Color</div>
                 </div>
             </div>
@@ -96,8 +102,8 @@
         </div>
         <div class="right-side">
             <div class="editor-menu">
-                <div id="play_button">Run Sketch</div>
-                <div id="backwards">Back</div>
+                <div id="play_button">Run Sketch <i class="fa fa-play"></i></div>
+                <div id="backwards">Back <i class="fa fa-arrow-right"></i></div>
             </div>
             <div class="program"> </div>
         </div>
@@ -105,14 +111,12 @@
 </div> <!--end pt main-->
 
 <script id="sketch-browser-template" type="text/x-handlebars-template">
-    <div class="ui cards">
             {{#each sketch}}
-                <div class="ui card fluid third">
-                    <div class="image"> <img src="img/viewport.png"> </div>
-                    <div class="content"> <a class="header">{{this}}</a> </div>
+                <div class="sketch-file">
+                    <img src="img/viewport.png">
+                    <p>{{this}}</p>
                 </div>
             {{/each}}
-    </div>
 </script>
 
 <script src="lib/fastclick.js"></script>
