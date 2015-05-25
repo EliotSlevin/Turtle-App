@@ -1,10 +1,12 @@
-serverside = {};
+serverside = {
+  root_server_url: "https://sketchbackend.herokuapp.com"
+};
 
 function decompose_block(block){
   var block_decomp = {
-    name: block.name;
-    palette_index: block.palette_index;
-    multi_block: block.multi_block;
+    name: block.name,
+    palette_index: block.palette_index,
+    multi_block: block.multi_block,
   };
 
   if(block.multi_block){
@@ -27,8 +29,82 @@ function decompose_execution_pane(){
   return execution_pane_decomp;
 }
 
-serverside.post_sketch = function(){
-  var uuid = encodeURIComponent("colin");//device.uuid;
-  var name = encodeURIComponent(current_sketch.name);
-  var contents = encodeURIComponent(decompose_execution_pane());
+function recompose_block(server_block){
+  var parentRef = palette.blocks[server_block.palette_index];
+  var block = new CodeBlock(server_block.name, parentRef.palette_id, parentRef.action, server_block.multi_block);
+  block.palette_index = server_block.palette_index;
+  if(server_block.multi_block){
+    if(!server_block.blocks){
+      console.err("Missing Blocks in rotBlock: ");
+      console.err(rotBlock);
+    }
+    block.blocks = [];
+    for(var i = 0;i < server_block.blocks.length;i ++){
+      block.blocks.push(recompose_block(server_block.blocks[i]));
+    }
+  }
+
+  return block;
+}
+
+serverside.save_sketch = function(name){
+  if(name)current_sketch.name = name;
+  serverside.post_sketch(function(data){
+    console.log(data);
+    current_sketch.online = true;
+    current_sketch.sketchid = data.sketchid;
+  }, function(error){
+    console.log(error);
+  });
+}
+
+serverside.load_sketch = function(id){
+  serverside.get_sketch(id,
+    function(data){
+      console.log(data);
+      serverside.recompose_execution_pane(data.blocks);
+      current_sketch.online = true;
+      current_sketch.sketchid = data.sketchid;
+      current_sketch.author = data.by;
+      current_sketch.name = data.name;
+    },
+    function(error){
+      console.log(error);
+    }
+  );
+};
+
+serverside.recompose_execution_pane = function(data, parent){
+  if(!data.blocks)return undefined;
+  var blocks = [];
+  for(var i = 0;i < data.blocks.length;i ++){
+    var block = recompose_block(data.blocks[i]);
+    blocks.push(block);
+  }
+  console.log(blocks);
+  execution_pane.blocks = blocks;
+  execution_pane.draw();
+}
+
+serverside.to_abs_url = function(uri){
+  return serverside.root_server_url + uri;
+}
+
+serverside.post_sketch = function(success, error){
+  var uuid = current_sketch.author;//device.uuid;
+  var name = current_sketch.name;
+  var contents = JSON.stringify(decompose_execution_pane());
+  var preview = $("#paper_canvas")[0].toDataURL().substring("data:image/png;base64,".length);
+  var sendBlob = {
+    sketch_author: uuid,
+    sketch_name: name,
+    sketch_contents: contents,
+    sketch_demo_blob: preview
+  };
+
+  $.post(serverside.to_abs_url("/sketches"), $.param(sendBlob)).done(success).error(error);
+}
+
+serverside.get_sketch = function(id, success, error){
+  $.get(serverside.to_abs_url("/sketch/" + id)).done(function(data){success($.parseJSON(data));}).error(error);
 }

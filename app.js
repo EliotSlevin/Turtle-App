@@ -2,6 +2,11 @@ window.addEventListener('load', function () {
     new FastClick(document.body);
 }, false);
 
+current_sketch = {
+  name: "this-is-a-sketch",
+  author: "colin"
+};
+
 /* Maybe lets start the app from here */
 $(document).ready(function() {
     palette.init();
@@ -37,9 +42,5 @@ $(document).ready(function() {
     }
 
     var html = template(context);
-
     $(".sketch-browser").html(html);
-
-
-
 });

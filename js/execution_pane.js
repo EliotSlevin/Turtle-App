@@ -145,5 +145,6 @@ function drop_on(dropped, dropped_on, parent_block){
 execution_pane = {
   blocks: [],
   init: init_execution_pane,
-  run : run_execution
+  run : run_execution,
+  draw: draw_execution_pane
 };

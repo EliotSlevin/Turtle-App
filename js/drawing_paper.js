@@ -5,8 +5,8 @@ function make_default_context(){
     pen_x: 200,
     pen_y: 100,
     pen_angle: 0,
-    fill_color: "white",
-    stroke_color: "white",
+    fill_color: new paper.Color(1, 1, 1, 1),
+    stroke_color: new paper.Color(1, 1, 1, 1),
     stroke_weight: 2,
     pen_down: true,
     speed: 10,
@@ -28,8 +28,8 @@ function draw_line(canvas, start_x, start_y, end_x, end_y, next, image_context){
   }
 
   var path = new paper.Path();
-  path.strokeColor = 'white';
-  //path.fillColor = 'white';
+  path.strokeColor = image_context.stroke_color;
+  path.fillColor = image_context.fill_color;
   make_line_path(path, start_x, start_y, end_x, end_y, 0);
   path.amount = 0;
   path.completed = false;
@@ -91,7 +91,7 @@ function draw_rect(canvas, x, y, w, h, next, image_context){
     }
 
     var path = new paper.Path();
-    path.strokeColor = 'white';
+    path.strokeColor = image_context.stroke_color;
     make_rect_path(path, x, y, w, h, 0);
     path.amount = 0;
     path.alpha = 0;
@@ -107,7 +107,8 @@ function draw_rect(canvas, x, y, w, h, next, image_context){
       if(!path.completed && path.amount >= 100){
         path.alpha += image_context.alpha_speed;
         path.alpha = Math.min(path.alpha, 255);
-        path.fillColor = new paper.Color(1, 1, 1, path.alpha / 255.);
+	var color = image_context.fill_color._components;
+        path.fillColor = new paper.Color(color[0], color[1], color[2], path.alpha / 255.);
         if(path.alpha == 255){
           if(next)next();
           path.completed = true;
@@ -133,8 +134,7 @@ function draw_ellipse(canvas, x, y, w, h, next, image_context){
   }
 
   var path = new paper.Path();
-  path.strokeColor = 'white';
-  //path.fillColor = 'white';
+  path.strokeColor = image_context.stroke_color;
   make_ellipse_path(path, x, y, w, h, 0);
   path.amount = 0;
   path.completed = false;
@@ -149,7 +149,8 @@ function draw_ellipse(canvas, x, y, w, h, next, image_context){
     if(!path.completed && path.amount >= 100){
       path.alpha += image_context.speed * 5;
       path.alpha = Math.min(path.alpha, 255);
-      path.fillColor = new paper.Color(1, 1, 1, path.alpha / 255.);
+      var color = image_context.fill_color._components;
+      path.fillColor = new paper.Color(color[0], color[1], color[2], path.alpha / 255.);
       if(path.alpha == 255){
         if(next)next();
         path.completed = true;
