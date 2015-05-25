@@ -10,6 +10,8 @@
     <link rel="stylesheet" type="text/css" href="css/editor.css">
     <link rel="stylesheet" type="text/css" href="css/browser.css">
     <link rel="stylesheet" type="text/css" href="css/page-transitions.css" />
+    <link rel="stylesheet" type="text/css" href="lib/modal.css">
+
     <script src="lib/modernizr.custom.js"></script>
 
     <!-- External resources -->
@@ -31,12 +33,28 @@
             </div>
         </div>
 
-        <div class="sketch-browser"></div>
+        <div class="sketch-browser nonbounce"></div>
 
     </div>
 
 
     <div class="pt-page pt-page-2">
+
+
+
+    <section class="modal--show" id="modal" tabindex="-1"
+        role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+
+    <div class="modal-inner">
+        <header id="modal-label">Parameter</header>
+        <div class="modal-content">Pick parameter here</div>
+        <footer>footer?</footer>
+    </div>
+
+    <a href="#!" class="modal-close" title="Close this modal" data-close="Close"
+        data-dismiss="modal">?</a>
+</section>
+
 
         <div class="left-side">
             <div class="viewport">
@@ -104,6 +122,7 @@
             <div class="editor-menu">
                 <div id="play_button">Run Sketch <i class="fa fa-play"></i></div>
                 <div id="backwards">Back <i class="fa fa-arrow-right"></i></div>
+                <div> <a href="#modal">Modal</a></div>
             </div>
             <div class="program"> </div>
         </div>
@@ -126,6 +145,7 @@
 <script src="lib/jquery.ui.touch-punch.min.js"></script>
 <script src="lib/paper-full.min.js"></script>
 <script src="lib/handlebars-v3.0.3.js"></script>
+<script src="lib/modal.js"></script>
 <script src="js/execution_pane.js"></script>
 <script src="js/code_palette.js"></script>
 
