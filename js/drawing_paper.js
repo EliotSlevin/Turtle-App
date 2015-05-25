@@ -10,7 +10,7 @@ function make_default_context(){
     stroke_weight: 2,
     pen_down: true,
     speed: 10,
-    alpha_speed: 10
+    alpha_speed: 255
   };
 }
 

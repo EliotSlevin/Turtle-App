@@ -17,10 +17,13 @@ function run_execution(canvas){
   //Recurse down the program tree, waiting for each instruction to finish before running the next
   var i = 0;
   function run_next_block(){
-    execution_pane.blocks[i].dom_element.addClass("running");
+    if(execution_pane.blocks[i])execution_pane.blocks[i].dom_element.addClass("running");
+    else return;
     execution_pane.blocks[i].action(context, canvas, function(){
-      execution_pane.blocks[i].dom_element.removeClass("running");
+      if(execution_pane.blocks[i])execution_pane.blocks[i].dom_element.removeClass("running");
+      else return;
       if(++i >= execution_pane.blocks.length){
+        $(".running").removeClass("running");
         return;
       }
       run_next_block();
@@ -92,7 +95,6 @@ function draw_multi_code_block(parent_dom_object, parent_block_array, index){
   block.dom_element = multiblock_div;
   var contents_div = $("<div class='multiblock_contents'>");
   for(var j = 0;j < block.blocks.length;j ++){
-    var codeblock_div = $("<div />");
     //The size here will need to be adjusted when we are not resizing the large image
     if(block.blocks[j].multi_block){
       draw_multi_code_block(contents_div, block.blocks, j);
@@ -100,7 +102,6 @@ function draw_multi_code_block(parent_dom_object, parent_block_array, index){
     else{
       draw_normal_code_block(contents_div, block.blocks, j);
     }
-    contents_div.append(codeblock_div);
   }
 
   multiblock_div.draggable({helper: function(){

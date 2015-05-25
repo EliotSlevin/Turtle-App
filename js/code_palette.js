@@ -78,9 +78,11 @@ var loop = new CodeBlock("loop", "#loop", function(drawing_context, canvas, next
   var run_count = 0;
   var max_runs = 5;
   function run_next_block(){
-    self.blocks[i].dom_element.addClass("running");
+    if(self && self.blocks[i])self.blocks[i].dom_element.addClass("running");
+    else return;
     self.blocks[i].action(drawing_context, canvas, function(){
-      self.blocks[i].dom_element.removeClass("running");
+      if(self && self.blocks[i])self.blocks[i].dom_element.removeClass("running");
+      else return;
       if(++i >= self.blocks.length){
         i = 0;
         if(++run_count == max_runs){

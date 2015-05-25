@@ -26,12 +26,12 @@
         </div>
 
         <div class="sketch-browser"></div>
-            
+
     </div>
-      
+
 
     <div class="pt-page pt-page-2">
-           
+
         <div class="left-side">
             <div class="viewport">
                 <canvas id="paper_canvas"></canvas>
@@ -80,7 +80,7 @@
                     <div>Draw Rectangle</div>
                     <div class="parameter">Width, Height</div>
                 </div>
-                
+
                 <hr>
 
                 <div class="command" id="set_stroke">
@@ -104,12 +104,6 @@
     </div> <!-- end page 2 -->
 </div> <!--end pt main-->
 
-
-
-
-
-
-
 <script id="sketch-browser-template" type="text/x-handlebars-template">
     <div class="ui cards">
             {{#each sketch}}
@@ -121,12 +115,6 @@
     </div>
 </script>
 
-
-
-
-
-
-
 <script src="lib/fastclick.js"></script>
 <script src="lib/jquery-1.9.1.min.js"></script>
 
@@ -136,6 +124,11 @@
 <script src="lib/handlebars-v3.0.3.js"></script>
 <script src="js/execution_pane.js"></script>
 <script src="js/code_palette.js"></script>
+
+<!--If we are compiling for device:
+  <script src="js/serverside.js"></script>
+-->
+
 <script src="js/drawing_paper.js"></script>
 
 <script src="js/pagetransitions.js"></script>
