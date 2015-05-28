@@ -10,6 +10,8 @@
     <link rel="stylesheet" type="text/css" href="css/editor.css">
     <link rel="stylesheet" type="text/css" href="css/browser.css">
     <link rel="stylesheet" type="text/css" href="css/page-transitions.css" />
+    <link rel="stylesheet" type="text/css" href="lib/modal.css">
+
     <script src="lib/modernizr.custom.js"></script>
 
     <!-- External resources -->
@@ -37,6 +39,24 @@
 
 
     <div class="pt-page pt-page-2">
+
+
+<!--     Parameter modal -->    
+    <section class="modal--fade" id="modal" tabindex="-1"
+        role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+
+        <div class="modal-inner">
+            <div class="modal-content">Pick parameter here</div>
+            <footer>
+                <a href="#!" class="cancel">Cancel</a>
+                <a href="#!" class="save">Save</a>
+           </footer>
+        </div>
+
+        <a href="#!" class="modal-close" title="Close this modal" data-close="Close"
+            data-dismiss="modal">?</a>
+    </section>
+
 
         <div class="left-side">
             <div class="viewport">
@@ -103,7 +123,10 @@
         <div class="right-side">
             <div class="editor-menu">
                 <div id="play_button">Run Pin<i class="fa fa-play"></i></div>
+                <div>Debug <i class="fa fa-bug"></i></div>
                 <div id="backwards">Back <i class="fa fa-arrow-right"></i></div>
+                <div> <a href="#modal">Modal</a></div>
+
             </div>
             <div class="program"> </div>
         </div>
