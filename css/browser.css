@@ -17,6 +17,12 @@
 	width: 100%;
 }
 
+.sketch-file .preview-wrapper{
+	width: 100%;
+	min-height: 50%;
+	background-color: black;
+}
+
 
 .menu{
 	width: 100%;

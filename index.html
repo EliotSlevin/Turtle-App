@@ -111,10 +111,12 @@
 </div> <!--end pt main-->
 
 <script id="sketch-browser-template" type="text/x-handlebars-template">
-            {{#each sketch}}
-                <div class="sketch-file">
-                    <img src="img/viewport.png">
-                    <p>{{this}}</p>
+            {{#each sketches}}
+                <div class="sketch-file" data-id="{{sketchid}}">
+                    <div class="preview-wrapper">
+                        <img src="{{preview}}">
+                    </div>
+                    <p>{{name}}</p>
                 </div>
             {{/each}}
 </script>
@@ -130,8 +132,8 @@
 <script src="js/code_palette.js"></script>
 
 <!--If we are compiling for device: -->
-  <script src="js/serverside.js"></script>
-
+<script src="js/serverside.js"></script>
+<script src="js/browser.js"></script>
 
 <script src="js/drawing_paper.js"></script>
 

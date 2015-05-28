@@ -21,26 +21,4 @@ $(document).ready(function() {
       console.log("Running Execution");
       execution_pane.run(canvas);
     });
-
-    var source   = $("#sketch-browser-template").html();
-    var template = Handlebars.compile(source);
-
-    var context = {
-      sketch: [
-        "First Sketch",
-        "Demo Program",
-        "Sketch example",
-        "Sketch example",
-        "Sketch example",
-        "Sketch example",
-        "Sketch example",
-        "Sketch example",
-        "Sketch example",
-        "Sketch example",
-        "Sketch example"
-      ]
-    }
-
-    var html = template(context);
-    $(".sketch-browser").html(html);
 });
