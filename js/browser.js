@@ -25,21 +25,16 @@ var renderSketches = function(data) {
     console.log(context);
     console.log(dataContext);
 
-
-
     var html = template(dataContext);
     $(".sketch-browser").html(html);
+    $(".sketch-file").click(function(){
+      serverside.load_sketch($(this).attr("data-id"));
+      $( "#forward" ).click();
+    });
 };
 
 var fail = function() {
     console.log("fail");
 };
 
-
 serverside.load_sketches_by_user("colin", "all", renderSketches, fail);
-
-
-
-$(".sketch-file").click(function(){
-	//console.log("clicked a sketch yo");
-});

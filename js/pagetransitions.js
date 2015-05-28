@@ -1,5 +1,4 @@
 var PageTransitions = (function() {
-
 	var $main = $( '#pt-main' ),
 		$pages = $main.children( 'div.pt-page' ),
 		$iterate = $( '#iterateEffects' ),
@@ -19,7 +18,7 @@ var PageTransitions = (function() {
 		animEndEventName = animEndEventNames[ Modernizr.prefixed( 'animation' ) ],
 		// support css animations
 		support = Modernizr.cssanimations;
-	
+
 	function init() {
 
 
@@ -52,7 +51,7 @@ var PageTransitions = (function() {
 		}
 
 		isAnimating = true;
-		
+
 		var $currPage = $pages.eq( current );
 
 		if(options.showPage){
@@ -85,7 +84,7 @@ var PageTransitions = (function() {
 				outClass = 'pt-page-reverseMoveFromLeft pt-page-ontop';
 				inClass = 'pt-page-reverseFade';
 				break;
-			
+
 
 		}
 
@@ -125,7 +124,7 @@ var PageTransitions = (function() {
 
 	init();
 
-	return { 
+	return {
 		init : init,
 		nextPage : nextPage,
 	};

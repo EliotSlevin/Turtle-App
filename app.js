@@ -15,10 +15,7 @@ $(document).ready(function() {
     var canvas = paper.setup(document.getElementById("paper_canvas"));
     init_drawing(canvas);
 
-    console.log($(".play_button"));
-
     $("#play_button").click(function(){
-      console.log("Running Execution");
       execution_pane.run(canvas);
     });
 });
