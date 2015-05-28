@@ -58,6 +58,14 @@ serverside.save_sketch = function(name){
   });
 }
 
+serverside.load_sketches_by_user = function(user, num, success, error){
+  if(!num){
+    num = "all";
+  }
+
+  $.get(serverside.to_abs_url("/sketches/" + user + "/" + num)).done(function(data){success($.parseJSON(data));}).error(error);
+}
+
 serverside.load_sketch = function(id){
   serverside.get_sketch(id,
     function(data){
