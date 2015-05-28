@@ -20,6 +20,7 @@
 .sketch-file .preview-wrapper{
 	width: 100%;
 	min-height: 50%;
+	overflow: hidden;
 	background-color: black;
 }
 
