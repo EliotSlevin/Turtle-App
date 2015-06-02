@@ -2,6 +2,7 @@ window.addEventListener('load', function () {
     new FastClick(document.body);
 }, false);
 
+//Some local data
 current_sketch = {
   name: "this-is-a-sketch",
   online_sketch_id: null
@@ -23,6 +24,7 @@ $(document).ready(function() {
       current_sketch.local_sketch_id = 0;
     }
     else{
+      //De-serialize the local sketches to save parsing them every time
       local_sketches = JSON.parse(localStorage.sketches);
       current_sketch.local_sketch_id = Number(localStorage.sketch_counter);
     }

@@ -11,6 +11,9 @@ var CodeBlock = function(name, palette_id, action, multi_block){
   }
 }
 
+/**
+  * CODE BLOCK DEFINITIONS
+  **/
 var jump = new CodeBlock("jump", "#jump", function(drawing_context, canvas, next){
   drawing_context.pen_x = 100;
   drawing_context.pen_y = 100;

@@ -1,20 +1,33 @@
 function init_drawing(canvas){}
 
+/**
+  * Returns the default state of the sketch,
+  * position, angle, colours + speed information about how fast to draw
+  **/
 function make_default_context(){
   return {
-    pen_x: 200,
-    pen_y: 100,
-    pen_angle: 0,
-    fill_color: new paper.Color(1, 1, 1, 1),
-    stroke_color: new paper.Color(1, 1, 1, 1),
-    stroke_weight: 2,
-    pen_down: true,
-    speed: 10,
-    alpha_speed: 255
+    pen_x: 200, //The x position of the pen
+    pen_y: 100, //The y position of the pen
+    pen_angle: 0, //The angle of the pen
+    fill_color: new paper.Color(1, 1, 1, 1), //The current fill folour
+    stroke_color: new paper.Color(1, 1, 1, 1), //The current stroke colour
+    stroke_weight: 2, //The thickness of borders around shapes
+    pen_down: true, //Whether then pen will draw on move or not
+    speed: 10, //The speed to draw the outline of shapes (Out of 100)
+    alpha_speed: 255 //The speed to draw the inside of shapes (Out of 255)
   };
 }
 
+/**
+  * Draws a line on the given canvas from (start_x, start_y) to (end_x, end_y)
+  * Calls next() when complete
+  **/
 function draw_line(canvas, start_x, start_y, end_x, end_y, next, image_context){
+
+  /**
+    * Draws a partial line between (start_x, start_y) and (end_x, end_y)
+    * The percentage of the line to draw is given by amount
+    **/
   function make_line_path(path, start_x, start_y, end_x, end_y, amount){
     path.moveTo(new paper.Point(start_x, start_y));
     var dist_x = (end_x - start_x);
@@ -30,18 +43,19 @@ function draw_line(canvas, start_x, start_y, end_x, end_y, next, image_context){
   var path = new paper.Path();
   path.strokeColor = image_context.stroke_color;
   path.fillColor = image_context.fill_color;
-  make_line_path(path, start_x, start_y, end_x, end_y, 0);
   path.amount = 0;
-  path.completed = false;
-  paper.view.draw();
   path.alpha = 0;
+  path.completed = false;
+  make_line_path(path, start_x, start_y, end_x, end_y, 0);//Draw line with 0 size to begin
   path.onFrame = function(){
+    //If we haven't full drawn the line yet
     if(path.amount < 100){
-      path.removeSegments();
+      path.removeSegments();//Destroy the previous line
       make_line_path(path, start_x, start_y, end_x, end_y, path.amount += image_context.speed);
       paper.view.draw();
     }
     if(!path.completed && path.amount >= 100){
+      //Call next when done, and mark us as done
       path.amount = 100;
       path.completed = true;
       if(next)next();
@@ -49,10 +63,21 @@ function draw_line(canvas, start_x, start_y, end_x, end_y, next, image_context){
   }
 }
 
+/**
+  * Draws and fills in a rectangle with top left corner (x, y)
+  * and size (w, h)
+  **/
 function draw_rect(canvas, x, y, w, h, next, image_context){
+
+  /**
+    * Draws a partial border of a rectangle with top left corner (x, y)
+    * and size (w, h). The percentage to draw is given by amount
+    **/
   function make_rect_path(path, x, y, w, h, amount){
       path.moveTo(new paper.Point(x, y));
       var total_dist = (w * 2 + h * 2) * amount / 100.;
+
+      //Top side
       if(w > total_dist){
         path.lineTo(x + total_dist, y);
         return;
@@ -62,6 +87,7 @@ function draw_rect(canvas, x, y, w, h, next, image_context){
         total_dist -= w;
       }
 
+      //Right Side
       if(h > total_dist){
         path.lineTo(x + w, y + total_dist);
         return;
@@ -71,6 +97,7 @@ function draw_rect(canvas, x, y, w, h, next, image_context){
         total_dist -= h;
       }
 
+      //Bottom Side
       if(w > total_dist){
         path.lineTo(x + w - total_dist, y + h);
         return;
@@ -80,6 +107,7 @@ function draw_rect(canvas, x, y, w, h, next, image_context){
         total_dist -= w;
       }
 
+      //Left Side
       if(h > total_dist){
         path.lineTo(x, y + h - total_dist );
         return;
@@ -96,19 +124,22 @@ function draw_rect(canvas, x, y, w, h, next, image_context){
     path.amount = 0;
     path.alpha = 0;
     path.completed = false;
-    paper.view.draw();
     path.onFrame = function(){
+      //If we are still drawing the outline
       if(path.amount < 100){
         path.removeSegments();
         make_rect_path(path, x, y, w, h, path.amount += image_context.speed);
         paper.view.draw();
       }
 
+      //If we have completed the outline but not the filling in
       if(!path.completed && path.amount >= 100){
         path.alpha += image_context.alpha_speed;
         path.alpha = Math.min(path.alpha, 255);
-	var color = image_context.fill_color._components;
+	      var color = image_context.fill_color._components;
         path.fillColor = new paper.Color(color[0], color[1], color[2], path.alpha / 255.);
+
+        //Call next when we are done
         if(path.alpha == 255){
           if(next)next();
           path.completed = true;
@@ -117,7 +148,15 @@ function draw_rect(canvas, x, y, w, h, next, image_context){
     }
   }
 
+/**
+  * Draws the outline and inside of an ellipse, centered on (x, y), with size (w, h).
+  * NOTE: Only looks ok with w === h, i.e. circles. Turns out drawing part of an ellipse is annoying
+  **/
 function draw_ellipse(canvas, x, y, w, h, next, image_context){
+  /**
+    * Draws a partial border of an ellipse, centered on (x, y), with size (w, h).
+    * The percentage to draw is given by amount
+    **/
   function make_ellipse_path(path, x, y, w, h, amount){
     var a = (360 * (amount / 100.)) * Math.PI / 180;
     if(amount == 100)a = Math.PI * 2 - 0.001;//Quick hack because paper doesn't like arcs starting and ending in the same place
@@ -138,19 +177,22 @@ function draw_ellipse(canvas, x, y, w, h, next, image_context){
   make_ellipse_path(path, x, y, w, h, 0);
   path.amount = 0;
   path.completed = false;
-  paper.view.draw();
   path.alpha = 0;
   path.onFrame = function(){
+    //If we are still drawing the outside
     if(path.amount < 100){
       path.removeSegments();
       make_ellipse_path(path, x, y, w, h, path.amount += image_context.speed);
       paper.view.draw();
     }
+    //If we are drawing the inside
     if(!path.completed && path.amount >= 100){
       path.alpha += image_context.speed * 5;
       path.alpha = Math.min(path.alpha, 255);
       var color = image_context.fill_color._components;
       path.fillColor = new paper.Color(color[0], color[1], color[2], path.alpha / 255.);
+
+      //Call next when done
       if(path.alpha == 255){
         if(next)next();
         path.completed = true;

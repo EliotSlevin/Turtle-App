@@ -130,6 +130,10 @@ function on_drop_on_multi_block(event, ui){
   drop_on(ui.draggable, $(this), $(this).data("execution_pane_reference"));
 }
 
+/**
+  * Handle drop events.
+  * Handles the event where dropped is dropped on dropped_on, with the parent DOM object
+  **/
 function drop_on(dropped, dropped_on, parent_block){
   if(dropped_on != dropped.parent()){
     var palette_index = Number(dropped.attr("code_palette_index"));
