@@ -22,6 +22,7 @@ $(document).ready(function() {
       localStorage.sketches = JSON.stringify(local_sketches);
       localStorage.sketch_counter = 0;
       current_sketch.local_sketch_id = 0;
+      localStorage.username = generate_random_name();
     }
     else{
       //De-serialize the local sketches to save parsing them every time
@@ -38,3 +39,19 @@ $(document).ready(function() {
       execution_pane.run(canvas);
     });
 });
+
+/**
+  * Generates a random heroku-style name for a username.
+  * @return The generated user name
+  **/
+function generate_random_name(){
+  var adjectives = ["windy", "rainy", "flimsy", "cold", "bright", "smart", "bouncy", "tranquil", "cute", "silent", "silent", "complex",
+                    "cheerful", "blue", "orange", "pink", "yellow", "fluffy", "smooth", "catty", "adorable", "fast", "strong", "better"];
+
+  var nouns = ["button", "yak", "cat", "lamp", "bed", "towel", "book", "shirt", "phone", "duck", "tortoise", "cherry", "pickle",
+               "donkey", "flower", "badger", "cake", "hook"];
+
+  var randomAdj = adjectives[Math.floor(Math.random() * adjectives.length)];
+  var randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
+  return randomAdj + "-" + randomNoun + "-" + Math.floor((Math.random() * 1000));
+}
