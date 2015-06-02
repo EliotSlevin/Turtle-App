@@ -37,4 +37,6 @@ var fail = function() {
     console.log("fail");
 };
 
-serverside.load_sketches_by_user("586240", "all", renderSketches, fail);
+if(typeof localStorage.uuid !== undefined){
+  serverside.load_sketches_by_user(localStorage.uuid, "all", renderSketches, fail);
+}

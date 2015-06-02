@@ -20,6 +20,25 @@ storage.get_auth_token = function(next){
   }
 }
 
+storage.save_local_sketch = function(){
+  var sketch = storage.decompose_current_sketch;
+  sketch.online_sketch_id = current_sketch.online_sketch_id;
+
+  local_sketches.push(sketch);
+  localStorage.sketches = JSON.stringify(local_sketches);
+}
+
+storage.decompose_current_sketch = function(){
+  var name = current_sketch.name;
+  var contents = JSON.stringify(decompose_execution_pane());
+  var preview = $("#paper_canvas")[0].toDataURL().substring("data:image/png;base64,".length);
+  return {
+    sketch_name: name,
+    sketch_contents: contents,
+    sketch_demo_blob: preview
+  };
+}
+
 function generate_random_name(){
   var adjectives = ["windy", "rainy", "flimsy", "cold", "bright", "smart", "bouncy", "tranquil", "cute", "silent", "silent", "complex",
                     "cheerful", "blue", "orange", "pink", "yellow", "fluffy", "smooth", "catty", "adorable", "fast", "strong", "better"];
