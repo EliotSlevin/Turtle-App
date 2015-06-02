@@ -98,19 +98,34 @@ serverside.to_abs_url = function(uri){
   return serverside.root_server_url + uri;
 }
 
-serverside.post_sketch = function(success, error){
-  var uuid = current_sketch.author;//device.uuid;
-  var name = current_sketch.name;
-  var contents = JSON.stringify(decompose_execution_pane());
-  var preview = $("#paper_canvas")[0].toDataURL().substring("data:image/png;base64,".length);
-  var sendBlob = {
-    sketch_author: uuid,
-    sketch_name: name,
-    sketch_contents: contents,
-    sketch_demo_blob: preview
+serverside.register_device = function(name, success, error){
+  var toSend = {
+    //Totally secure way of generating a uuid if we dont have one (i.e. not running on device)
+    uuid: (typeof device !== 'undefined') ? device.uuid : Math.floor(Math.random() * 1000000),
+    username: name
   };
 
-  $.post(serverside.to_abs_url("/sketches"), $.param(sendBlob)).done(success).error(error);
+  localStorage.uuid = toSend.uuid;
+
+  $.post(serverside.to_abs_url("/user"), $.param(toSend)).done(function(data){success($.parseJSON(data))}).error(error);
+}
+
+serverside.post_sketch = function(success, error){
+  storage.get_auth_token(function(token){
+    var uuid = localStorage.uuid;
+    var name = current_sketch.name;
+    var contents = JSON.stringify(decompose_execution_pane());
+    var preview = $("#paper_canvas")[0].toDataURL().substring("data:image/png;base64,".length);
+    var sendBlob = {
+      token: token,
+      uuid: uuid,
+      sketch_name: name,
+      sketch_contents: contents,
+      sketch_demo_blob: preview
+    };
+
+    $.post(serverside.to_abs_url("/sketches"), $.param(sendBlob)).done(success).error(error);
+  });
 }
 
 serverside.get_sketch = function(id, success, error){

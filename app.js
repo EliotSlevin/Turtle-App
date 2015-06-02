@@ -3,8 +3,7 @@ window.addEventListener('load', function () {
 }, false);
 
 current_sketch = {
-  name: "this-is-a-sketch",
-  author: "colin"
+  name: "this-is-a-sketch"
 };
 
 /* Maybe lets start the app from here */
