@@ -19,10 +19,15 @@ $(document).ready(function() {
       //Totally secure way of generating a uuid if we dont have one (i.e. not running on device)
       localStorage.uuid = (typeof device !== 'undefined') ? device.uuid : Math.floor(Math.random() * 1000000);
       localStorage.sketches = JSON.stringify(local_sketches);
+      localStorage.sketch_counter = 0;
+      current_sketch.local_sketch_id = 0;
     }
     else{
       local_sketches = JSON.parse(localStorage.sketches);
+      current_sketch.local_sketch_id = Number(localStorage.sketch_counter);
     }
+
+    browser.renderSketches();
 
     var canvas = paper.setup(document.getElementById("paper_canvas"));
     init_drawing(canvas);

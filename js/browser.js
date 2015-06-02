@@ -1,42 +1,30 @@
-var renderSketches = function(data) {
+browser = {};
+browser.renderSketches = function() {
     console.log("success");
 
     var source   = $("#sketch-browser-template").html();
     var template = Handlebars.compile(source);
 
-    var context = {
-      sketch: [
-        "First Sketch",
-        "Demo Program",
-        "Sketch example",
-        "Sketch example",
-        "Sketch example",
-        "Sketch example",
-        "Sketch example",
-        "Sketch example",
-        "Sketch example",
-        "Sketch example",
-        "Sketch example"
-      ]
+    var dataContext = {
+      sketches: []
+    };
+
+    for(var sketch_id in local_sketches){
+      console.log(sketch);
+      if(local_sketches.hasOwnProperty(sketch_id)){
+        var sketch = local_sketches[sketch_id];
+        dataContext.sketches.push({
+          name: sketch.sketch_name,
+          preview: "data:image/png;base64," + sketch.sketch_demo_blob,
+          sketchid: sketch.local_sketch_id
+        });
+      }
     }
-
-    var dataContext = data;
-
-    console.log(context);
-    console.log(dataContext);
 
     var html = template(dataContext);
     $(".sketch-browser").html(html);
     $(".sketch-file").click(function(){
-      serverside.load_sketch($(this).attr("data-id"));
+      storage.load_local_sketch($(this).attr("data-id"));
       $( "#forward" ).click();
     });
 };
-
-var fail = function() {
-    console.log("fail");
-};
-
-if(typeof localStorage.uuid !== undefined){
-  serverside.load_sketches_by_user(localStorage.uuid, "all", renderSketches, fail);
-}

@@ -20,12 +20,23 @@ storage.get_auth_token = function(next){
   }
 }
 
-storage.save_local_sketch = function(){
-  var sketch = storage.decompose_current_sketch;
-  sketch.online_sketch_id = current_sketch.online_sketch_id;
+storage.load_local_sketch = function(id){
+  var sketch = local_sketches[id];
+  console.log(sketch.sketch_contents);
+  serverside.recompose_execution_pane(JSON.parse(sketch.sketch_contents));
+  current_sketch.online_sketch_id = sketch.online_sketch_id;
+  current_sketch.sketchid = id;
+  current_sketch.name = sketch.sketch_name;
+}
 
-  local_sketches.push(sketch);
+storage.save_local_sketch = function(){
+  var sketch = storage.decompose_current_sketch();
+  sketch.online_sketch_id = current_sketch.online_sketch_id;
+  sketch.local_sketch_id = current_sketch.local_sketch_id;
+
+  local_sketches[current_sketch.local_sketch_id] = sketch;
   localStorage.sketches = JSON.stringify(local_sketches);
+  localStorage.sketch_counter = Number(localStorage.sketch_counter) + 1;
 }
 
 storage.decompose_current_sketch = function(){
