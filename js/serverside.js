@@ -76,7 +76,9 @@ function recompose_block(server_block){
 serverside.save_sketch = function(name){
   if(name)current_sketch.name = name;
   serverside.post_sketch(function(data){
-    current_sketch.online_sketch_id = data.sketchid;
+    console.log(data);
+    current_sketch.online_sketch_id = data.id;
+    storage.flush_current_sketch();
   }, function(error){
     //We should do something better here. Maybe update the UI.
     console.log(error);
@@ -181,7 +183,7 @@ serverside.post_sketch = function(success, error){
     sendBlob.uuid = localStorage.uuid;
     sendBlob.token = token;
 
-    $.post(serverside.to_abs_url("/sketches"), $.param(sendBlob)).done(success).error(error);
+    $.post(serverside.to_abs_url("/sketches"), $.param(sendBlob)).done(function(data){success(JSON.parse(data));}).error(error);
   });
 }
 

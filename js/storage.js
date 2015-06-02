@@ -4,6 +4,18 @@
 storage = {};
 
 /**
+  * Saves any changes to the current sketch, updating the local representation
+  **/
+storage.flush_current_sketch = function(){
+  var sketch = storage.decompose_current_sketch();
+  sketch.online_sketch_id = current_sketch.online_sketch_id;
+  sketch.local_sketch_id = current_sketch.local_sketch_id;
+
+  local_sketches[current_sketch.local_sketch_id] = sketch;
+  localStorage.sketches = JSON.stringify(local_sketches);
+}
+
+/**
   * Gets the auth token stored for this device. If we haven't
   * registered yet then we register the device serverside before
   * calling next with the auth token
