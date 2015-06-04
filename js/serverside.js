@@ -76,8 +76,10 @@ function recompose_block(server_block){
 serverside.save_sketch = function(name){
   if(name)current_sketch.name = name;
   serverside.post_sketch(function(data){
+    var sketch = data.sketch;
     console.log(data);
-    current_sketch.online_sketch_id = data.id;
+    localStorage.auth_token = data.new_token;
+    current_sketch.online_sketch_id = sketch.id;
     storage.flush_current_sketch();
   }, function(error){
     //We should do something better here. Maybe update the UI.
