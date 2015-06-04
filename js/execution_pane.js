@@ -4,7 +4,9 @@
 **/
 function init_execution_pane(){
   $(".program").droppable({
-    drop: on_drop_on_execution_pane
+    tolerance:'pointer',
+    drop: on_drop_on_execution_pane,
+    greedy: true
   });
   console.log("Initted Execution Pane");
 }
@@ -52,10 +54,13 @@ function draw_execution_pane(){
     else{
       draw_normal_code_block(parent_dom_element, execution_pane.blocks, i);
     }
+
+    parent_dom_element.append(createSpacer(execution_pane, i));//Droppable for between blocks (pretty hacky, yeah)
   }
 
   $(".multiblock").droppable({
     drop: on_drop_on_multi_block,
+    tolerance:'pointer',
     greedy: true //Prevents propogation to execution pane
   });
 }
@@ -82,6 +87,28 @@ function draw_normal_code_block(parent_dom_object, parent_block_array, index){
   else return codeblock_div;
 }
 
+function createSpacer(parent_block, i){
+  var spacer = $("<div>");
+  spacer.addClass("execution_pane_spacer");
+  spacer.attr("index", i);
+  spacer.data("parent_block", parent_block);
+  spacer.droppable({
+    tolerance:'pointer',
+    greedy:true,
+    over: function(){
+      $(this).addClass("execution_pane_spacer_highlight");
+      $(this).parent().parent().droppable("disable");
+    },
+    out: function(){
+      $(this).removeClass("execution_pane_spacer_highlight");
+      $(this).parent().parent().droppable("enable");
+    },
+    drop: on_drop_on_spacer
+  });
+
+  return spacer;
+}
+
 /**
   * Called to draw a multi-code-block, i.e. a code block that can contain
   * other code blocks
@@ -94,6 +121,7 @@ function draw_multi_code_block(parent_dom_object, parent_block_array, index){
   multiblock_div.attr('code_palette_index', block.palette_index).data('execution_pane_reference', block);
   block.dom_element = multiblock_div;
   var contents_div = $("<div class='multiblock_contents'>");
+  contents_div.append(createSpacer(block, -1));
   for(var j = 0;j < block.blocks.length;j ++){
     //The size here will need to be adjusted when we are not resizing the large image
     if(block.blocks[j].multi_block){
@@ -102,6 +130,7 @@ function draw_multi_code_block(parent_dom_object, parent_block_array, index){
     else{
       draw_normal_code_block(contents_div, block.blocks, j);
     }
+    contents_div.append(createSpacer(block, j));//Droppable for between blocks (pretty hacky, yeah)
   }
 
   multiblock_div.draggable({helper: function(){
@@ -115,10 +144,16 @@ function draw_multi_code_block(parent_dom_object, parent_block_array, index){
   else return multiblock_div;
 }
 
+function on_drop_on_spacer(event, ui){
+  console.log("Drop on spacer");
+  drop_on(ui.draggable, $(this).parent(), $(this).data().parent_block, Number($(this).attr("index")) + 1);
+}
+
 /**
   * Called when a code block is dropped onto the execution pane
   **/
 function on_drop_on_execution_pane(event, ui){
+  console.log("Drop on execution pane");
   drop_on(ui.draggable, $(this), execution_pane);
 }
 
@@ -127,6 +162,7 @@ function on_drop_on_execution_pane(event, ui){
   * execution pane
   **/
 function on_drop_on_multi_block(event, ui){
+  console.log("Drop on multiblock");
   drop_on(ui.draggable, $(this), $(this).data("execution_pane_reference"));
 }
 
@@ -134,14 +170,21 @@ function on_drop_on_multi_block(event, ui){
   * Handle drop events.
   * Handles the event where dropped is dropped on dropped_on, with the parent DOM object
   **/
-function drop_on(dropped, dropped_on, parent_block){
+function drop_on(dropped, dropped_on, parent_block, index){
   if(dropped_on != dropped.parent()){
     var palette_index = Number(dropped.attr("code_palette_index"));
     var template = palette.blocks[palette_index];
     var existing_block = dropped.data('block_ref');
     var new_execution_block = (existing_block ? existing_block['0'] : new CodeBlock(template.name, template.palette_id, template.action, template.multi_block));
     new_execution_block.palette_index = palette_index;
-    parent_block.blocks.push(new_execution_block);
+    if(typeof index === "undefined"){
+      if(!parent_block)return;
+      parent_block.blocks.push(new_execution_block);
+    }
+    else{
+      dropped.attr("dropped", true);
+      parent_block.blocks.splice(index, 0, new_execution_block);
+    }
   }
   draw_execution_pane();
 }

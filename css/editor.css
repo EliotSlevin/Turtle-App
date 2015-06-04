@@ -8,6 +8,14 @@
   float: left;
 }
 
+.execution_pane_spacer{
+  width:100%;
+}
+
+.execution_pane_spacer_highlight{
+  background-color:blue;
+}
+
 .multiblock_contents{
   padding-left: 20px;
   padding-top: 20px;
@@ -23,9 +31,16 @@
   clear: left;
 }
 
+.command{
+	color: white;
+	display: inline-block;
+	margin: 20px;
+}
 
 .execution_pane_block{
   z-index: 100;
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
 }
 
 .ui-draggable-dragging{
@@ -85,20 +100,13 @@
 	background-color: rgba(0,0,0,0.75);
 	overflow-y: scroll;
 	overflow-x: hidden;
-  	-webkit-overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch;
 }
 
 .program .command{
 	display: inline-block;
-  	clear: left;
-  	float: left;
-}
-
-
-.command{
-	color: white;
-	display: inline-block;
-	margin: 20px;
+  clear: left;
+  float: left;
 }
 
 .command div{
