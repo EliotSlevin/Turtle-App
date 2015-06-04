@@ -51,7 +51,7 @@ storage.load_local_sketch = function(id){
   var sketch = local_sketches[id];
   serverside.recompose_execution_pane(JSON.parse(sketch.sketch_contents));
   current_sketch.online_sketch_id = sketch.online_sketch_id;
-  current_sketch.sketchid = id;
+  current_sketch.local_sketch_id = Number(id);
   current_sketch.name = sketch.sketch_name;
 }
 
