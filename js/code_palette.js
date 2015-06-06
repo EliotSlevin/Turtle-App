@@ -1,11 +1,12 @@
 //Block Defintions
-var CodeBlock = function(name, palette_id, action, multi_block){
+var CodeBlock = function(name, palette_id, modal_id, action, multi_block){
   this.name = name;
   this.palette_index = -1;
   this.action = action;
   this.self = this;
   this.multi_block = multi_block || false;//Quick hack to turn undefined -> false
   this.palette_id = palette_id;
+  this.modal_id = modal_id;
   if(this.multi_block){
     this.blocks = [];//Initialise the contents if we are a multiblocks
   }
@@ -14,13 +15,13 @@ var CodeBlock = function(name, palette_id, action, multi_block){
 /**
   * CODE BLOCK DEFINITIONS
   **/
-var jump = new CodeBlock("jump", "#jump", function(drawing_context, canvas, next){
+var jump = new CodeBlock("jump", "#jump", "jump_modal", function(drawing_context, canvas, next){
   drawing_context.pen_x = 100;
   drawing_context.pen_y = 100;
   next();
 });
 
-var move = new CodeBlock("move", "#move", function(drawing_context, canvas, next){
+var move = new CodeBlock("move", "#move", "move_modal", function(drawing_context, canvas, next){
   if(drawing_context.pen_down){
     var start_x = drawing_context.pen_x;
     var start_y = drawing_context.pen_y;
@@ -35,47 +36,47 @@ var move = new CodeBlock("move", "#move", function(drawing_context, canvas, next
   }
 });
 
-var rotate = new CodeBlock("rotate", "#rotate", function(drawing_context, canvas, next){
+var rotate = new CodeBlock("rotate", "#rotate", "rotate_modal", function(drawing_context, canvas, next){
   drawing_context.pen_angle += 72;
   next();
 });
 
-var pen_down = new CodeBlock("pen_down", "#pen_down", function(drawing_context, canvas, next){
+var pen_down = new CodeBlock("pen_down", "#pen_down", "__invalid__", function(drawing_context, canvas, next){
   drawing_context.pen_down = true;
   console.log("PenDown!");
   next();
 });
 
-var pen_up = new CodeBlock("pen_up", "#pen_up", function(drawing_context, canvas, next){
+var pen_up = new CodeBlock("pen_up", "#pen_up", "__invalid__", function(drawing_context, canvas, next){
   drawing_context.pen_down = false;
   console.log("PenUp!");
   next();
 });
 
-var set_stroke = new CodeBlock("set_stroke", "#set_stroke", function(drawing_context, canvas, next){
+var set_stroke = new CodeBlock("set_stroke", "#set_stroke", "stroke_modal", function(drawing_context, canvas, next){
   drawing_context.stroke_color = "white";
   drawing_context.stoke_weight = 5;
   next();
 });
 
-var set_fill = new CodeBlock("set_fill", "#set_fill", function(drawing_context, canvas, next){
+var set_fill = new CodeBlock("set_fill", "#set_fill", "fill_modal",  function(drawing_context, canvas, next){
   drawing_context.fill_colour = "white";
   next();
 });
 
 //Draw a circle
-var circle = new CodeBlock("circle", "#circle", function(drawing_context, canvas, next){
+var circle = new CodeBlock("circle", "#circle", "circle_modal", function(drawing_context, canvas, next){
   draw_ellipse(canvas, drawing_context.pen_x, drawing_context.pen_y, 25, 25, next, drawing_context);
 });
 
 //Draw a square
-var rectangle = new CodeBlock("rectangle", "#rectangle", function(drawing_context, canvas, next){
+var rectangle = new CodeBlock("rectangle", "#rectangle", "rectangle_modal", function(drawing_context, canvas, next){
   console.log("Rectangle");
   draw_rect(canvas, drawing_context.pen_x, drawing_context.pen_y, 25, 25, next, drawing_context);
 });
 
 //Loop 5 times
-var loop = new CodeBlock("loop", "#loop", function(drawing_context, canvas, next){
+var loop = new CodeBlock("loop", "#loop", "loop_modal", function(drawing_context, canvas, next){
   var self = this;
   var i = 0;
   var run_count = 0;
