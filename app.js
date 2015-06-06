@@ -38,6 +38,9 @@ $(document).ready(function() {
     $("#play_button").click(function(){
       execution_pane.run(canvas);
     });
+
+    window.location.hash = ''
+    parameters.init_parameters();
 });
 
 /**

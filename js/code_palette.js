@@ -1,5 +1,5 @@
 //Block Defintions
-var CodeBlock = function(name, palette_id, modal_id, action, multi_block){
+var CodeBlock = function(name, palette_id, modal_id, action, default_parameters, multi_block){
   this.name = name;
   this.palette_index = -1;
   this.action = action;
@@ -7,6 +7,8 @@ var CodeBlock = function(name, palette_id, modal_id, action, multi_block){
   this.multi_block = multi_block || false;//Quick hack to turn undefined -> false
   this.palette_id = palette_id;
   this.modal_id = modal_id;
+  this.default_parameters = default_parameters;
+  this.parameters = jQuery.extend(true, {}, this.default_parameters);
   if(this.multi_block){
     this.blocks = [];//Initialise the contents if we are a multiblocks
   }
@@ -16,71 +18,69 @@ var CodeBlock = function(name, palette_id, modal_id, action, multi_block){
   * CODE BLOCK DEFINITIONS
   **/
 var jump = new CodeBlock("jump", "#jump", "jump_modal", function(drawing_context, canvas, next){
-  drawing_context.pen_x = 100;
-  drawing_context.pen_y = 100;
+  drawing_context.pen_x = this.parameters.x;
+  drawing_context.pen_y = this.parameters.y;
   next();
-});
+}, {x: 100, y: 100});
 
 var move = new CodeBlock("move", "#move", "move_modal", function(drawing_context, canvas, next){
   if(drawing_context.pen_down){
     var start_x = drawing_context.pen_x;
     var start_y = drawing_context.pen_y;
-    drawing_context.pen_x += 50 * Math.sin(drawing_context.pen_angle * (Math.PI / 180));
-    drawing_context.pen_y += 50 * Math.cos(drawing_context.pen_angle * (Math.PI / 180));
+    drawing_context.pen_x += this.parameters.distance * Math.sin(drawing_context.pen_angle * (Math.PI / 180));
+    drawing_context.pen_y += this.parameters.distance * Math.cos(drawing_context.pen_angle * (Math.PI / 180));
     draw_line(canvas, start_x, start_y, drawing_context.pen_x, drawing_context.pen_y, next, drawing_context);
   }
   else{
-    drawing_context.pen_x += 50 * Math.sin(drawing_context.pen_angle * (Math.PI / 180));
-    drawing_context.pen_y += 50 * Math.cos(drawing_context.pen_angle * (Math.PI / 180));
+    drawing_context.pen_x += this.parameters.distance * Math.sin(drawing_context.pen_angle * (Math.PI / 180));
+    drawing_context.pen_y += this.parameters.distance * Math.cos(drawing_context.pen_angle * (Math.PI / 180));
     next();
   }
-});
+}, {distance: 50});
 
 var rotate = new CodeBlock("rotate", "#rotate", "rotate_modal", function(drawing_context, canvas, next){
-  drawing_context.pen_angle += 72;
+  drawing_context.pen_angle += this.parameters.theta;
   next();
-});
+}, {theta: 0});
 
 var pen_down = new CodeBlock("pen_down", "#pen_down", "__invalid__", function(drawing_context, canvas, next){
   drawing_context.pen_down = true;
-  console.log("PenDown!");
   next();
-});
+}, {});
 
 var pen_up = new CodeBlock("pen_up", "#pen_up", "__invalid__", function(drawing_context, canvas, next){
   drawing_context.pen_down = false;
-  console.log("PenUp!");
   next();
-});
+}, {});
 
 var set_stroke = new CodeBlock("set_stroke", "#set_stroke", "stroke_modal", function(drawing_context, canvas, next){
-  drawing_context.stroke_color = "white";
-  drawing_context.stoke_weight = 5;
+  drawing_context.stroke_color = this.parameters.colour;
+  drawing_context.stoke_weight = this.parameters.width;
   next();
-});
+}, {width: 2, colour: 0xFFFFFF});
 
 var set_fill = new CodeBlock("set_fill", "#set_fill", "fill_modal",  function(drawing_context, canvas, next){
-  drawing_context.fill_colour = "white";
+  drawing_context.fill_colour = this.parameters.colour;
   next();
-});
+}, {colour: 0xFFFFFF});
 
 //Draw a circle
 var circle = new CodeBlock("circle", "#circle", "circle_modal", function(drawing_context, canvas, next){
-  draw_ellipse(canvas, drawing_context.pen_x, drawing_context.pen_y, 25, 25, next, drawing_context);
-});
+  draw_ellipse(canvas, drawing_context.pen_x, drawing_context.pen_y, this.parameters.width, this.parameters.width, next, drawing_context);
+}, {width: 100});
 
 //Draw a square
 var rectangle = new CodeBlock("rectangle", "#rectangle", "rectangle_modal", function(drawing_context, canvas, next){
   console.log("Rectangle");
-  draw_rect(canvas, drawing_context.pen_x, drawing_context.pen_y, 25, 25, next, drawing_context);
-});
+  draw_rect(canvas, drawing_context.pen_x, drawing_context.pen_y, this.parameters.width, this.parameters.height, next, drawing_context);
+}, {width: 100, height: 100});
 
 //Loop 5 times
 var loop = new CodeBlock("loop", "#loop", "loop_modal", function(drawing_context, canvas, next){
   var self = this;
   var i = 0;
   var run_count = 0;
-  var max_runs = 5;
+  var max_runs = this.parameters.max;
   function run_next_block(){
     if(self && self.blocks[i])self.blocks[i].dom_element.addClass("running");
     else return;
@@ -97,10 +97,9 @@ var loop = new CodeBlock("loop", "#loop", "loop_modal", function(drawing_context
       run_next_block();
     });
   }
-  console.log("Running loop");
   if(self.blocks.length > i)run_next_block();
   else next();
-}, true);
+}, {max: 5}, true);
 
 /**
   * Called when the app starts. Does nothing ATM

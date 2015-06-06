@@ -47,15 +47,22 @@
     <section class="modal--fade" id="fill_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
 
         <div class="modal-inner">
-            <div class="modal-content">Pick parameter here</div>
+            <div class="modal-content">
+              <div class="modal_title">Fill</div>
+              <div class="block_tip">
+                This block sets the colour that shapes are filled in with!
+              </div>
+
+              <input type="color" class="colour_picker" id="fill_modal_colour_picker" />
+
+            </div>
             <footer>
                 <a href="#!" class="cancel">Cancel</a>
-                <a href="#!" class="save">Save</a>
+                <a href="#!" class="save fill_modal_save">Save</a>
            </footer>
         </div>
 
-        <a href="#!" class="modal-close" title="Close this modal" data-close="Close"
-            data-dismiss="modal">?</a>
+        <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">?</a>
     </section>
 
 
@@ -154,6 +161,7 @@
 <script src="lib/handlebars-v3.0.3.js"></script>
 <script src="js/execution_pane.js"></script>
 <script src="js/code_palette.js"></script>
+<script src="js/parameters.js"></script>
 
 <!--If we are compiling for device: -->
 <script src="js/serverside.js"></script>
