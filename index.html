@@ -43,7 +43,30 @@
 
 <!--     Parameter modal -->
 
-  <!-- Colour Modal -->
+<!-- Fill Colour Modal -->
+  <section class="modal--fade" id="jump_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+      <div class="modal-inner">
+          <div class="modal-content">
+            <div class="modal_title">Jump</div>
+            <div class="block_tip">
+              This block moves the pen to a given position.
+            </div>
+
+            <label for="jump_modal_x">X:</label>
+            <input type="number" id="jump_modal_x" min="0" max="1000" />
+            <label for="jump_modal_y">Y:</label>
+            <input type="number" id="jump_modal_y" min="0" max="1000" />
+          </div>
+          <footer>
+              <a href="#!" class="modal_cancel">Cancel</a>
+              <a href="#!" class="modal_save">Save</a>
+         </footer>
+      </div>
+
+      <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">?</a>
+  </section>
+
+  <!-- Fill Colour Modal -->
     <section class="modal--fade" id="fill_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
         <div class="modal-inner">
             <div class="modal-content">
