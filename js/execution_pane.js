@@ -66,6 +66,7 @@ function draw_execution_pane(){
 
   $(".parameter").click(function(){
     parameters.current_editing = $(this).parent().data('execution_pane_reference');
+    parameters.current_editing.events.on_open_modal();
     window.location.hash = $(this).parent().data('execution_pane_reference').modal_id;
   });
 }
@@ -180,7 +181,7 @@ function drop_on(dropped, dropped_on, parent_block, index){
     var palette_index = Number(dropped.attr("code_palette_index"));
     var template = palette.blocks[palette_index];
     var existing_block = dropped.data('block_ref');
-    var new_execution_block = (existing_block ? existing_block['0'] : new CodeBlock(template.name, template.palette_id, template.modal_id, template.action, template.default_parameters, template.multi_block));
+    var new_execution_block = (existing_block ? existing_block['0'] : new CodeBlock(template.name, template.palette_id, template.modal_id, template.action, template.events.on_open_modal, template.events.on_close_modal, template.default_parameters, template.multi_block));
     new_execution_block.palette_index = palette_index;
     if(typeof index === "undefined"){
       if(!parent_block)return;

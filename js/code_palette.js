@@ -1,5 +1,5 @@
 //Block Defintions
-var CodeBlock = function(name, palette_id, modal_id, action, default_parameters, multi_block){
+var CodeBlock = function(name, palette_id, modal_id, action, on_open_modal, on_close_modal, default_parameters, multi_block){
   this.name = name;
   this.palette_index = -1;
   this.action = action;
@@ -7,8 +7,14 @@ var CodeBlock = function(name, palette_id, modal_id, action, default_parameters,
   this.multi_block = multi_block || false;//Quick hack to turn undefined -> false
   this.palette_id = palette_id;
   this.modal_id = modal_id;
+
   this.default_parameters = default_parameters;
-  this.parameters = jQuery.extend(true, {}, this.default_parameters);
+  this.parameters = jQuery.extend(true, {}, this.default_parameters);//Deep clone of the default parameters
+
+  this.events = {};
+  this.events.on_open_modal = on_open_modal;
+  this.events.on_close_modal = on_close_modal;
+
   if(this.multi_block){
     this.blocks = [];//Initialise the contents if we are a multiblocks
   }
@@ -21,7 +27,7 @@ var jump = new CodeBlock("jump", "#jump", "jump_modal", function(drawing_context
   drawing_context.pen_x = this.parameters.x;
   drawing_context.pen_y = this.parameters.y;
   next();
-}, {x: 100, y: 100});
+}, function(){}, function(){}, {x: 100, y: 100});
 
 var move = new CodeBlock("move", "#move", "move_modal", function(drawing_context, canvas, next){
   if(drawing_context.pen_down){
@@ -36,44 +42,48 @@ var move = new CodeBlock("move", "#move", "move_modal", function(drawing_context
     drawing_context.pen_y += this.parameters.distance * Math.cos(drawing_context.pen_angle * (Math.PI / 180));
     next();
   }
-}, {distance: 50});
+}, function(){}, function(){}, {distance: 50});
 
 var rotate = new CodeBlock("rotate", "#rotate", "rotate_modal", function(drawing_context, canvas, next){
   drawing_context.pen_angle += this.parameters.theta;
   next();
-}, {theta: 0});
+}, function(){}, function(){}, {theta: 0});
 
 var pen_down = new CodeBlock("pen_down", "#pen_down", "__invalid__", function(drawing_context, canvas, next){
   drawing_context.pen_down = true;
   next();
-}, {});
+}, undefined, undefined, {});
 
 var pen_up = new CodeBlock("pen_up", "#pen_up", "__invalid__", function(drawing_context, canvas, next){
   drawing_context.pen_down = false;
   next();
-}, {});
+}, undefined, undefined, {});
 
 var set_stroke = new CodeBlock("set_stroke", "#set_stroke", "stroke_modal", function(drawing_context, canvas, next){
   drawing_context.stroke_color = this.parameters.colour;
   drawing_context.stoke_weight = this.parameters.width;
   next();
-}, {width: 2, colour: 0xFFFFFF});
+}, function(){}, function(){}, {width: 2, colour: "#FFFFFF"});
 
 var set_fill = new CodeBlock("set_fill", "#set_fill", "fill_modal",  function(drawing_context, canvas, next){
-  drawing_context.fill_colour = this.parameters.colour;
+  drawing_context.fill_colour = new paper.Color(this.parameters.colour);
   next();
-}, {colour: 0xFFFFFF});
+}, function(){
+  $("#fill_modal_colour_picker").val(parameters.current_editing.parameters.colour);
+}, function(){
+  parameters.current_editing.parameters.colour = $("#fill_modal_colour_picker").val();
+}, {colour: "#FFFFFF"});
 
 //Draw a circle
 var circle = new CodeBlock("circle", "#circle", "circle_modal", function(drawing_context, canvas, next){
   draw_ellipse(canvas, drawing_context.pen_x, drawing_context.pen_y, this.parameters.width, this.parameters.width, next, drawing_context);
-}, {width: 100});
+}, function(){}, function(){}, {width: 100});
 
 //Draw a square
 var rectangle = new CodeBlock("rectangle", "#rectangle", "rectangle_modal", function(drawing_context, canvas, next){
   console.log("Rectangle");
   draw_rect(canvas, drawing_context.pen_x, drawing_context.pen_y, this.parameters.width, this.parameters.height, next, drawing_context);
-}, {width: 100, height: 100});
+}, function(){}, function(){}, {width: 100, height: 100});
 
 //Loop 5 times
 var loop = new CodeBlock("loop", "#loop", "loop_modal", function(drawing_context, canvas, next){
@@ -99,7 +109,7 @@ var loop = new CodeBlock("loop", "#loop", "loop_modal", function(drawing_context
   }
   if(self.blocks.length > i)run_next_block();
   else next();
-}, {max: 5}, true);
+}, function(){}, function(){}, {max: 5}, true);
 
 /**
   * Called when the app starts. Does nothing ATM

@@ -1,9 +1,8 @@
 parameters = {};
 
 parameters.init_parameters = function(){
-  $(".fill_modal_save").click(function(){
-    parameters.current_editing.colour = $("#fill_modal_colour_picker").val();
-    console.log(parameters.current_editing.colour);
+  $(".modal_save").click(function(){
+    parameters.current_editing.events.on_close_modal();
     parameters.current_editing = null;
   });
 }

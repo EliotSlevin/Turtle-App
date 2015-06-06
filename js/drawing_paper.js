@@ -9,8 +9,8 @@ function make_default_context(){
     pen_x: 200, //The x position of the pen
     pen_y: 100, //The y position of the pen
     pen_angle: 0, //The angle of the pen
-    fill_color: new paper.Color(1, 1, 1, 1), //The current fill folour
-    stroke_color: new paper.Color(1, 1, 1, 1), //The current stroke colour
+    fill_colour: new paper.Color(1, 1, 1, 1), //The current fill folour
+    stroke_colour: new paper.Color(1, 1, 1, 1), //The current stroke colour
     stroke_weight: 2, //The thickness of borders around shapes
     pen_down: true, //Whether then pen will draw on move or not
     speed: 10, //The speed to draw the outline of shapes (Out of 100)
@@ -41,8 +41,8 @@ function draw_line(canvas, start_x, start_y, end_x, end_y, next, image_context){
   }
 
   var path = new paper.Path();
-  path.strokeColor = image_context.stroke_color;
-  path.fillColor = image_context.fill_color;
+  path.strokeColor = image_context.stroke_colour;
+  path.fillColor = image_context.fill_colour;
   path.amount = 0;
   path.alpha = 0;
   path.completed = false;
@@ -119,7 +119,7 @@ function draw_rect(canvas, x, y, w, h, next, image_context){
     }
 
     var path = new paper.Path();
-    path.strokeColor = image_context.stroke_color;
+    path.strokeColor = image_context.stroke_colour;
     make_rect_path(path, x, y, w, h, 0);
     path.amount = 0;
     path.alpha = 0;
@@ -136,7 +136,7 @@ function draw_rect(canvas, x, y, w, h, next, image_context){
       if(!path.completed && path.amount >= 100){
         path.alpha += image_context.alpha_speed;
         path.alpha = Math.min(path.alpha, 255);
-	      var color = image_context.fill_color._components;
+	      var color = image_context.fill_colour._components;
         path.fillColor = new paper.Color(color[0], color[1], color[2], path.alpha / 255.);
 
         //Call next when we are done
@@ -173,7 +173,7 @@ function draw_ellipse(canvas, x, y, w, h, next, image_context){
   }
 
   var path = new paper.Path();
-  path.strokeColor = image_context.stroke_color;
+  path.strokeColor = image_context.stroke_colour;
   make_ellipse_path(path, x, y, w, h, 0);
   path.amount = 0;
   path.completed = false;
@@ -189,7 +189,7 @@ function draw_ellipse(canvas, x, y, w, h, next, image_context){
     if(!path.completed && path.amount >= 100){
       path.alpha += image_context.speed * 5;
       path.alpha = Math.min(path.alpha, 255);
-      var color = image_context.fill_color._components;
+      var color = image_context.fill_colour._components;
       path.fillColor = new paper.Color(color[0], color[1], color[2], path.alpha / 255.);
 
       //Call next when done

@@ -51,7 +51,7 @@ function decompose_execution_pane(){
   **/
 function recompose_block(server_block){
   var parentRef = palette.blocks[server_block.palette_index];//Get the palette reference where we can steal a bunch of info
-  var block = new CodeBlock(server_block.name, parentRef.palette_id, parentRef.modal_id, parentRef.action, server_block.parameters, server_block.multi_block);
+  var block = new CodeBlock(server_block.name, parentRef.palette_id, parentRef.modal_id, parentRef.action, parentRef.events.on_open_modal, parentRef.events.on_close_modal, server_block.parameters, server_block.multi_block);
   block.palette_index = server_block.palette_index;
 
   //Recurse down if the block was a multiblock
