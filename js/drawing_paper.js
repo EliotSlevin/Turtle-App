@@ -42,6 +42,8 @@ function draw_line(canvas, start_x, start_y, end_x, end_y, next, image_context){
 
   var path = new paper.Path();
   path.strokeColor = image_context.stroke_colour;
+  path.strokeWidth = image_context.stroke_weight;
+  console.log(path.strokeWidth);
   path.fillColor = image_context.fill_colour;
   path.amount = 0;
   path.alpha = 0;
@@ -120,6 +122,7 @@ function draw_rect(canvas, x, y, w, h, next, image_context){
 
     var path = new paper.Path();
     path.strokeColor = image_context.stroke_colour;
+    path.strokeWidth = image_context.stroke_weight;
     make_rect_path(path, x, y, w, h, 0);
     path.amount = 0;
     path.alpha = 0;
@@ -174,6 +177,7 @@ function draw_ellipse(canvas, x, y, w, h, next, image_context){
 
   var path = new paper.Path();
   path.strokeColor = image_context.stroke_colour;
+  path.strokeWidth = image_context.stroke_weight;
   make_ellipse_path(path, x, y, w, h, 0);
   path.amount = 0;
   path.completed = false;

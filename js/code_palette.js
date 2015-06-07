@@ -83,15 +83,15 @@ var pen_up = new CodeBlock("pen_up", "#pen_up", "__invalid__", function(drawing_
 }, undefined, undefined, undefined, {});
 
 var set_stroke = new CodeBlock("set_stroke", "#set_stroke", "stroke_modal", function(drawing_context, canvas, next){
-  drawing_context.stroke_color = this.parameters.colour;
-  drawing_context.stoke_weight = this.parameters.width;
+  drawing_context.stroke_colour = new paper.Color(this.parameters.colour);
+  drawing_context.stroke_weight = this.parameters.width;
   next();
 }, function(){
   $("#stroke_modal_width").val(this.parameters.width);
   $("#stroke_modal_colour").val(this.parameters.colour);
 }, function(){
   this.parameters.width = Number($("#stroke_modal_width").val());
-  this.parameters.colour = Number($("#stroke_modal_colour").val());
+  this.parameters.colour = $("#stroke_modal_colour").val();
 }, function(parameter_block){
   parameter_block.html("Colour: " + this.parameters.colour + ", Width: " + this.parameters.width);
 }, {width: 2, colour: "#FFFFFF"});
