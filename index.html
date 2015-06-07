@@ -43,19 +43,105 @@
 
 <!--     Parameter modal -->
 
-<!-- Fill Colour Modal -->
-  <section class="modal--fade" id="jump_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+<!-- Jump Modal -->
+<section class="modal--fade" id="jump_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+    <div class="modal-inner">
+        <div class="modal-content">
+          <div class="modal_title">Jump</div>
+          <div class="block_tip">
+            This block moves the pen to a given position.
+          </div>
+
+          <label for="jump_modal_x">X:</label>
+          <input type="number" id="jump_modal_x" min="0" max="1000" />
+          <label for="jump_modal_y">Y:</label>
+          <input type="number" id="jump_modal_y" min="0" max="1000" />
+        </div>
+        <footer>
+            <a href="#!" class="modal_cancel">Cancel</a>
+            <a href="#!" class="modal_save">Save</a>
+       </footer>
+    </div>
+
+    <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">?</a>
+</section>
+
+<!-- Move Modal -->
+<section class="modal--fade" id="move_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+    <div class="modal-inner">
+        <div class="modal-content">
+          <div class="modal_title">Jump</div>
+          <div class="block_tip">
+            This block moves the pen a certain amount in the direction it is facing.
+          </div>
+
+          <label for="move_modal_x">Distance:</label>
+          <input type="number" id="move_modal_dist" min="0" max="1000" />
+        </div>
+        <footer>
+            <a href="#!" class="modal_cancel">Cancel</a>
+            <a href="#!" class="modal_save">Save</a>
+       </footer>
+    </div>
+
+    <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">?</a>
+</section>
+
+<!-- Rotate Modal -->
+<section class="modal--fade" id="rotate_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+    <div class="modal-inner">
+        <div class="modal-content">
+          <div class="modal_title">Jump</div>
+          <div class="block_tip">
+            This block rotates the pen a given amount
+          </div>
+
+          <label for="rotate_modal_theta">Angle:</label>
+          <input type="number" id="rotate_modal_theta" min="0" max="360" />
+        </div>
+        <footer>
+            <a href="#!" class="modal_cancel">Cancel</a>
+            <a href="#!" class="modal_save">Save</a>
+       </footer>
+    </div>
+
+    <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">?</a>
+</section>
+
+<!-- Stroke Modal -->
+<section class="modal--fade" id="stroke_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+    <div class="modal-inner">
+        <div class="modal-content">
+          <div class="modal_title">Jump</div>
+          <div class="block_tip">
+            This block sets the colour and size of the pen
+          </div>
+
+          <label for="stroke_modal_width">Stroke Width:</label>
+          <input type="number" id="stroke_modal_width" min="0" max="30" />
+
+          <label for="stroke_modal_colour">Stroke Colour:</label>
+          <input type="color" id="stroke_modal_colour" />
+        </div>
+        <footer>
+            <a href="#!" class="modal_cancel">Cancel</a>
+            <a href="#!" class="modal_save">Save</a>
+       </footer>
+    </div>
+
+    <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">?</a>
+</section>
+
+  <!-- Fill Colour Modal -->
+  <section class="modal--fade" id="fill_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
       <div class="modal-inner">
           <div class="modal-content">
-            <div class="modal_title">Jump</div>
+            <div class="modal_title">Fill</div>
             <div class="block_tip">
-              This block moves the pen to a given position.
+              This block sets the colour that shapes are filled in with!
             </div>
 
-            <label for="jump_modal_x">X:</label>
-            <input type="number" id="jump_modal_x" min="0" max="1000" />
-            <label for="jump_modal_y">Y:</label>
-            <input type="number" id="jump_modal_y" min="0" max="1000" />
+            <input type="color" class="colour_picker" id="fill_modal_colour_picker" />
           </div>
           <footer>
               <a href="#!" class="modal_cancel">Cancel</a>
@@ -66,25 +152,71 @@
       <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">?</a>
   </section>
 
-  <!-- Fill Colour Modal -->
-    <section class="modal--fade" id="fill_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
-        <div class="modal-inner">
-            <div class="modal-content">
-              <div class="modal_title">Fill</div>
-              <div class="block_tip">
-                This block sets the colour that shapes are filled in with!
-              </div>
-
-              <input type="color" class="colour_picker" id="fill_modal_colour_picker" />
+  <!-- Rectangle Modal -->
+  <section class="modal--fade" id="rectangle_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+      <div class="modal-inner">
+          <div class="modal-content">
+            <div class="modal_title">Rectangle</div>
+            <div class="block_tip">
+              Draws a rectangle, with top-left corner at the current pen position
             </div>
-            <footer>
-                <a href="#!" class="modal_cancel">Cancel</a>
-                <a href="#!" class="modal_save">Save</a>
-           </footer>
-        </div>
 
-        <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">?</a>
-    </section>
+            <label for="circle_modal_radius">Width: </label>
+            <input type="number" id="rect_modal_width" />
+
+            <label for="circle_modal_radius">Height: </label>
+            <input type="number" id="rect_modal_height" />
+          </div>
+          <footer>
+              <a href="#!" class="modal_cancel">Cancel</a>
+              <a href="#!" class="modal_save">Save</a>
+         </footer>
+      </div>
+
+      <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">?</a>
+  </section>
+
+  <!-- Circle Modal -->
+  <section class="modal--fade" id="circle_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+      <div class="modal-inner">
+          <div class="modal-content">
+            <div class="modal_title">Circle</div>
+            <div class="block_tip">
+              This block draws a circle, centered on the current pen position
+            </div>
+
+            <label for="circle_modal_radius">Radius: </label>
+            <input type="number" id="circle_modal_radius" />
+          </div>
+          <footer>
+              <a href="#!" class="modal_cancel">Cancel</a>
+              <a href="#!" class="modal_save">Save</a>
+         </footer>
+      </div>
+
+      <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">?</a>
+  </section>
+
+  <!-- Loop Modal -->
+  <section class="modal--fade" id="loop_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+      <div class="modal-inner">
+          <div class="modal-content">
+            <div class="modal_title">Loop</div>
+            <div class="block_tip">
+              This block executes its contents a fixed number of times
+            </div>
+
+            <label for="loop_modal_times">Times:</label>
+            <input type="number" id="loop_modal_times" />
+          </div>
+          <footer>
+              <a href="#!" class="modal_cancel">Cancel</a>
+              <a href="#!" class="modal_save">Save</a>
+         </footer>
+      </div>
+
+      <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">?</a>
+  </section>
 
 
         <div class="left-side">

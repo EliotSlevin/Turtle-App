@@ -66,7 +66,7 @@ function draw_execution_pane(){
 
   $(".parameter").click(function(){
     parameters.current_editing = $(this).parent().data('execution_pane_reference');
-    parameters.current_editing.events.on_open_modal();
+    parameters.current_editing.on_open_modal();
     window.location.hash = $(this).parent().data('execution_pane_reference').modal_id;
   });
 }
@@ -80,8 +80,8 @@ function draw_execution_pane(){
 function draw_normal_code_block(parent_dom_object, parent_block_array, index){
   var block = parent_block_array[index];
   var codeblock_div = $(block.palette_id).clone();
-  if(typeof block.events.on_draw_parameters !== "undefined"){
-    block.events.on_draw_parameters(block, codeblock_div.children(".parameter"));
+  if(typeof block.on_draw_parameters !== "undefined"){
+    block.on_draw_parameters(codeblock_div.children(".parameter"));
   }
   block.dom_element = codeblock_div;
   codeblock_div.removeAttr("id");//Prevents destroying our DOM by having multiple element with the same ID
@@ -126,8 +126,8 @@ function draw_multi_code_block(parent_dom_object, parent_block_array, index){
   var block = parent_block_array[index];
   var multiblock_div = $(block.palette_id).clone();
 
-  if(typeof block.events.on_draw_parameters !== "undefined"){
-    block.events.on_draw_parameters(block, multiblock_div.children(".parameter"));
+  if(typeof block.on_draw_parameters !== "undefined"){
+    block.on_draw_parameters(multiblock_div.children(".parameter"));
   }
 
   multiblock_div.removeAttr("id");
@@ -189,7 +189,7 @@ function drop_on(dropped, dropped_on, parent_block, index){
     var palette_index = Number(dropped.attr("code_palette_index"));
     var template = palette.blocks[palette_index];
     var existing_block = dropped.data('block_ref');
-    var new_execution_block = (existing_block ? existing_block['0'] : new CodeBlock(template.name, template.palette_id, template.modal_id, template.action, template.events.on_open_modal, template.events.on_close_modal, template.events.on_draw_parameters, template.default_parameters, template.multi_block));
+    var new_execution_block = (existing_block ? existing_block['0'] : new CodeBlock(template.name, template.palette_id, template.modal_id, template.action, template.on_open_modal, template.on_close_modal, template.on_draw_parameters, template.default_parameters, template.multi_block));
     new_execution_block.palette_index = palette_index;
     if(typeof index === "undefined"){
       if(!parent_block)return;

@@ -11,10 +11,9 @@ var CodeBlock = function(name, palette_id, modal_id, action, on_open_modal, on_c
   this.default_parameters = default_parameters;
   this.parameters = jQuery.extend(true, {}, this.default_parameters);//Deep clone of the default parameters
 
-  this.events = {};
-  this.events.on_open_modal = on_open_modal;
-  this.events.on_close_modal = on_close_modal;
-  this.events.on_draw_parameters = draw_parameters;
+  this.on_open_modal = on_open_modal;
+  this.on_close_modal = on_close_modal;
+  this.on_draw_parameters = draw_parameters;
 
   if(this.multi_block){
     this.blocks = [];//Initialise the contents if we are a multiblocks
@@ -34,8 +33,8 @@ var jump = new CodeBlock("jump", "#jump", "jump_modal", function(drawing_context
 }, function(){
   parameters.current_editing.parameters.x = $("#jump_modal_x").val();
   parameters.current_editing.parameters.y = $("#jump_modal_y").val();
-}, function(self, parameter_block){
-  parameter_block.html("X: " + self.parameters.x + ", Y: " + self.parameters.y);
+}, function(parameter_block){
+  parameter_block.html("X: " + this.parameters.x + ", Y: " + this.parameters.y);
 }, {x: 100, y: 100});
 
 var move = new CodeBlock("move", "#move", "move_modal", function(drawing_context, canvas, next){
@@ -51,16 +50,26 @@ var move = new CodeBlock("move", "#move", "move_modal", function(drawing_context
     drawing_context.pen_y += this.parameters.distance * Math.cos(drawing_context.pen_angle * (Math.PI / 180));
     next();
   }
-}, function(){}, function(){},
-function(self, parameter_block){
-  parameter_block.html(self.parameters.distance + " px");
+}, function(){
+  $("#move_modal_dist").val(this.parameters.distance);
+}, function(){
+  this.parameters.distance = $("#move_modal_dist").val();
+},
+function(parameter_block){
+  parameter_block.html(this.parameters.distance + " px");
 }, {distance: 50});
 
 var rotate = new CodeBlock("rotate", "#rotate", "rotate_modal", function(drawing_context, canvas, next){
   drawing_context.pen_angle += this.parameters.theta;
+  console.log("Rotate " + this.parameters.theta);
+  console.log(drawing_context.pen_angle);
   next();
-}, function(){}, function(){}, function(self, parameter_block){
-  parameter_block.html(self.parameters.theta + "°");
+}, function(){//On Open Modal
+  $("#rotate_modal_theta").val(this.parameters.theta);
+}, function(){//On Close Modal
+    this.parameters.theta = Number($("#rotate_modal_theta").val());
+}, function(parameter_block){//On Draw Parameters
+  parameter_block.html(this.parameters.theta + "°");
 }, {theta: 0});
 
 var pen_down = new CodeBlock("pen_down", "#pen_down", "__invalid__", function(drawing_context, canvas, next){
@@ -77,8 +86,14 @@ var set_stroke = new CodeBlock("set_stroke", "#set_stroke", "stroke_modal", func
   drawing_context.stroke_color = this.parameters.colour;
   drawing_context.stoke_weight = this.parameters.width;
   next();
-}, function(){}, function(){}, function(self, parameter_block){
-  parameter_block.html("Colour: " + self.parameters.colour + ", Width: " + self.parameters.width);
+}, function(){
+  $("#stroke_modal_width").val(this.parameters.width);
+  $("#stroke_modal_colour").val(this.parameters.colour);
+}, function(){
+  this.parameters.width = Number($("#stroke_modal_width").val());
+  this.parameters.colour = Number($("#stroke_modal_colour").val());
+}, function(parameter_block){
+  parameter_block.html("Colour: " + this.parameters.colour + ", Width: " + this.parameters.width);
 }, {width: 2, colour: "#FFFFFF"});
 
 var set_fill = new CodeBlock("set_fill", "#set_fill", "fill_modal",  function(drawing_context, canvas, next){
@@ -88,23 +103,33 @@ var set_fill = new CodeBlock("set_fill", "#set_fill", "fill_modal",  function(dr
   $("#fill_modal_colour_picker").val(parameters.current_editing.parameters.colour);
 }, function(){
   parameters.current_editing.parameters.colour = $("#fill_modal_colour_picker").val();
-}, function(self, parameter_block){
-  parameter_block.html(self.parameters.colour);
+}, function(parameter_block){
+  parameter_block.html(this.parameters.colour);
 }, {colour: "#FFFFFF"});
 
 //Draw a circle
 var circle = new CodeBlock("circle", "#circle", "circle_modal", function(drawing_context, canvas, next){
   draw_ellipse(canvas, drawing_context.pen_x, drawing_context.pen_y, this.parameters.width, this.parameters.width, next, drawing_context);
-}, function(){}, function(){}, function(self, parameter_block){
-  parameter_block.html("Radius: " + self.parameters.width + " px");
+}, function(){
+  $("#circle_modal_radius").val(this.parameters.width);
+}, function(){
+  this.parameters.width = Number($("#circle_modal_radius").val());
+}, function(parameter_block){
+  parameter_block.html("Radius: " + this.parameters.width + " px");
 }, {width: 100});
 
-//Draw a square
+//Draw a rectangle
 var rectangle = new CodeBlock("rectangle", "#rectangle", "rectangle_modal", function(drawing_context, canvas, next){
   console.log("Rectangle");
   draw_rect(canvas, drawing_context.pen_x, drawing_context.pen_y, this.parameters.width, this.parameters.height, next, drawing_context);
-}, function(){}, function(){}, function(self, parameter_block){
-  parameter_block.html("Width: " + self.parameters.width + ", Height: " + self.parameters.height);
+}, function(){
+  $("#rect_modal_width").val(this.parameters.width);
+  $("#rect_modal_height").val(this.parameters.height);
+}, function(){
+  this.parameters.width = Number($("#rect_modal_width").val());
+  this.parameters.height = Number($("#rect_modal_height").val());
+}, function(parameter_block){
+  parameter_block.html("Width: " + this.parameters.width + ", Height: " + this.parameters.height);
 }, {width: 100, height: 100});
 
 //Loop 5 times
@@ -129,10 +154,14 @@ var loop = new CodeBlock("loop", "#loop", "loop_modal", function(drawing_context
       run_next_block();
     });
   }
-  if(self.blocks.length > i)run_next_block();
+  if(this.blocks.length > i)run_next_block();
   else next();
-}, function(){}, function(){}, function(self, parameter_block){
-  parameter_block.html(self.parameters.max + " times");
+}, function(){
+  $("#loop_modal_times").val(this.parameters.max);
+}, function(){
+  this.parameters.max = Number($("#loop_modal_times").val());
+}, function(parameter_block){
+  parameter_block.html(this.parameters.max + " times");
 }, {max: 5}, true);
 
 /**
