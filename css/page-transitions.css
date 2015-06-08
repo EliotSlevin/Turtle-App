@@ -3,8 +3,8 @@ html, body {
 	overflow: hidden;
 	background-color: black;
 	margin: 0px;
-	font-family: sans-serif;
-	font-size: 16px;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 18px;
 	line-height: 1.33;
 	color: rgba(0, 0, 0, 0.8);
 

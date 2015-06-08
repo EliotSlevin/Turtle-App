@@ -16,6 +16,7 @@
 
     <!-- External resources -->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,700' rel='stylesheet' type='text/css'>
 </head>
 
 </head>
@@ -227,56 +228,80 @@
             <div class="palette">
 
                 <div class="command" id="loop">
-                    <div class="name">Loop</div>
+                    <img src="img/left-cap-pink.svg" class="cap">
+                    <div class="name pink">Loop</div>
                     <div class="parameter">Times</div>
-                </div>
-
-                <div class="command" id="jump">
-                     <div class="name">Jump To</div>
-                    <div class="parameter">Position</div>
+                    <img src="img/right-cap.svg" class="cap">
                 </div>
 
                 <hr>
 
-                <div class="command" id="move">
-                    <div class="name">Move</div>
+                <div class="command blue" id="move">
+                    <img src="img/left-cap-blue.svg" class="cap">
+                    <div class="name"><i class="fa fa-arrow-up"></i> Move</div>
                     <div class="parameter">Distance</div>
+                    <img src="img/right-cap.svg" class="cap">
                 </div>
-                <div class="command" id="rotate">
-                    <div class="name">Rotate</div>
+
+
+                <div class="command blue" id="rotate">
+                    <img src="img/left-cap-blue.svg" class="cap">
+                    <div class="name"><i class="fa fa-repeat"></i>Rotate</div>
                     <div class="parameter">Angle</div>
+                    <img src="img/right-cap.svg" class="cap">
+                </div>
+
+
+                <div class="command blue" id="jump">
+                    <img src="img/left-cap-blue.svg" class="cap">
+                    <div class="name">Jump To</div>
+                    <div class="parameter">Position</div>
+                    <img src="img/right-cap.svg" class="cap">
                 </div>
 
                 <hr>
 
-                <div class="command" id="pen_down">
+                <div class="command green" id="pen_down">
+                    <img src="img/left-cap-green.svg" class="cap">
                     <div class="name">Pen Down</div>
+                    <img src="img/right-cap-green.svg" class="cap">
                 </div>
-                <div class="command" id="pen_up">
+
+                <div class="command green" id="pen_up">
+                    <img src="img/left-cap-green.svg" class="cap">
                     <div class="name">Pen Up</div>
+                    <img src="img/right-cap-green.svg" class="cap">
                 </div>
-                <div class="command" id="circle">
-                    <div class="name">Draw Circle</div>
+
+                <div class="command green" id="circle">
+                    <img src="img/left-cap-green.svg" class="cap">
+                    <div class="name"><i class="fa fa-circle"></i> Draw Circle</div>
                     <div class="parameter">Radius</div>
+                    <img src="img/right-cap.svg" class="cap">
                 </div>
-                <div class="command" id="triangle">
-                    <div class="name">Draw Triangle</div>
-                    <div class="parameter">Radius</div>
-                </div>
-                <div class="command" id="rectangle">
-                    <div class="name">Draw Rectangle</div>
+
+                <div class="command green" id="rectangle">
+                    <img src="img/left-cap-green.svg" class="cap">
+                    <div class="name"><i class="fa fa-square"></i>Draw Rect</div>
                     <div class="parameter">Width, Height</div>
+                    <img src="img/right-cap.svg" class="cap">
                 </div>
+               
 
                 <hr>
 
-                <div class="command" id="set_stroke">
-                    <div class="name">Set Stroke</div>
+                <div class="command orange" id="set_stroke">
+                    <img src="img/left-cap-orange.svg" class="cap">
+                    <div class="name"><i class="fa fa-circle-thin"></i>Set Stroke</div>
                     <div class="parameter">Color, Weight</div>
+                    <img src="img/right-cap.svg" class="cap">
                 </div>
-                <div class="command" id="set_fill">
-                    <div class="name">Set fill</div>
+
+                <div class="command orange" id="set_fill">
+                    <img src="img/left-cap-orange.svg" class="cap">
+                    <div class="name"><i class="fa fa-circle"></i>Set Fill</div>
                     <div class="parameter">Color</div>
+                    <img src="img/right-cap.svg" class="cap">
                 </div>
             </div>
 
@@ -286,7 +311,6 @@
                 <div id="play_button">Run Pin<i class="fa fa-play"></i></div>
                 <div>Debug <i class="fa fa-bug"></i></div>
                 <div id="backwards">Back <i class="fa fa-arrow-right"></i></div>
-                <div> <a href="#modal">Modal</a></div>
 
             </div>
             <div class="program"> </div>
