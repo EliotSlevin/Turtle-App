@@ -76,6 +76,7 @@ function recompose_block(server_block){
   **/
 serverside.save_sketch = function(name){
   if(name)current_sketch.name = name;
+
   serverside.post_sketch(function(data){
     var sketch = data.sketch;
     console.log(data);
@@ -190,7 +191,15 @@ serverside.post_sketch = function(success, error){
     sendBlob.uuid = localStorage.uuid;
     sendBlob.token = token;
 
-    $.post(serverside.to_abs_url("/sketches"), $.param(sendBlob)).done(function(data){success(JSON.parse(data));}).error(error);
+    if(current_sketch.online_sketch_id !== null){
+      $.ajax(serverside.to_abs_url("/sketches/" + current_sketch.online_sketch_id), {
+        method: "PUT",
+        data: $.param(sendBlob)
+      }).done(function(data){success(JSON.parse(data));}).error(error);
+    }
+    else{
+      $.post(serverside.to_abs_url("/sketches"), $.param(sendBlob)).done(function(data){success(JSON.parse(data));}).error(error);
+    }
   });
 }
 
