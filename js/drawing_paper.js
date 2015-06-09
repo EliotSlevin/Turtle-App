@@ -43,7 +43,6 @@ function draw_line(canvas, start_x, start_y, end_x, end_y, next, image_context){
   var path = new paper.Path();
   path.strokeColor = image_context.stroke_colour;
   path.strokeWidth = image_context.stroke_weight;
-  console.log(path.strokeWidth);
   path.fillColor = image_context.fill_colour;
   path.amount = 0;
   path.alpha = 0;

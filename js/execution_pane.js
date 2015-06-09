@@ -51,7 +51,7 @@ function draw_execution_pane(){
   var parent_dom_element = $(".program");
   //Construct Execution Pane DOM
   parent_dom_element.html("");
-  console.log("Rendering " + execution_pane.blocks.length + " blocks in execution pane");
+  parent_dom_element.append(createSpacer(execution_pane, -1));//Droppable for between blocks (pretty hacky, yeah)
   for(var i = 0;i < execution_pane.blocks.length;i ++){
     var block = execution_pane.blocks[i];
     if(block.multi_block){
@@ -96,7 +96,7 @@ function draw_normal_code_block(parent_dom_object, parent_block_array, index){
   codeblock_div.draggable({helper: function(){
     var block =  parent_block_array.splice(index, 1);
     return codeblock_div.data('block_ref', block);
-  }, scroll:false, zindex: 2500, appendTo: "body"});
+  }, stop: function(){execution_pane.draw();}, scroll:false, zindex: 2500, appendTo: "body"});
 
   if(parent_dom_object)parent_dom_object.append(codeblock_div);
   else return codeblock_div;
@@ -112,10 +112,12 @@ function createSpacer(parent_block, i){
     greedy:true,
     over: function(){
       $(this).addClass("execution_pane_spacer_highlight");
+      //Need to check whether $(this).parent().parent() is actually droppable
       $(this).parent().parent().droppable("disable");
     },
     out: function(){
       $(this).removeClass("execution_pane_spacer_highlight");
+      //Need to check whether $(this).parent().parent() is actually droppable
       $(this).parent().parent().droppable("enable");
     },
     drop: on_drop_on_spacer
@@ -156,7 +158,7 @@ function draw_multi_code_block(parent_dom_object, parent_block_array, index){
   multiblock_div.draggable({helper: function(){
     var block = parent_block_array.splice(index, 1);
     return multiblock_div.data('block_ref', block);
-  }, scroll:false, zindex: 2500, appendTo: "body"});
+  }, stop: function(){execution_pane.draw();}, scroll:false, zindex: 2500, appendTo: "body"});
 
   multiblock_div.append(contents_div);
 
@@ -165,7 +167,6 @@ function draw_multi_code_block(parent_dom_object, parent_block_array, index){
 }
 
 function on_drop_on_spacer(event, ui){
-  console.log("Drop on spacer");
   drop_on(ui.draggable, $(this).parent(), $(this).data().parent_block, Number($(this).attr("index")) + 1);
 }
 
@@ -173,7 +174,6 @@ function on_drop_on_spacer(event, ui){
   * Called when a code block is dropped onto the execution pane
   **/
 function on_drop_on_execution_pane(event, ui){
-  console.log("Drop on execution pane");
   drop_on(ui.draggable, $(this), execution_pane);
 }
 
@@ -182,7 +182,6 @@ function on_drop_on_execution_pane(event, ui){
   * execution pane
   **/
 function on_drop_on_multi_block(event, ui){
-  console.log("Drop on multiblock");
   drop_on(ui.draggable, $(this), $(this).data("execution_pane_reference"));
 }
 

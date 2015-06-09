@@ -61,8 +61,6 @@ function(parameter_block){
 
 var rotate = new CodeBlock("rotate", "#rotate", "rotate_modal", function(drawing_context, canvas, next){
   drawing_context.pen_angle += this.parameters.theta;
-  console.log("Rotate " + this.parameters.theta);
-  console.log(drawing_context.pen_angle);
   next();
 }, function(){//On Open Modal
   $("#rotate_modal_theta").val(this.parameters.theta);
@@ -120,7 +118,6 @@ var circle = new CodeBlock("circle", "#circle", "circle_modal", function(drawing
 
 //Draw a rectangle
 var rectangle = new CodeBlock("rectangle", "#rectangle", "rectangle_modal", function(drawing_context, canvas, next){
-  console.log("Rectangle");
   draw_rect(canvas, drawing_context.pen_x, drawing_context.pen_y, this.parameters.width, this.parameters.height, next, drawing_context);
 }, function(){
   $("#rect_modal_width").val(this.parameters.width);
@@ -134,7 +131,6 @@ var rectangle = new CodeBlock("rectangle", "#rectangle", "rectangle_modal", func
 
 //Draw a triangle
 var triangle = new CodeBlock("triangle", "#triangle", "triangle_modal", function(drawing_context, canvas, next){
-  console.log("Triangle");
   draw_triangle(canvas, drawing_context.pen_x, drawing_context.pen_y, this.parameters.radius, next, drawing_context);
 }, function(){
   $("#triangle_modal_radius").val(this.parameters.radius);

@@ -1,18 +1,31 @@
 browser = {};
 
+browser.online = {};
+browser.online.last_fetch_time = 0;
+browser.online.last_fetched_sketches = null;
+
 function renderSketches(data, online){
   var source   = $("#sketch-browser-template").html();
   var template = Handlebars.compile(source);
   var html = template(data);
   $(".sketch-browser").html(html);
   $(".sketch-file").click(function(){
-    if(online)storage.load_local_sketch($(this).attr("data-id"));
-    else serverside.load_sketch($(this).attr("data-id"));
+    if(online)serverside.load_sketch($(this).attr("data-id"));
+    else storage.load_local_sketch($(this).attr("data-id"));
     PageTransitions.nextPage({animation:1});
   });
 }
 
 browser.load_external_sketches = function(offset){
+  if(browser.online.last_fetched_sketches){
+    var diff = Math.floor(Date.now() / 1000) - browser.online.last_fetch_time;
+    if(diff < 300){
+      //If we have fetched in the last 5 minutes, use the cached result
+      renderSketches(browser.online.last_fetched_sketches, true);
+      return;
+    }
+  }
+
   serverside.load_popular_sketches(9, offset, "popular", function(data){
     var dataContext = {sketches:[]};
     for(var i = 0;i < data.sketches.length;i ++){
@@ -24,7 +37,9 @@ browser.load_external_sketches = function(offset){
       });
     }
 
-    console.log(data.sketches);
+    browser.online.last_fetch_time = Math.floor(Date.now() / 1000);
+    browser.online.last_fetched_sketches = dataContext;
+
     renderSketches(dataContext, true);
   });
 
