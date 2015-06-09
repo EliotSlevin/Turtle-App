@@ -204,3 +204,99 @@ function draw_ellipse(canvas, x, y, w, h, next, image_context){
     }
   }
 }
+
+
+/**
+  * Draws the outline and inside of an ellipse, centered on (x, y), with size (w, h).
+  * NOTE: Only looks ok with w === h, i.e. circles. Turns out drawing part of an ellipse is annoying
+  **/
+function draw_triangle(canvas, x, y, radius, next, image_context){
+  /**
+    * Draws a partial border of an ellipse, centered on (x, y), with size (w, h).
+    * The percentage to draw is given by amount
+    **/
+  function make_triangle_path(path, x, y, radius, amount){
+    var total_length = (radius * 3) * (amount / 100);
+    path.moveTo(new paper.Point(x, y));
+
+    if(total_length < radius){
+      var angle = image_context.pen_angle;
+      var dist_x = Math.sin(angle) * total_length;
+      var dist_y = Math.cos(angle) * total_length;
+      path.lineTo(x + dist_x, y + dist_y);
+      return;
+    }
+    else{
+      var angle = image_context.pen_angle;
+      var dist_x = Math.sin(angle) * radius;
+      var dist_y = Math.cos(angle) * radius;
+      path.lineTo(x + dist_x, y + dist_y);
+      x += dist_x;
+      y += dist_y;
+      total_length -= radius;
+    }
+
+    if(total_length < radius){
+      var angle = (image_context.pen_angle + 120) * (Math.PI / 180);
+      var dist_x = Math.sin(angle) * total_length;
+      var dist_y = Math.cos(angle) * total_length;
+      path.lineTo(x + dist_x, y + dist_y);
+      return;
+    }
+    else{
+      var angle = (image_context.pen_angle + 120) * (Math.PI / 180);
+      var dist_x = Math.sin(angle) * radius;
+      var dist_y = Math.cos(angle) * radius;
+      path.lineTo(x + dist_x, y + dist_y);
+      x += dist_x;
+      y += dist_y;
+      total_length -= radius;
+    }
+
+    if(total_length < radius){
+      var angle = (image_context.pen_angle + 240) * (Math.PI / 180);
+      var dist_x = Math.sin(angle) * total_length;
+      var dist_y = Math.cos(angle) * total_length;
+      path.lineTo(x + dist_x, y + dist_y);
+      return;
+    }
+    else{
+      var angle = (image_context.pen_angle + 240) * (Math.PI / 180);
+      var dist_x = Math.sin(angle) * radius;
+      var dist_y = Math.cos(angle) * radius;
+      path.lineTo(x + dist_x, y + dist_y);
+      x += dist_x;
+      y += dist_y;
+      total_length -= radius;
+    }
+  }
+
+  var path = new paper.Path();
+  path.strokeColor = image_context.stroke_colour;
+  path.strokeWidth = image_context.stroke_weight;
+  make_triangle_path(path, x, y, radius, 0);
+  path.amount = 0;
+  path.completed = false;
+  path.alpha = 0;
+  path.onFrame = function(){
+    //If we are still drawing the outside
+    if(path.amount < 100){
+      path.removeSegments();
+      make_triangle_path(path, x, y, radius, path.amount += image_context.speed);
+      paper.view.draw();
+    }
+    //If we are drawing the inside
+    if(!path.completed && path.amount >= 100){
+      path.alpha += image_context.speed * 5;
+      path.alpha = Math.min(path.alpha, 255);
+      var color = image_context.fill_colour._components;
+      path.fillColor = new paper.Color(color[0], color[1], color[2], path.alpha / 255.);
+
+      //Call next when done
+      if(path.alpha == 255){
+        if(next)next();
+        path.completed = true;
+      }
+    }
+  }
+}

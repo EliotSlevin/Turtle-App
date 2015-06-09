@@ -198,6 +198,27 @@
       <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">?</a>
   </section>
 
+  <!-- Triangle Modal -->
+  <section class="modal--fade" id="triangle_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+      <div class="modal-inner">
+          <div class="modal-content">
+            <div class="modal_title">Triangle</div>
+            <div class="block_tip">
+              This block draws an equilateral triangle
+            </div>
+
+            <label for="circle_modal_radius">Radius: </label>
+            <input type="number" id="triangle_modal_radius" />
+          </div>
+          <footer>
+              <a href="#!" class="modal_cancel">Cancel</a>
+              <a href="#!" class="modal_save">Save</a>
+         </footer>
+      </div>
+
+      <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">?</a>
+  </section>
+
   <!-- Loop Modal -->
   <section class="modal--fade" id="loop_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
       <div class="modal-inner">
@@ -280,13 +301,20 @@
                     <img src="img/right-cap.svg" class="cap">
                 </div>
 
+                <div class="command green" id="triangle">
+                    <img src="img/left-cap-green.svg" class="cap">
+                    <div class="name"><i class="fa fa-circle"></i> Draw Triangle</div>
+                    <div class="parameter">Radius</div>
+                    <img src="img/right-cap.svg" class="cap">
+                </div>
+
                 <div class="command green" id="rectangle">
                     <img src="img/left-cap-green.svg" class="cap">
                     <div class="name"><i class="fa fa-square"></i>Draw Rect</div>
                     <div class="parameter">Width, Height</div>
                     <img src="img/right-cap.svg" class="cap">
                 </div>
-               
+
 
                 <hr>
 

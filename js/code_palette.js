@@ -132,6 +132,18 @@ var rectangle = new CodeBlock("rectangle", "#rectangle", "rectangle_modal", func
   parameter_block.html("Width: " + this.parameters.width + ", Height: " + this.parameters.height);
 }, {width: 100, height: 100});
 
+//Draw a triangle
+var triangle = new CodeBlock("triangle", "#triangle", "triangle_modal", function(drawing_context, canvas, next){
+  console.log("Triangle");
+  draw_triangle(canvas, drawing_context.pen_x, drawing_context.pen_y, this.parameters.radius, next, drawing_context);
+}, function(){
+  $("#triangle_modal_radius").val(this.parameters.radius);
+}, function(){
+  this.parameters.radius = $("#triangle_modal_radius").val();
+}, function(parameter_block){
+  parameter_block.html("Radius: " + this.parameters.radius);
+}, {radius: 100});
+
 //Loop 5 times
 var loop = new CodeBlock("loop", "#loop", "loop_modal", function(drawing_context, canvas, next){
   var self = this;
@@ -193,7 +205,8 @@ palette = {
     set_fill,
     circle,
     rectangle,
-    loop
+    loop,
+    triangle
   ],
   init: init_palette
 };
