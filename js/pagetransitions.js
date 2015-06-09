@@ -20,9 +20,8 @@ var PageTransitions = (function() {
 		support = Modernizr.cssanimations;
 
 	function init() {
-
-
 		$( "#forward" ).click(function() {
+			execution_pane.clear();
 			var options = {animation: 1};
 			nextPage(options);
 		});
@@ -32,15 +31,12 @@ var PageTransitions = (function() {
 			nextPage(options);
 		});
 
-
 		$pages.each( function() {
 			var $page = $( this );
 			$page.data( 'originalClassList', $page.attr( 'class' ) );
 		} );
 
 		$pages.eq( current ).addClass( 'pt-page-current' );
-
-
 	}
 
 	function nextPage(options) {
@@ -84,8 +80,6 @@ var PageTransitions = (function() {
 				outClass = 'pt-page-reverseMoveFromLeft pt-page-ontop';
 				inClass = 'pt-page-reverseFade';
 				break;
-
-
 		}
 
 		$currPage.addClass( outClass ).on( animEndEventName, function() {

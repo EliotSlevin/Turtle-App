@@ -30,6 +30,6 @@ browser.renderSketches = function() {
     $(".sketch-browser").html(html);
     $(".sketch-file").click(function(){
       storage.load_local_sketch($(this).attr("data-id"));
-      $( "#forward" ).click();
+      PageTransitions.nextPage({animation:1});
     });
 };

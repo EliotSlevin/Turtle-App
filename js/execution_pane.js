@@ -35,6 +35,12 @@ function run_execution(canvas){
   run_next_block();
 }
 
+function clear(){
+  execution_pane.blocks = [];
+  current_sketch = {name: "new_sketch", online_sketch_id: null, local_sketch_id: Number(localStorage.sketch_counter)};
+  execution_pane.draw();
+}
+
 /**
   * Constructs the DOM of the execution pane
   **/
@@ -207,5 +213,6 @@ execution_pane = {
   blocks: [],
   init: init_execution_pane,
   run : run_execution,
-  draw: draw_execution_pane
+  draw: draw_execution_pane,
+  clear: clear
 };
