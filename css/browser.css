@@ -3,13 +3,13 @@
   	overflow-y: scroll;
   	-webkit-overflow-scrolling: touch;
   	padding-top: 4em;
-  	
+
 }
 
 .sketch-file{
 	width: 33.33%;
 	float: left;
-	
+
 	padding: 1em;
 }
 
@@ -47,12 +47,14 @@
 	background-color: #D1D1D1;
 	padding: 10px;
 	float: left;
-
 }
 
-.pills div:first-child{
-	border-top-left-radius: 5px;
-	border-bottom-left-radius: 5px;
+.pills div:nth-child(1){
+		border-top-left-radius: 5px;
+		border-bottom-left-radius: 5px;
+}
+
+.pills div.tab_selected{
 	color: white;
 	background-color: #676767;
 }

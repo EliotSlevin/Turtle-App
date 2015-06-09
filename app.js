@@ -30,7 +30,7 @@ $(document).ready(function() {
       current_sketch.local_sketch_id = Number(localStorage.sketch_counter);
     }
 
-    browser.renderSketches();
+    browser.load_local_sketches(0);
 
     var canvas = paper.setup(document.getElementById("paper_canvas"));
     init_drawing(canvas);
@@ -38,6 +38,18 @@ $(document).ready(function() {
     $("#play_button").click(function(){
       execution_pane.run(canvas);
     });
+
+    $("#popular_button").click(function(){
+      $(".tab_selected").removeClass("tab_selected");
+      $(this).addClass("tab_selected");
+      browser.load_external_sketches(0);
+    });
+
+    $("#my_pins_button").click(function(){
+      $(".tab_selected").removeClass("tab_selected");
+      $(this).addClass("tab_selected");
+      browser.load_local_sketches(0);
+    })
 
     window.location.hash = ''
     parameters.init_parameters();

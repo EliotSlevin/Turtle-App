@@ -107,6 +107,10 @@ serverside.load_sketches_by_user = function(user, num, success, error){
   $.get(serverside.to_abs_url("/sketches/" + user + "/" + num)).done(function(data){success($.parseJSON(data));}).error(error);
 }
 
+serverside.load_popular_sketches = function(num, offset, sorting_mech, success, error){
+  $.get(serverside.to_abs_url("/sketches/popular/" + sorting_mech + "/" + num + "/" + offset)).done(function(data){success($.parseJSON(data));}).error(error);
+}
+
 /**
   * Loads the sketch identified by the given id
   * as the current sketch
