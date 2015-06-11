@@ -128,7 +128,6 @@
 .command{
 	color: white;
 	display: inline-block;
-	margin-right: 20px;
 }
 
 .cap{
@@ -224,4 +223,10 @@ footer .save{
 
 footer .cancel{
 	background-color: #555;
+}
+
+.status-bar{
+	width: 100%;
+	height: 20px;
+	background-color: red;
 }
