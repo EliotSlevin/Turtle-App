@@ -81,9 +81,9 @@ function draw_rect(canvas, x, y, w, h, next, image_context){
       var current_y = y;
 
       for(var i = 0;i < 4;i ++){
-        var dist = (i % 2 == 0) ? w : h;
+        var dist = (i % 2 == 0) ? h : w;
         dist = Math.min(dist, total_dist);
-        var angle = ((image_context.pen_angle + 90 * i) % 360) * (Math.PI / 180);
+        var angle = ((image_context.pen_angle + 90 * (i+1)) % 360) * (Math.PI / 180);
         var dist_x = Math.cos(angle) * dist;
         var dist_y = Math.sin(angle) * dist;
         path.lineTo(new paper.Point(current_x - dist_x, current_y + dist_y));
