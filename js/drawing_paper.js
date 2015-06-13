@@ -77,45 +77,25 @@ function draw_rect(canvas, x, y, w, h, next, image_context){
   function make_rect_path(path, x, y, w, h, amount){
       path.moveTo(new paper.Point(x, y));
       var total_dist = (w * 2 + h * 2) * amount / 100.;
+      var current_x = x;
+      var current_y = y;
 
-      //Top side
-      if(w > total_dist){
-        path.lineTo(x + total_dist, y);
-        return;
-      }
-      else{
-        path.lineTo(x + w, y);
-        total_dist -= w;
-      }
+      for(var i = 0;i < 4;i ++){
+        var dist = (i % 2 == 0) ? w : h;
+        dist = Math.min(dist, total_dist);
+        var angle = ((image_context.pen_angle + 90 * i) % 360) * (Math.PI / 180);
+        var dist_x = Math.cos(angle) * dist;
+        var dist_y = Math.sin(angle) * dist;
+        path.lineTo(new paper.Point(current_x + dist_x, current_y + dist_y));
 
-      //Right Side
-      if(h > total_dist){
-        path.lineTo(x + w, y + total_dist);
-        return;
-      }
-      else{
-        path.lineTo(x + w, y + h);
-        total_dist -= h;
-      }
-
-      //Bottom Side
-      if(w > total_dist){
-        path.lineTo(x + w - total_dist, y + h);
-        return;
-      }
-      else{
-        path.lineTo(x, y + h);
-        total_dist -= w;
-      }
-
-      //Left Side
-      if(h > total_dist){
-        path.lineTo(x, y + h - total_dist );
-        return;
-      }
-      else{
-        path.lineTo(x, y);
-        total_dist -= h;
+        if(total_dist < dist){
+          break;
+        }
+        else{
+          current_x += dist_x;
+          current_y += dist_y;
+          total_dist -= dist;
+        }
       }
     }
 
@@ -218,52 +198,20 @@ function draw_triangle(canvas, x, y, radius, next, image_context){
     var total_length = (radius * 3) * (amount / 100);
     path.moveTo(new paper.Point(x, y));
 
-    if(total_length < radius){
-      var angle = image_context.pen_angle * (Math.PI / 180);
-      var dist_x = Math.sin(angle) * total_length;
-      var dist_y = Math.cos(angle) * total_length;
+    for(var i = 0;i < 3;i ++){
+      var angle = ((image_context.pen_angle + i * 120) % 360) * (Math.PI / 180);
+      var dist = (total_length < radius) ? total_length : radius;
+      var dist_x = Math.sin(angle) * dist;
+      var dist_y = Math.cos(angle) * dist;
       path.lineTo(x + dist_x, y + dist_y);
-      return;
-    }
-    else{
-      var angle = image_context.pen_angle * (Math.PI / 180);
-      var dist_x = Math.sin(angle) * radius;
-      var dist_y = Math.cos(angle) * radius;
-      path.lineTo(x + dist_x, y + dist_y);
-      x += dist_x;
-      y += dist_y;
-      total_length -= radius;
-    }
-
-    if(total_length < radius){
-      var angle = ((image_context.pen_angle + 120) % 360) * (Math.PI / 180);
-      var dist_x = Math.sin(angle) * total_length;
-      var dist_y = Math.cos(angle) * total_length;
-      path.lineTo(x + dist_x, y + dist_y);
-      return;
-    }
-    else{
-      var angle = ((image_context.pen_angle + 120) % 360) * (Math.PI / 180);
-      var dist_x = Math.sin(angle) * radius;
-      var dist_y = Math.cos(angle) * radius;
-      path.lineTo(x + dist_x, y + dist_y);
-      x += dist_x;
-      y += dist_y;
-      total_length -= radius;
-    }
-
-    if(total_length < radius){
-      var angle = ((image_context.pen_angle + 240) % 360) * (Math.PI / 180);
-      var dist_x = Math.sin(angle) * total_length;
-      var dist_y = Math.cos(angle) * total_length;
-      path.lineTo(x + dist_x, y + dist_y);
-      return;
-    }
-    else{
-      var angle = ((image_context.pen_angle + 240) % 360) * (Math.PI / 180);
-      var dist_x = Math.sin(angle) * radius;
-      var dist_y = Math.cos(angle) * radius;
-      path.lineTo(x + dist_x, y + dist_y);
+      if(total_length < radius){
+        break;
+      }
+      else{
+        x += dist_x;
+        y += dist_y;
+        total_length -= radius;
+      }
     }
   }
 
