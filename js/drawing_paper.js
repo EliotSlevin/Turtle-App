@@ -219,22 +219,23 @@ function draw_triangle(canvas, x, y, radius, next, image_context){
     path.moveTo(new paper.Point(x, y));
 
     if(total_length < radius){
-      var angle = image_context.pen_angle * (Math.PI * 180);
+      var angle = image_context.pen_angle * (Math.PI / 180);
       var dist_x = Math.sin(angle) * total_length;
       var dist_y = Math.cos(angle) * total_length;
       path.lineTo(x + dist_x, y + dist_y);
       return;
     }
     else{
-      var angle = image_context.pen_angle * (Math.PI * 180);
+      var angle = image_context.pen_angle * (Math.PI / 180);
       var dist_x = Math.sin(angle) * radius;
       var dist_y = Math.cos(angle) * radius;
       path.lineTo(x + dist_x, y + dist_y);
       x += dist_x;
       y += dist_y;
+      total_length -= radius;
     }
 
-    if(total_length < 2*radius){
+    if(total_length < radius){
       var angle = ((image_context.pen_angle + 120) % 360) * (Math.PI / 180);
       var dist_x = Math.sin(angle) * total_length;
       var dist_y = Math.cos(angle) * total_length;
@@ -248,9 +249,10 @@ function draw_triangle(canvas, x, y, radius, next, image_context){
       path.lineTo(x + dist_x, y + dist_y);
       x += dist_x;
       y += dist_y;
+      total_length -= radius;
     }
 
-    if(total_length < 3*radius){
+    if(total_length < radius){
       var angle = ((image_context.pen_angle + 240) % 360) * (Math.PI / 180);
       var dist_x = Math.sin(angle) * total_length;
       var dist_y = Math.cos(angle) * total_length;
