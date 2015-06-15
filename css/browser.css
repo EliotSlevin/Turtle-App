@@ -4,6 +4,14 @@
   	-webkit-overflow-scrolling: touch;
 }
 
+.sketch_name{
+	float: left;
+}
+
+.sketch_username{
+	float:right;
+}
+
 .sketch-file{
 	width: 33.33%;
 	float: left;

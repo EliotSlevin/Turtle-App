@@ -33,7 +33,8 @@ browser.load_external_sketches = function(offset){
       dataContext.sketches.push({
         name: sketch.name,
         preview: sketch.preview,
-        sketchid: sketch.sketchid
+        sketchid: sketch.sketchid,
+        username: sketch.username
       });
     }
 
@@ -56,7 +57,8 @@ browser.load_local_sketches = function(offset){
       dataContext.sketches.push({
         name: sketch.sketch_name,
         preview: "data:image/png;base64," + sketch.sketch_demo_blob,
-        sketchid: sketch.local_sketch_id
+        sketchid: sketch.local_sketch_id,
+        username: ""
       });
     }
   }
