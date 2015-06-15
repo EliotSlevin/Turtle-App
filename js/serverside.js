@@ -108,6 +108,38 @@ serverside.load_sketches_by_user = function(user, num, success, error){
   $.get(serverside.to_abs_url("/sketches/" + user + "/" + num)).done(function(data){success($.parseJSON(data));}).error(error);
 }
 
+/**
+  * Searches the users database for users with names similar to the query
+  * @param query - The query to search for
+  * @param num - The number of results to fetch
+  * @param offset - The starting index of the results (num * (page number-1))
+  * @param success - The function to call on success
+  * @param error - The function to call on error
+  **/
+serverside.search_users = function(query, num, offset, success, error){
+  $.get(serverside.to_abs_url("/users/search/" + query + "/" + num + "/" + offset)).done(function(data){success($.parseJSON(data));}).error(error);
+}
+
+/**
+  * Searches the sketches database for sketches with names similar to the query
+  * @param query - The query to search for
+  * @param num - The number of results to fetch
+  * @param offset - The starting index of the results (num * (page number-1))
+  * @param success - The function to call on success
+  * @param error - The function to call on error
+  **/
+serverside.search_sketches = function(query, num, offset, success, error){
+  $.get(serverside.to_abs_url("/sketches/search/" + query + "/" + num + "/" + offset)).done(function(data){success($.parseJSON(data));}).error(error);
+}
+
+/**
+  * Loads an array of the popular sketches, using the given sorting mechanism
+  * @param num - The number of results to fetch
+  * @param offset - The starting index of the results (num * (page number-1))
+  * @param sorting_mech - The sorting mechanism to use. Either 'popular', 'views' or 'new'
+  * @param success - The function to call on success
+  * @param error - The function to call on error
+  **/
 serverside.load_popular_sketches = function(num, offset, sorting_mech, success, error){
   $.get(serverside.to_abs_url("/sketches/popular/" + sorting_mech + "/" + num + "/" + offset)).done(function(data){success($.parseJSON(data));}).error(error);
 }
@@ -125,6 +157,11 @@ serverside.load_sketch = function(id){
       current_sketch.online = true;
       current_sketch.sketchid = data.sketchid;
       current_sketch.author = data.by;
+      if(data.by != localStorage.uuid){
+        current_sketch.online = false;
+        current_sketch.online_sketch_id = null;
+        current_sketch.local_sketch_id = 500;
+      }
       current_sketch.name = data.name;
     },
     function(error){
