@@ -1,11 +1,30 @@
-function init_drawing(canvas){}
+function init_drawing(canvas){
+  paper.turtle_layer = new paper.Layer();
+  paper.turtle_layer.activate();
+  paper.view.turtle = new paper.Raster({source: "img/turtle.jpg"});
+  paper.view.turtle.position = paper.view.center;
+  paper.view.turtle.onLoad = function(){
+    paper.view.turtle.width = 50;
+    paper.view.turtle.height = 50;
+  }
+
+  paper.sketch_layer = new paper.Layer();
+  paper.turtle_layer.bringToFront();
+  paper.sketch_layer.activate();
+}
+
+function move_turtle(x, y){
+  paper.turtle_layer.activate();
+  paper.view.turtle.position = new paper.Point(x, y);
+  paper.sketch_layer.activate();
+}
 
 /**
   * Returns the default state of the sketch,
   * position, angle, colours + speed information about how fast to draw
   **/
 function make_default_context(){
-  return {
+  var context =  {
     pen_x: $("#paper_canvas").width() / 2, //The x position of the pen
     pen_y: $("#paper_canvas").height() / 2, //The y position of the pen
     pen_angle: 0, //The angle of the pen
@@ -14,8 +33,11 @@ function make_default_context(){
     stroke_weight: 2, //The thickness of borders around shapes
     pen_down: true, //Whether then pen will draw on move or not
     speed: 10, //The speed to draw the outline of shapes (Out of 100)
-    alpha_speed: 255 //The speed to draw the inside of shapes (Out of 255)
+    alpha_speed: 255, //The speed to draw the inside of shapes (Out of 255),
+    turtle: paper.view.turtle
   };
+
+  return context;
 }
 
 /**
@@ -36,6 +58,7 @@ function draw_line(canvas, start_x, start_y, end_x, end_y, next, image_context){
     var angle = Math.atan2(dist_x, dist_y);
     var dist_x = Math.sin(angle) * total_dist;
     var dist_y = Math.cos(angle) * total_dist;
+    move_turtle(start_x + dist_x, start_y + dist_y);
 
     path.lineTo(start_x + dist_x, start_y + dist_y);
   }
@@ -94,6 +117,7 @@ function draw_rect(canvas, x, y, w, h, next, image_context){
         else{
           current_x -= dist_x;
           current_y += dist_y;
+          move_turtle(current_x, current_y);
           total_dist -= dist;
         }
       }
@@ -151,6 +175,7 @@ function draw_ellipse(canvas, x, y, w, h, next, image_context){
     var endy = y - h * Math.cos(a);
 
     path.moveTo(x, y - h);
+    move_turtle(endx, endy);
     path.arcTo(new paper.Point(midx, midy), new paper.Point(endx, endy));
   }
 
