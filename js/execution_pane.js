@@ -13,7 +13,17 @@ function init_execution_pane(){
 
 function run_execution(canvas){
   //Clear the canvas
-  canvas.project.activeLayer.removeChildren();
+  paper.turtle_layer.removeChildren();
+  paper.turtle_layer.activate();
+  paper.view.turtle = new paper.Raster({source: "img/turtle.jpg"});
+  paper.view.turtle.position = paper.view.center;
+  paper.view.turtle.onLoad = function(){
+    paper.view.turtle.width = 50;
+    paper.view.turtle.height = 50;
+    run_next_block();
+  }
+  paper.sketch_layer.activate();
+  paper.sketch_layer.removeChildren();
   var context = make_default_context();
 
   //Recurse down the program tree, waiting for each instruction to finish before running the next
@@ -32,7 +42,6 @@ function run_execution(canvas){
     });
   }
   $(".running").removeClass("running");//Clear current running, if it exists
-  run_next_block();
 }
 
 function clear(){

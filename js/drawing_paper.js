@@ -14,15 +14,11 @@ function init_drawing(canvas){
 }
 
 function move_turtle(x, y){
-  paper.turtle_layer.activate();
   paper.view.turtle.position = new paper.Point(x, y);
-  paper.sketch_layer.activate();
 }
 
 function rotate_turtle(theta){
-  paper.turtle_layer.activate();
   paper.view.turtle.rotate(theta);
-  paper.sketch_layer.activate();
 }
 
 /**
