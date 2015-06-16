@@ -46,9 +46,26 @@ var move = new CodeBlock("move", "#move", "move_modal", function(drawing_context
     draw_line(canvas, start_x, start_y, drawing_context.pen_x, drawing_context.pen_y, next, drawing_context);
   }
   else{
-    drawing_context.pen_x += this.parameters.distance * Math.sin(drawing_context.pen_angle * (Math.PI / 180));
-    drawing_context.pen_y += this.parameters.distance * Math.cos(drawing_context.pen_angle * (Math.PI / 180));
-    next();
+    var change = 0;
+    var current_x = drawing_context.pen_x, current_y = drawing_context.pen_y;
+    var self = this;
+    paper.view.turtle.onFrame = function(){
+      console.log(change);
+      if(change >= self.parameters.distance){
+        change = self.parameters.distance;
+        paper.view.turtle.onFrame = undefined;
+        drawing_context.pen_x += self.parameters.distance * Math.sin(drawing_context.pen_angle * (Math.PI / 180));
+        drawing_context.pen_y += self.parameters.distance * Math.cos(drawing_context.pen_angle * (Math.PI / 180));
+        next();
+      }
+      else{
+        var adj_dist = (self.parameters.distance / 100) * drawing_context.speed;
+        change += adj_dist;
+        current_x += adj_dist * Math.sin(drawing_context.pen_angle * (Math.PI / 180));
+        current_y += adj_dist * Math.cos(drawing_context.pen_angle * (Math.PI / 180));
+        move_turtle(current_x, current_y);
+      }
+    }
   }
 }, function(){
   $("#move_modal_dist").val(this.parameters.distance);
@@ -61,7 +78,20 @@ function(parameter_block){
 
 var rotate = new CodeBlock("rotate", "#rotate", "rotate_modal", function(drawing_context, canvas, next){
   drawing_context.pen_angle += this.parameters.theta;
-  next();
+  var change = 0;
+  var self = this;
+  paper.view.turtle.onFrame = function(){
+    console.log(change);
+    if(change >= self.parameters.theta){
+      change = self.parameters.theta;
+      paper.view.turtle.onFrame = undefined;
+      next();
+    }
+    else{
+      change += drawing_context.speed * (self.parameters.theta / 100);
+      rotate_turtle(drawing_context.speed * (self.parameters.theta / 100));
+    }
+  }
 }, function(){//On Open Modal
   $("#rotate_modal_theta").val(this.parameters.theta);
 }, function(){//On Close Modal

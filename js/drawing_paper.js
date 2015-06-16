@@ -19,6 +19,12 @@ function move_turtle(x, y){
   paper.sketch_layer.activate();
 }
 
+function rotate_turtle(theta){
+  paper.turtle_layer.activate();
+  paper.view.turtle.rotate(theta);
+  paper.sketch_layer.activate();
+}
+
 /**
   * Returns the default state of the sketch,
   * position, angle, colours + speed information about how fast to draw
@@ -36,6 +42,8 @@ function make_default_context(){
     alpha_speed: 255, //The speed to draw the inside of shapes (Out of 255),
     turtle: paper.view.turtle
   };
+
+  rotate_turtle(-context.turtle.rotation);
 
   return context;
 }
