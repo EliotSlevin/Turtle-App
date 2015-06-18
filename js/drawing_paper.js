@@ -195,6 +195,7 @@ function draw_ellipse(canvas, x, y, w, h, next, image_context){
     if(path.amount < 100){
       path.removeSegments();
       make_ellipse_path(path, x, y, w, h, path.amount += image_context.speed);
+      rotate_turtle(image_context.speed / 100 * 360);
       paper.view.draw();
     }
     //If we are drawing the inside

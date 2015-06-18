@@ -68,6 +68,7 @@ var move = new CodeBlock("move", "#move", "move_modal", function(drawing_context
     }
   }
 }, function(){
+  $("#move_dist_indic").html(this.parameters.distance);
   $("#move_modal_dist").val(this.parameters.distance);
 }, function(){
   this.parameters.distance = $("#move_modal_dist").val();

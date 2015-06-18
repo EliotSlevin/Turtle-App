@@ -74,13 +74,19 @@
 <section class="modal--fade" id="move_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
     <div class="modal-inner">
         <div class="modal-content">
-          <div class="modal_title">Jump</div>
-          <div class="block_tip">
-            This block moves the pen a certain amount in the direction it is facing.
-          </div>
+          <div class="modal_title">Move forward <span id="move_dist_indic" class="editable_amount">50</span> pixels</div>
 
-          <label for="move_modal_x">Distance:</label>
-          <input type="number" id="move_modal_dist" min="0" max="1000" />
+          <input type="range" class="range_input" id="move_modal_dist" min="0" max="1000" />
+
+
+          <div class="block_tip">
+            <hr>
+            <div class="block_tip_title">About the move block</div>
+            <div class="block_tip_contents">
+              The move block moves the turtle forward a specified amount. If the pen is down, it will draw a line along its
+              path.
+            </div>
+          </div>
         </div>
         <footer>
             <a href="#!" class="modal_cancel">Cancel</a>

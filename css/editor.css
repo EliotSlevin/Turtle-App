@@ -1,8 +1,34 @@
-
 .left-side{
   width: 50%;
   height: calc(100% - 20px);
   float: left;
+}
+
+.modal_title{
+  font-size: 32pt;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.editable_amount{
+  color: blue;
+}
+
+.range_input{
+  width: 100%;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.block_tip{
+  bottom: 0;
+  position: absolute;
+  margin: 30px;
+}
+
+.block_tip_title{
+  font-weight: bold;
+  margin-top: 30px;
 }
 
 .execution_pane_spacer{
@@ -28,7 +54,7 @@
   border-left: 7px solid #f4c1d4;
 }
 
-.multiblock_contents::after { 
+.multiblock_contents::after {
   content: "";
   width: 42px;
   height: 50px;

@@ -6,4 +6,8 @@ parameters.init_parameters = function(){
     parameters.current_editing = null;
     execution_pane.draw();
   });
+
+  $("#move_modal_dist")[0].oninput = function(){
+    $("#move_dist_indic").html($(this).val());
+  };
 }
