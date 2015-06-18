@@ -357,15 +357,14 @@
 </div> <!--end pt main-->
 
 <script id="sketch-browser-template" type="text/x-handlebars-template">
-            {{#each sketches}}
+           {{#each sketches}}
                 <div class="sketch-file" data-id="{{sketchid}}">
-                    <div class="preview-wrapper">
-                        <img src="{{preview}}">
+                    <div class="meta-bar">
+                      <p>{{name}}</p>
+                      <p class="username">{{username}}</p>
                     </div>
-                    <div>
-                      <span class="sketch_name">{{name}}</span>
-                      <span class="sketch_username">{{username}}</span>
-                    </div>
+
+                    <img src="{{preview}}">
                 </div>
             {{/each}}
 </script>

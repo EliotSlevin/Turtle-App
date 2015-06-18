@@ -1,35 +1,64 @@
 .sketch-browser{
 	height: 100%;
+	/*display: flex;
+	  flex-wrap: wrap;
+	  justify-content: center;*/
   	overflow-y: scroll;
   	-webkit-overflow-scrolling: touch;
-}
-
-.sketch_name{
-	float: left;
-}
-
-.sketch_username{
-	float:right;
+  	width: 1024px;
+  	margin-left: auto;
+  	margin-right: auto;
+  	padding-bottom: 260px;
 }
 
 .sketch-file{
-	width: 33.33%;
+	width: 368px;
+	height: 317px;
 	float: left;
+	background-color: black;
+	position: relative;
 
-	padding: 1em;
+	-webkit-clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%, 25% 0%);
+	clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%, 25% 0%);
+	margin: 1em;
+}
+
+.sketch-file:nth-child(3n - 2){
+	position: relative;
+    top: 172px;
+  	margin-right: -76px;
+}
+
+.sketch-file:nth-child(3n){
+	position: relative;
+    top: 172px;
+ 	margin-left: -76px;
 }
 
 .sketch-file img{
 	width: 100%;
 }
 
-.sketch-file .preview-wrapper{
-	width: 100%;
-	min-height: 50%;
-	overflow: hidden;
-	background-color: black;
+
+.sketch-file .meta-bar{
+	height: 70px;
+	background-color: #333333;
+	color: white;
 }
 
+.sketch-file .meta-bar p{
+	text-align: center;
+	font-size: 18px;
+	font-weight: 600;
+	padding-top: 15px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.sketch-file .meta-bar .username{
+	font-weight: 400;
+	padding-top: 0px;
+}
 
 .menu{
 	width: 100%;
@@ -69,8 +98,4 @@
 .pills div:nth-child(2){
 	border-top-right-radius: 5px;
 	border-bottom-right-radius: 5px;
-}
-
-.hidden{
-	display:none;
 }
