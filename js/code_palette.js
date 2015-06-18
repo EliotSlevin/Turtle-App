@@ -94,6 +94,7 @@ var rotate = new CodeBlock("rotate", "#rotate", "rotate_modal", function(drawing
     }
   }
 }, function(){//On Open Modal
+  $("#rotate_angle_indic").html(this.parameters.theta);
   $("#rotate_modal_theta").val(this.parameters.theta);
 }, function(){//On Close Modal
     this.parameters.theta = Number($("#rotate_modal_theta").val());
@@ -196,6 +197,7 @@ var loop = new CodeBlock("loop", "#loop", "loop_modal", function(drawing_context
   if(this.blocks.length > i)run_next_block();
   else next();
 }, function(){
+  $("#loop_times_indic").html(this.parameters.max);
   $("#loop_modal_times").val(this.parameters.max);
 }, function(){
   this.parameters.max = Number($("#loop_modal_times").val());

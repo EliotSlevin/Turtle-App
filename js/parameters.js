@@ -10,4 +10,12 @@ parameters.init_parameters = function(){
   $("#move_modal_dist")[0].oninput = function(){
     $("#move_dist_indic").html($(this).val());
   };
+
+  $("#rotate_modal_theta")[0].oninput = function(){
+    $("#rotate_angle_indic").html($(this).val());
+  }
+
+  $("#loop_modal_times")[0].oninput = function(){
+    $("#loop_times_indic").html($(this).val());
+  }
 }

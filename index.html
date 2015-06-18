@@ -78,7 +78,6 @@
 
           <input type="range" class="range_input" id="move_modal_dist" min="0" max="1000" />
 
-
           <div class="block_tip">
             <hr>
             <div class="block_tip_title">About the move block</div>
@@ -101,13 +100,17 @@
 <section class="modal--fade" id="rotate_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
     <div class="modal-inner">
         <div class="modal-content">
-          <div class="modal_title">Jump</div>
-          <div class="block_tip">
-            This block rotates the pen a given amount
-          </div>
+          <div class="modal_title">Rotate <span id="rotate_angle_indic" class="editable_amount">50</span> degrees</div>
 
-          <label for="rotate_modal_theta">Angle:</label>
-          <input type="number" id="rotate_modal_theta" min="0" max="360" />
+          <input type="range" class="range_input" id="rotate_modal_theta" min="-180" max="180" />
+
+          <div class="block_tip">
+            <hr>
+            <div class="block_tip_title">About the rotate block</div>
+            <div class="block_tip_contents">
+              The rotate block causes the turtle to rotate clockwise a specified amount.
+            </div>
+          </div>
         </div>
         <footer>
             <a href="#!" class="modal_cancel">Cancel</a>
@@ -232,14 +235,19 @@
   <section class="modal--fade" id="loop_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
       <div class="modal-inner">
           <div class="modal-content">
-            <div class="modal_title">Loop</div>
-            <div class="block_tip">
-              This block executes its contents a fixed number of times
-            </div>
+            <div class="modal_title">Loop <span id="loop_times_indic" class="editable_amount">50</span> times</div>
 
-            <label for="loop_modal_times">Times:</label>
-            <input type="number" id="loop_modal_times" />
+            <input type="range" class="range_input" id="loop_modal_times" min="0" max="30" />
+
+            <div class="block_tip">
+              <hr>
+              <div class="block_tip_title">About the loop block</div>
+              <div class="block_tip_contents">
+                The loop block executes its contents a specified amount of times
+              </div>
+            </div>
           </div>
+
           <footer>
               <a href="#!" class="modal_cancel">Cancel</a>
               <a href="#!" class="modal_save">Save</a>
