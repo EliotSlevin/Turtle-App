@@ -16,6 +16,19 @@ function renderSketches(data, online){
   });
 }
 
+function renderUserSketches(data, online){
+  var source   = $("#sketch-browser-template").html();
+  var template = Handlebars.compile(source);
+  var html = template(data);
+  $(".sketch-browser").html(html);
+  $(".sketch-browser").prepend("<div class=\"user-title-bar\"><h2>Usernames's Sketches</h2><i class=\"fa fa-arrow-left\"></i></div>");
+  $(".open-sketch").click(function(){
+    if(online)serverside.load_sketch($(this).parent().attr("data-id"));
+    else storage.load_local_sketch($(this).parent().attr("data-id"));
+    PageTransitions.nextPage({animation:1});
+  });
+}
+
 browser.load_external_sketches = function(offset){
   if(browser.online.last_fetched_sketches){
     var diff = Math.floor(Date.now() / 1000) - browser.online.last_fetch_time;
@@ -67,32 +80,32 @@ browser.load_local_sketches = function(offset){
 }
 
 
-// browser.load_userpage = function(name){
-//   if(browser.online.last_fetched_sketches){
-//     var diff = Math.floor(Date.now() / 1000) - browser.online.last_fetch_time;
-//     if(diff < 300){
-//       //If we have fetched in the last 5 minutes, use the cached result
-//       renderSketches(browser.online.last_fetched_sketches, true);
-//       return;
-//     }
-//   }
+browser.load_userpage = function(offset){
+  if(browser.online.last_fetched_sketches){
+    var diff = Math.floor(Date.now() / 1000) - browser.online.last_fetch_time;
+    if(diff < 300){
+      //If we have fetched in the last 5 minutes, use the cached result
+      renderSketches(browser.online.last_fetched_sketches, true);
+      return;
+    }
+  }
 
-//   serverside.load_popular_sketches(9, offset, "popular", function(data){
-//     var dataContext = {sketches:[]};
-//     for(var i = 0;i < data.sketches.length;i ++){
-//       var sketch = data.sketches[i];
-//       dataContext.sketches.push({
-//         name: sketch.name,
-//         preview: sketch.preview,
-//         sketchid: sketch.sketchid,
-//         username: sketch.username
-//       });
-//     }
+  serverside.load_popular_sketches(9, offset, "popular", function(data){
+    var dataContext = {sketches:[]};
+    for(var i = 0;i < data.sketches.length;i ++){
+      var sketch = data.sketches[i];
+      dataContext.sketches.push({
+        name: sketch.name,
+        preview: sketch.preview,
+        sketchid: sketch.sketchid,
+        username: sketch.username
+      });
+    }
 
-//     browser.online.last_fetch_time = Math.floor(Date.now() / 1000);
-//     browser.online.last_fetched_sketches = dataContext;
+    browser.online.last_fetch_time = Math.floor(Date.now() / 1000);
+    browser.online.last_fetched_sketches = dataContext;
 
-//     renderSketches(dataContext, true);
-//   });
+    renderUserSketches(dataContext, true);
+  });
 
-// }
+}
