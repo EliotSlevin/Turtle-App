@@ -58,6 +58,9 @@ $(document).ready(function() {
 
     window.location.hash = ''
     $("#paper_canvas").removeClass("shown");
+    $("#paper_canvas").click(function(){
+      $(this).removeClass("shown");
+    });
     parameters.init_parameters();
 });
 
