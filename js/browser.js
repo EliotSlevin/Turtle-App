@@ -11,7 +11,7 @@ function renderSketches(data, online){
   $(".sketch-browser").html(html);
   $(".open-sketch").click(function(){
     if(online)serverside.load_sketch($(this).parent().attr("data-id"));
-    else storage.load_local_sketch($(this).parent()attr("data-id"));
+    else storage.load_local_sketch($(this).parent().attr("data-id"));
     PageTransitions.nextPage({animation:1});
   });
 }
