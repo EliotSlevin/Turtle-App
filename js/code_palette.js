@@ -28,8 +28,10 @@ var jump = new CodeBlock("jump", "#jump", "jump_modal", function(drawing_context
   drawing_context.pen_y = this.parameters.y;
   next();
 }, function(){
-  $("#jump_modal_x").val(parameters.current_editing.parameters.x);
-  $("#jump_modal_y").val(parameters.current_editing.parameters.y);
+  $("#jump_modal_x").val(this.parameters.x);
+  $("#jump_modal_y").val(this.parameters.y);
+  $("#jump_x_indic").html(this.parameters.x);
+  $("#jump_y_indic").html(this.parameters.y);
 }, function(){
   parameters.current_editing.parameters.x = $("#jump_modal_x").val();
   parameters.current_editing.parameters.y = $("#jump_modal_y").val();
@@ -50,7 +52,6 @@ var move = new CodeBlock("move", "#move", "move_modal", function(drawing_context
     var current_x = drawing_context.pen_x, current_y = drawing_context.pen_y;
     var self = this;
     paper.view.turtle.onFrame = function(){
-      console.log(change);
       if(change >= self.parameters.distance){
         change = self.parameters.distance;
         paper.view.turtle.onFrame = undefined;
@@ -141,6 +142,7 @@ var set_fill = new CodeBlock("set_fill", "#set_fill", "fill_modal",  function(dr
 var circle = new CodeBlock("circle", "#circle", "circle_modal", function(drawing_context, canvas, next){
   draw_ellipse(canvas, drawing_context.pen_x, drawing_context.pen_y, this.parameters.width, this.parameters.width, next, drawing_context);
 }, function(){
+  $("#circle_rad_indic").html(this.parameters.width);
   $("#circle_modal_radius").val(this.parameters.width);
 }, function(){
   this.parameters.width = Number($("#circle_modal_radius").val());
@@ -154,6 +156,8 @@ var rectangle = new CodeBlock("rectangle", "#rectangle", "rectangle_modal", func
 }, function(){
   $("#rect_modal_width").val(this.parameters.width);
   $("#rect_modal_height").val(this.parameters.height);
+  $("#rect_width_indic").html(this.parameters.width);
+  $("#rect_height_indic").html(this.parameters.height);
 }, function(){
   this.parameters.width = Number($("#rect_modal_width").val());
   this.parameters.height = Number($("#rect_modal_height").val());
@@ -166,6 +170,7 @@ var triangle = new CodeBlock("triangle", "#triangle", "triangle_modal", function
   draw_triangle(canvas, drawing_context.pen_x, drawing_context.pen_y, this.parameters.radius, next, drawing_context);
 }, function(){
   $("#triangle_modal_radius").val(this.parameters.radius);
+  $("#triangle_rad_indic").html(this.parameters.radius);
 }, function(){
   this.parameters.radius = $("#triangle_modal_radius").val();
 }, function(parameter_block){

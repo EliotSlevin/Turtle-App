@@ -51,15 +51,22 @@
 <section class="modal--fade" id="jump_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
     <div class="modal-inner">
         <div class="modal-content">
-          <div class="modal_title">Jump</div>
-          <div class="block_tip">
-            This block moves the pen to a given position.
+          <div class="modal_title">Move the turtle to (<span id="jump_x_indic" class="editable_amount">50</span>, <span id="jump_y_indic" class="editable_amount">50</span>)</div>
+
+          <div class="model_inputs">
+            <label for="jump_modal_x">X:</label>
+            <input type="range" id="jump_modal_x" class="range_input" min="0" max="1000" />
+            <label for="jump_modal_y">Y:</label>
+            <input type="range" id="jump_modal_y" class="range_input" min="0" max="1000" />
           </div>
 
-          <label for="jump_modal_x">X:</label>
-          <input type="number" id="jump_modal_x" min="0" max="1000" />
-          <label for="jump_modal_y">Y:</label>
-          <input type="number" id="jump_modal_y" min="0" max="1000" />
+          <div class="block_tip">
+            <hr>
+            <div class="block_tip_title">About the jump block</div>
+            <div class="block_tip_contents">
+              The jump block moves the turtle to a specified position, without drawing a line inbetween.
+            </div>
+          </div>
         </div>
         <footer>
             <a href="#!" class="modal_cancel">Cancel</a>
@@ -76,7 +83,9 @@
         <div class="modal-content">
           <div class="modal_title">Move forward <span id="move_dist_indic" class="editable_amount">50</span> pixels</div>
 
-          <input type="range" class="range_input" id="move_modal_dist" min="0" max="1000" />
+          <div class="modal_inputs">
+            <input type="range" class="range_input" id="move_modal_dist" min="0" max="1000" />
+          </div>
 
           <div class="block_tip">
             <hr>
@@ -102,7 +111,9 @@
         <div class="modal-content">
           <div class="modal_title">Rotate <span id="rotate_angle_indic" class="editable_amount">50</span> degrees</div>
 
-          <input type="range" class="range_input" id="rotate_modal_theta" min="-180" max="180" />
+          <div class="modal_inputs">
+            <input type="range" class="range_input" id="rotate_modal_theta" min="-180" max="180" />
+          </div>
 
           <div class="block_tip">
             <hr>
@@ -169,16 +180,25 @@
   <section class="modal--fade" id="rectangle_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
       <div class="modal-inner">
           <div class="modal-content">
-            <div class="modal_title">Rectangle</div>
-            <div class="block_tip">
-              Draws a rectangle, with top-left corner at the current pen position
+            <div class="modal_title">Draw a rectangle with width <span id="rect_width_indic" class="editable_amount">50</span> pixels
+            and height <span id="rect_height_indic" class="editable_amount">50</span> pixels</div>
+
+            <div class="modal_inputs">
+              <label for="circle_modal_radius">Width: </label>
+              <input type="range" id="rect_modal_width" class="range_input" />
+
+              <label for="circle_modal_radius">Height: </label>
+              <input type="range" id="rect_modal_height" class="range_input" />
             </div>
 
-            <label for="circle_modal_radius">Width: </label>
-            <input type="number" id="rect_modal_width" />
-
-            <label for="circle_modal_radius">Height: </label>
-            <input type="number" id="rect_modal_height" />
+            <div class="block_tip">
+              <hr>
+              <div class="block_tip_title">About the rectangle block</div>
+              <div class="block_tip_contents">
+                The rectangle block draws a rectangle, of a specified height, starting at the current turtle
+                position.
+              </div>
+            </div>
           </div>
           <footer>
               <a href="#!" class="modal_cancel">Cancel</a>
@@ -193,13 +213,20 @@
   <section class="modal--fade" id="circle_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
       <div class="modal-inner">
           <div class="modal-content">
-            <div class="modal_title">Circle</div>
-            <div class="block_tip">
-              This block draws a circle, centered on the current pen position
+            <div class="modal_title">Draw a circle, with a radius of <span id="circle_rad_indic" class="editable_amount">50</span> pixels</div>
+
+            <div class="modal_inputs">
+              <label for="circle_modal_radius">Radius: </label>
+              <input type="range" class="range_input" id="circle_modal_radius" />
             </div>
 
-            <label for="circle_modal_radius">Radius: </label>
-            <input type="number" id="circle_modal_radius" />
+            <div class="block_tip">
+              <hr>
+              <div class="block_tip_title">About the circle block</div>
+              <div class="block_tip_contents">
+                The circle block draws a circle, centered at the current turtle position, with a specified radius.
+              </div>
+            </div>
           </div>
           <footer>
               <a href="#!" class="modal_cancel">Cancel</a>
@@ -214,13 +241,19 @@
   <section class="modal--fade" id="triangle_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
       <div class="modal-inner">
           <div class="modal-content">
-            <div class="modal_title">Triangle</div>
-            <div class="block_tip">
-              This block draws an equilateral triangle
+            <div class="modal_title">Draw a triangle, with a sides <span id="triangle_rad_indic" class="editable_amount">50</span> pixels long</div>
+
+            <div class="modal_inputs">
+              <input type="range" class="range_input" id="triangle_modal_radius" />
             </div>
 
-            <label for="circle_modal_radius">Radius: </label>
-            <input type="number" id="triangle_modal_radius" />
+            <div class="block_tip">
+              <hr>
+              <div class="block_tip_title">About the triangle block</div>
+              <div class="block_tip_contents">
+                The triangle block draws an equilateral triangle, with all the sides of a specified length.
+              </div>
+            </div>
           </div>
           <footer>
               <a href="#!" class="modal_cancel">Cancel</a>

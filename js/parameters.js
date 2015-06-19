@@ -7,15 +7,21 @@ parameters.init_parameters = function(){
     execution_pane.draw();
   });
 
-  $("#move_modal_dist")[0].oninput = function(){
-    $("#move_dist_indic").html($(this).val());
-  };
+  var links = {};
+  links["#move_modal_dist"] = "#move_dist_indic";
+  links["#rotate_modal_theta"] = "#rotate_angle_indic";
+  links["#loop_modal_times"] = "#loop_times_indic";
+  links["#jump_modal_x"] = "#jump_x_indic";
+  links["#jump_modal_y"] = "#jump_y_indic";
+  links["#rect_modal_width"] = "#rect_width_indic";
+  links["#rect_modal_height"] = "#rect_height_indic";
+  links["#circle_modal_radius"] = "#circle_rad_indic";
+  links["#triangle_modal_radius"] = "#triangle_rad_indic";
 
-  $("#rotate_modal_theta")[0].oninput = function(){
-    $("#rotate_angle_indic").html($(this).val());
-  }
-
-  $("#loop_modal_times")[0].oninput = function(){
-    $("#loop_times_indic").html($(this).val());
+  for(var i in links){
+    var vomda = links[i];
+    $(i)[0].oninput = function(){
+      $(vomda).html($(this).val());
+    }
   }
 }
