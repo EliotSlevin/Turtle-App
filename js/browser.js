@@ -24,7 +24,7 @@ function renderUserSketches(userName,data, online){
   var template = Handlebars.compile(source);
   var html = template(data);
   $(".sketch-browser").html(html);
-  $(".sketch-browser").prepend("<div></div><div class=\"user-title-bar\"><h2>"+userName+"'s Sketches</h2><i class=\"fa fa-arrow-left\"></i></div><div></div>");
+  $(".sketch-browser").prepend("<div></div><div class=\"user-title-bar\"><h2>"+userName+"'s Sketches</h2><h2 class=\"return\"><i class=\"fa fa-arrow-left\"></i></h2></div><div></div>");
   $(".open-sketch").click(function(){
     if(online)serverside.load_sketch($(this).parent().attr("data-id"));
     else storage.load_local_sketch($(this).parent().attr("data-id"));
