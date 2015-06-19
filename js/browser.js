@@ -9,7 +9,7 @@ function renderSketches(data, online){
   var template = Handlebars.compile(source);
   var html = template(data);
   $(".sketch-browser").html(html);
-  $(".sketch-file").click(function(){
+  $(".open-sketch").click(function(){
     if(online)serverside.load_sketch($(this).attr("data-id"));
     else storage.load_local_sketch($(this).attr("data-id"));
     PageTransitions.nextPage({animation:1});
@@ -46,6 +46,7 @@ browser.load_external_sketches = function(offset){
 
 }
 
+
 browser.load_local_sketches = function(offset){
   var dataContext = {sketches:[]};
   //Iterate through local sketches. They are indexed by local id so we cant
@@ -63,4 +64,35 @@ browser.load_local_sketches = function(offset){
     }
   }
   renderSketches(dataContext, false);
+}
+
+
+browser.load_userpage = function(name){
+  if(browser.online.last_fetched_sketches){
+    var diff = Math.floor(Date.now() / 1000) - browser.online.last_fetch_time;
+    if(diff < 300){
+      //If we have fetched in the last 5 minutes, use the cached result
+      renderSketches(browser.online.last_fetched_sketches, true);
+      return;
+    }
+  }
+
+  serverside.load_popular_sketches(9, offset, "popular", function(data){
+    var dataContext = {sketches:[]};
+    for(var i = 0;i < data.sketches.length;i ++){
+      var sketch = data.sketches[i];
+      dataContext.sketches.push({
+        name: sketch.name,
+        preview: sketch.preview,
+        sketchid: sketch.sketchid,
+        username: sketch.username
+      });
+    }
+
+    browser.online.last_fetch_time = Math.floor(Date.now() / 1000);
+    browser.online.last_fetched_sketches = dataContext;
+
+    renderSketches(dataContext, true);
+  });
+
 }
