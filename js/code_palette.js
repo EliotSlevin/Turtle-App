@@ -1,5 +1,5 @@
 //Block Defintions
-var CodeBlock = function(name, palette_id, modal_id, action, on_open_modal, on_close_modal, draw_parameters, default_parameters, multi_block){
+var CodeBlock = function(name, palette_id, modal_id, action, immediate_action, on_open_modal, on_close_modal, draw_parameters, default_parameters, multi_block){
   this.name = name;
   this.palette_index = -1;
   this.action = action;
@@ -7,6 +7,13 @@ var CodeBlock = function(name, palette_id, modal_id, action, on_open_modal, on_c
   this.multi_block = multi_block || false;//Quick hack to turn undefined -> false
   this.palette_id = palette_id;
   this.modal_id = modal_id;
+
+  if(typeof immediate_action === 'undefined'){
+    this.immediate_action = action;
+  }
+  else{
+    this.immediate_action = immediate_action;
+  }
 
   this.default_parameters = default_parameters;
   this.parameters = jQuery.extend(true, {}, this.default_parameters);//Deep clone of the default parameters
@@ -26,8 +33,8 @@ var CodeBlock = function(name, palette_id, modal_id, action, on_open_modal, on_c
 var jump = new CodeBlock("jump", "#jump", "jump_modal", function(drawing_context, canvas, next){
   drawing_context.pen_x = this.parameters.x;
   drawing_context.pen_y = this.parameters.y;
-  next();
-}, function(){
+  if(next)next();
+}, undefined, function(){
   $("#jump_modal_x").val(this.parameters.x);
   $("#jump_modal_y").val(this.parameters.y);
   $("#jump_x_indic").html(this.parameters.x);
@@ -57,7 +64,7 @@ var move = new CodeBlock("move", "#move", "move_modal", function(drawing_context
         paper.view.turtle.onFrame = undefined;
         drawing_context.pen_x += self.parameters.distance * Math.sin(drawing_context.pen_angle * (Math.PI / 180));
         drawing_context.pen_y += self.parameters.distance * Math.cos(drawing_context.pen_angle * (Math.PI / 180));
-        next();
+        if(next)next();
       }
       else{
         var adj_dist = (self.parameters.distance / 100) * drawing_context.speed;
@@ -68,7 +75,19 @@ var move = new CodeBlock("move", "#move", "move_modal", function(drawing_context
       }
     }
   }
-}, function(){
+}, function(drawing_context, canvas){
+  if(drawing_context.pen_down){
+    var start_x = drawing_context.pen_x;
+    var start_y = drawing_context.pen_y;
+    drawing_context.pen_x += this.parameters.distance * Math.sin(drawing_context.pen_angle * (Math.PI / 180));
+    drawing_context.pen_y += this.parameters.distance * Math.cos(drawing_context.pen_angle * (Math.PI / 180));
+    draw_line(canvas, start_x, start_y, drawing_context.pen_x, drawing_context.pen_y, undefined, drawing_context);
+  }
+  else{
+    drawing_context.pen_x += this.parameters.distance * Math.sin(drawing_context.pen_angle * (Math.PI / 180));
+    drawing_context.pen_y += this.parameters.distance * Math.cos(drawing_context.pen_angle * (Math.PI / 180));
+  }
+},function(){
   $("#move_dist_indic").html(this.parameters.distance);
   $("#move_modal_dist").val(this.parameters.distance);
 }, function(){
@@ -83,17 +102,18 @@ var rotate = new CodeBlock("rotate", "#rotate", "rotate_modal", function(drawing
   var change = 0;
   var self = this;
   paper.view.turtle.onFrame = function(){
-    console.log(change);
     if(change >= self.parameters.theta){
       change = self.parameters.theta;
       paper.view.turtle.onFrame = undefined;
-      next();
+      if(next)next();
     }
     else{
       change += drawing_context.speed * (self.parameters.theta / 100);
       rotate_turtle(drawing_context.speed * (self.parameters.theta / 100));
     }
   }
+}, function(drawing_context, canvas){
+  drawing_context.pen_angle += this.parameters.theta;
 }, function(){//On Open Modal
   $("#rotate_angle_indic").html(this.parameters.theta);
   $("#rotate_modal_theta").val(this.parameters.theta);
@@ -105,19 +125,19 @@ var rotate = new CodeBlock("rotate", "#rotate", "rotate_modal", function(drawing
 
 var pen_down = new CodeBlock("pen_down", "#pen_down", "__invalid__", function(drawing_context, canvas, next){
   drawing_context.pen_down = true;
-  next();
-}, undefined, undefined, undefined, {});
+  if(next)next();
+}, undefined, undefined, undefined, undefined, {});
 
 var pen_up = new CodeBlock("pen_up", "#pen_up", "__invalid__", function(drawing_context, canvas, next){
   drawing_context.pen_down = false;
-  next();
-}, undefined, undefined, undefined, {});
+  if(next)next();
+}, undefined, undefined, undefined, undefined, {});
 
 var set_stroke = new CodeBlock("set_stroke", "#set_stroke", "stroke_modal", function(drawing_context, canvas, next){
   drawing_context.stroke_colour = new paper.Color(this.parameters.colour);
   drawing_context.stroke_weight = this.parameters.width;
-  next();
-}, function(){
+  if(next)next();
+}, undefined, function(){
   $("#stroke_modal_width").val(this.parameters.width);
   $("#stroke_modal_colour").val(this.parameters.colour);
 }, function(){
@@ -129,8 +149,8 @@ var set_stroke = new CodeBlock("set_stroke", "#set_stroke", "stroke_modal", func
 
 var set_fill = new CodeBlock("set_fill", "#set_fill", "fill_modal",  function(drawing_context, canvas, next){
   drawing_context.fill_colour = new paper.Color(this.parameters.colour);
-  next();
-}, function(){
+  if(next)next();
+}, undefined, function(){
   $("#fill_modal_colour_picker").val(parameters.current_editing.parameters.colour);
 }, function(){
   parameters.current_editing.parameters.colour = $("#fill_modal_colour_picker").val();
@@ -141,6 +161,12 @@ var set_fill = new CodeBlock("set_fill", "#set_fill", "fill_modal",  function(dr
 //Draw a circle
 var circle = new CodeBlock("circle", "#circle", "circle_modal", function(drawing_context, canvas, next){
   draw_ellipse(canvas, drawing_context.pen_x, drawing_context.pen_y, this.parameters.width, this.parameters.width, next, drawing_context);
+}, function(drawing_context, canvas){
+  var circ = new paper.Path.Circle(new paper.Point(drawing_context.pen_x, drawing_context.pen_y), this.parameters.width);
+  circ.strokeColor = drawing_context.stroke_colour;
+  circ.strokeWidth = drawing_context.stroke_weight;
+  var color = drawing_context.fill_colour._components;
+  circ.fillColor = new paper.Color(color[0], color[1], color[2], 255);
 }, function(){
   $("#circle_rad_indic").html(this.parameters.width);
   $("#circle_modal_radius").val(this.parameters.width);
@@ -153,6 +179,26 @@ var circle = new CodeBlock("circle", "#circle", "circle_modal", function(drawing
 //Draw a rectangle
 var rectangle = new CodeBlock("rectangle", "#rectangle", "rectangle_modal", function(drawing_context, canvas, next){
   draw_rect(canvas, drawing_context.pen_x, drawing_context.pen_y, this.parameters.width, this.parameters.height, next, drawing_context);
+}, function(drawing_context, canvas){
+  var rect = new paper.Path();
+  rect.moveTo(new paper.Point(drawing_context.pen_x, drawing_context.pen_y));
+  var current_x = drawing_context.pen_x;
+  var current_y = drawing_context.pen_y;
+
+  for(var i = 0;i < 4;i ++){
+    var dist = (i % 2 == 0) ? this.parameters.height : this.parameters.width;
+    var angle = ((drawing_context.pen_angle + 90 * (i+1)) % 360) * (Math.PI / 180);
+    var dist_x = Math.cos(angle) * dist;
+    var dist_y = Math.sin(angle) * dist;
+    rect.lineTo(new paper.Point(current_x - dist_x, current_y + dist_y));
+    current_x -= dist_x;
+    current_y += dist_y;
+  }
+
+  rect.strokeColor = drawing_context.stroke_colour;
+  rect.strokeWidth = drawing_context.stroke_weight;
+  var color = drawing_context.fill_colour._components;
+  rect.fillColor = new paper.Color(color[0], color[1], color[2], 255);
 }, function(){
   $("#rect_modal_width").val(this.parameters.width);
   $("#rect_modal_height").val(this.parameters.height);
@@ -168,6 +214,16 @@ var rectangle = new CodeBlock("rectangle", "#rectangle", "rectangle_modal", func
 //Draw a triangle
 var triangle = new CodeBlock("triangle", "#triangle", "triangle_modal", function(drawing_context, canvas, next){
   draw_triangle(canvas, drawing_context.pen_x, drawing_context.pen_y, this.parameters.radius, next, drawing_context);
+}, function(drawing_context, canvas){
+  path.moveTo(new paper.Point(x, y));
+  for(var i = 0;i < 3;i ++){
+    var angle = ((image_context.pen_angle + i * 120) % 360) * (Math.PI / 180);
+    var dist_x = Math.sin(angle) * radius;
+    var dist_y = Math.cos(angle) * radius;
+    path.lineTo(x + dist_x, y + dist_y);
+    x += dist_x;
+    y += dist_y;
+  }
 }, function(){
   $("#triangle_modal_radius").val(this.parameters.radius);
   $("#triangle_rad_indic").html(this.parameters.radius);
@@ -192,7 +248,7 @@ var loop = new CodeBlock("loop", "#loop", "loop_modal", function(drawing_context
       if(++i >= self.blocks.length){
         i = 0;
         if(++run_count == max_runs){
-          next();
+          if(next)next();
           return;
         }
       }
@@ -200,7 +256,15 @@ var loop = new CodeBlock("loop", "#loop", "loop_modal", function(drawing_context
     });
   }
   if(this.blocks.length > i)run_next_block();
-  else next();
+  else if(next)next();
+}, function(drawing_context, canvas){
+  var run_count = 0;
+  var max_runs = this.parameters.max;
+  for(var i = 0;i < this.parameters.max;i ++){
+    for (var j = 0;j < this.blocks.length;j ++){
+      this.blocks[j].immediate_action(drawing_context, canvas);
+    }
+  }
 }, function(){
   $("#loop_times_indic").html(this.parameters.max);
   $("#loop_modal_times").val(this.parameters.max);

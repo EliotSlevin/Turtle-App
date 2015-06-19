@@ -20,7 +20,12 @@ function run_execution(canvas){
   paper.view.turtle.onLoad = function(){
     paper.view.turtle.width = 50;
     paper.view.turtle.height = 50;
-    run_next_block();
+    if(context.speed === 100){
+      run_next_block(execution_pane);
+    }
+    else{
+      run_next_block();
+    }
   }
   paper.sketch_layer.activate();
   paper.sketch_layer.removeChildren();
@@ -28,18 +33,25 @@ function run_execution(canvas){
 
   //Recurse down the program tree, waiting for each instruction to finish before running the next
   var i = 0;
-  function run_next_block(){
-    if(execution_pane.blocks[i])execution_pane.blocks[i].dom_element.addClass("running");
-    else return;
-    execution_pane.blocks[i].action(context, canvas, function(){
-      if(execution_pane.blocks[i])execution_pane.blocks[i].dom_element.removeClass("running");
-      else return;
-      if(++i >= execution_pane.blocks.length){
-        $(".running").removeClass("running");
-        return;
+  function run_next_block(block){
+    if(typeof block !== 'undefined'){
+      for(var j = 0;j < block.blocks.length;j++){
+        block.blocks[j].immediate_action(context, canvas);
       }
-      run_next_block();
-    });
+    }
+    else{
+      if(execution_pane.blocks[i])execution_pane.blocks[i].dom_element.addClass("running");
+      else return;
+      execution_pane.blocks[i].action(context, canvas, function(){
+        if(execution_pane.blocks[i])execution_pane.blocks[i].dom_element.removeClass("running");
+        else return;
+        if(++i >= execution_pane.blocks.length){
+          $(".running").removeClass("running");
+          return;
+        }
+        run_next_block();
+      });
+    }
   }
   $(".running").removeClass("running");//Clear current running, if it exists
 }
@@ -203,7 +215,7 @@ function drop_on(dropped, dropped_on, parent_block, index){
     var palette_index = Number(dropped.attr("code_palette_index"));
     var template = palette.blocks[palette_index];
     var existing_block = dropped.data('block_ref');
-    var new_execution_block = (existing_block ? existing_block['0'] : new CodeBlock(template.name, template.palette_id, template.modal_id, template.action, template.on_open_modal, template.on_close_modal, template.on_draw_parameters, template.default_parameters, template.multi_block));
+    var new_execution_block = (existing_block ? existing_block['0'] : new CodeBlock(template.name, template.palette_id, template.modal_id, template.action, template.immediate_action, template.on_open_modal, template.on_close_modal, template.on_draw_parameters, template.default_parameters, template.multi_block));
     new_execution_block.palette_index = palette_index;
     if(typeof index === "undefined"){
       if(!parent_block)return;
