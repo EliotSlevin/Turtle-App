@@ -36,6 +36,11 @@ $(document).ready(function() {
     init_drawing(canvas);
 
     $("#play_button").click(function(){
+      $("#paper_canvas").addClass("shown");
+      execution_pane.run(canvas, true);
+    });
+
+    $("#debug_button").click(function(){
       execution_pane.run(canvas);
     });
 
@@ -52,6 +57,7 @@ $(document).ready(function() {
     })
 
     window.location.hash = ''
+    $("#paper_canvas").removeClass("shown");
     parameters.init_parameters();
 });
 

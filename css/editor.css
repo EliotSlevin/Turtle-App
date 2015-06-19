@@ -88,6 +88,12 @@
   background-color: black;
 }
 
+#paper_canvas.shown{
+  width: 200%;
+  height: 100%;
+  z-index: 10000000 !important;
+}
+
 .right-side{
   width: 50%;
   height: calc(100% - 20px);

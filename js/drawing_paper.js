@@ -44,6 +44,14 @@ function make_default_context(){
   return context;
 }
 
+function make_immediate_context(){
+  var context = make_default_context();
+  context.speed = 100;
+  context.alpha_speed = 255;
+
+  return context;
+}
+
 /**
   * Draws a line on the given canvas from (start_x, start_y) to (end_x, end_y)
   * Calls next() when complete

@@ -11,7 +11,7 @@ function init_execution_pane(){
   console.log("Initted Execution Pane");
 }
 
-function run_execution(canvas){
+function run_execution(canvas, immediate){
   //Clear the canvas
   paper.turtle_layer.removeChildren();
   paper.turtle_layer.activate();
@@ -29,7 +29,14 @@ function run_execution(canvas){
   }
   paper.sketch_layer.activate();
   paper.sketch_layer.removeChildren();
-  var context = make_default_context();
+
+  if(typeof immediate !== 'undefined'){
+    paper.view.turtle.opacity = 0;
+    var context = make_immediate_context();
+  }
+  else{
+    var context = make_default_context();
+  }
 
   //Recurse down the program tree, waiting for each instruction to finish before running the next
   var i = 0;
