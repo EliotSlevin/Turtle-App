@@ -94,6 +94,11 @@
   z-index: 10000000 !important;
 }
 
+#paper_canvas.active{
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+
 .right-side{
   width: 50%;
   height: calc(100% - 20px);

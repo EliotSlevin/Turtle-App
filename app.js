@@ -58,6 +58,7 @@ $(document).ready(function() {
 
     window.location.hash = ''
     $("#paper_canvas").removeClass("shown");
+    $("#paper_canvas").addClass("active");
     $("#paper_canvas").click(function(){
       $(this).removeClass("shown");
     });
