@@ -240,11 +240,9 @@ var loop = new CodeBlock("loop", "#loop", "loop_modal", function(drawing_context
   var run_count = 0;
   var max_runs = this.parameters.max;
   function run_next_block(){
-    if(self && self.blocks[i])self.blocks[i].dom_element.addClass("running");
-    else return;
+    if(!self || !self.blocks[i])return;
     self.blocks[i].action(drawing_context, canvas, function(){
-      if(self && self.blocks[i])self.blocks[i].dom_element.removeClass("running");
-      else return;
+      if(!self || !self.blocks[i])return;
       if(++i >= self.blocks.length){
         i = 0;
         if(++run_count == max_runs){
