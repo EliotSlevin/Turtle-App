@@ -242,6 +242,18 @@ footer a {
 	color: white;
 	text-decoration: none;
 	margin: 20px;
+	border-radius: 5px;
+}
+
+.modal_cancel{
+  color: #333333;
+  background-color: rgb(198, 198, 198);
+  border: 2px solid #333333;
+}
+
+.modal_save{
+  color: #333333;
+  background-color: #bfe792;
 }
 
 footer .save{
