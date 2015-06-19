@@ -4,6 +4,10 @@
   float: left;
 }
 
+.hidden{
+	display: none;
+}
+
 .modal_inputs{
   margin-top: 30px;
   margin-bottom: 30px;

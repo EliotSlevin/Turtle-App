@@ -37,6 +37,7 @@ $(document).ready(function() {
 
     $("#play_button").click(function(){
       $("#paper_canvas").addClass("shown");
+      $(".right-side").addClass("hidden");
       execution_pane.run(canvas, true);
     });
 
@@ -61,6 +62,7 @@ $(document).ready(function() {
     $("#paper_canvas").addClass("active");
     $("#paper_canvas").click(function(){
       $(this).removeClass("shown");
+      $(".right-side").removeClass("hidden");
     });
     parameters.init_parameters();
 });
