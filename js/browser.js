@@ -10,7 +10,7 @@ function renderSketches(data, online){
   var html = template(data);
   $(".sketch-browser").html(html);
   $(".meta-bar").click(function(){
-	browser.load_userpage($(this).children(".username").html(),0);	
+	browser.load_userpage($(this).children(".username").html(),0);
   });
   $(".open-sketch").click(function(){
     if(online)serverside.load_sketch($(this).parent().attr("data-id"));
@@ -84,7 +84,7 @@ browser.load_local_sketches = function(offset){
 
 
 browser.load_userpage = function(userName,offset){
- 
+
  serverside.load_sketches_by_user(userName,offset,function(data){
     var dataContext = {sketches:[]};
     for(var i = 0;i < data.sketches.length;i ++){
@@ -93,7 +93,7 @@ browser.load_userpage = function(userName,offset){
         name: sketch.name,
         preview: sketch.preview,
         sketchid: sketch.sketchid,
-	username: "" 
+	username: ""
       });
     }
 	 renderUserSketches(userName,dataContext, true);
