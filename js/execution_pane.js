@@ -34,6 +34,10 @@ function run_execution(canvas, immediate){
   }
   else{
     var context = make_immediate_context();
+    if(paper.sketch_layer){
+      paper.sketch_layer.activate();
+      paper.sketch_layer.removeChildren();
+    }
     if(paper.view.turtle)paper.view.turtle.opacity = 0;
     run_next_block(execution_pane);
   }
