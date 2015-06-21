@@ -243,11 +243,6 @@ i{
 	padding-right: 5px;
 }
 
-
-.modal-content{
-	min-height: 400px;
-}
-
 footer{
 	text-align: center;
 	padding: 0px !important;
@@ -265,16 +260,6 @@ footer a {
 	border-radius: 5px;
 }
 
-.modal_cancel{
-  color: #333333;
-  background-color: rgb(198, 198, 198);
-  border: 2px solid #333333;
-}
-
-.modal_save{
-  color: #333333;
-  background-color: #bfe792;
-}
 
 footer .save{
 	background-color: rgb(49, 187, 240);
