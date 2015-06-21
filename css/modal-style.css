@@ -1,0 +1,80 @@
+.md-left-side{
+	float: left;
+	width: 90px;
+	text-align: center;
+}
+
+.md-right-side{
+	float: right;
+	width: 90px;
+	text-align: center;
+}
+
+.md-left-side a, .md-right-side a{
+	width: 100%;
+	font-size: 40px;
+	color: #CDFFAE;
+}
+
+
+
+.modal-center{
+	width: 600px;
+	float: left;
+	padding-left: 40px;
+	padding-right: 40px;
+	margin-top: -100px;
+	padding-bottom: 35px;
+}
+
+.modal-center h3{
+	font-size: 30px;
+	font-weight: 400;
+	text-align: center;
+}
+
+.modal-center label{
+	font-weight: 300;
+	font-style: italic;
+}
+
+
+.editable_amount{
+	color: #CDFFAE;
+}
+
+.top-content{
+	background-color: #474747;
+	border-left: 5px solid #CDFFAE;
+	border-right: 5px solid #CDFFAE;
+}
+
+/*Clearfix hack*/
+.top-content:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.about-block{
+	background-color: #474747;
+	border: 5px solid #CDFFAE;
+	overflow: hidden;
+}
+
+.about-block h4, .about-block p{
+	max-width: 700px;
+	margin-right: auto;
+	margin-left: auto;
+	text-align: center;
+}
+
+.about-block p{
+	font-weight: 300;
+}
+
+.modal-cap{
+	width: 800px;
+	height: 103px;
+	background-image: url("../img/modal-cap.png");
+}

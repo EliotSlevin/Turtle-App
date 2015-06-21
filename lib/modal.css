@@ -58,7 +58,7 @@
     left: 50%;
     z-index: 20;
     margin-left: -325px;
-    width: 650px;
+    width: 800px;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch; }
     .modal--fade .modal-inner > img, .modal--show .modal-inner > img,
@@ -107,13 +107,7 @@
       right: 0;
       bottom: 0;
       z-index: 10; }
-    .modal--fade .modal-close:after, .modal--show .modal-close:after {
-      content: '\00d7';
-      position: absolute;
-      top: 35px;
-      right: 50%;
-      z-index: 20;
-      margin-right: -325px; }
+    
   @media screen and (max-width: 690px) {
     .modal--fade .modal-inner, .modal--show .modal-inner {
       width: auto;
@@ -235,13 +229,9 @@
  * Global Theme Styles
  */
 .modal--fade, .modal--show {
-  color: #222;
+  color: white;
   line-height: 1.3; }
   .modal--fade .modal-inner, .modal--show .modal-inner {
-    border-radius: 2px;
-    background: #fff;
-    -webkit-box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
     max-width: 100%;
     -webkit-transition: max-width 0.25s linear, margin-left 0.125s linear;
     transition: max-width 0.25s linear, margin-left 0.125s linear; }
@@ -250,9 +240,7 @@
     padding: 0 1.2em; }
     .modal--fade header > h2, .modal--show header > h2 {
       margin: 0.5em 0; }
-  .modal--fade .modal-content, .modal--show .modal-content {
-    border-bottom: 1px solid #ddd;
-    padding: 15px 1.2em; }
+
   .modal--fade footer, .modal--show footer {
     border-top: 1px solid white;
     padding: 0 1.2em 18px;
@@ -262,14 +250,7 @@
     text-indent: -100px; }
     .modal--fade .modal-close:before, .modal--show .modal-close:before {
       background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAAEUlEQVQoz2NgeEYAjioYSQoAzOTmAXhPhyoAAAAASUVORK5CYII="); }
-    .modal--fade .modal-close:after, .modal--show .modal-close:after {
-      content: '\00d7';
-      background: #fff;
-      border-radius: 2px;
-      padding: 2px 8px;
-      font-size: 1.2em;
-      text-decoration: none;
-      text-indent: 0; }
+
   @media screen and (max-width: 30em) {
     .modal--fade .modal-close:before, .modal--show .modal-close:before {
       background: #27aae2;

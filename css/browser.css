@@ -11,6 +11,10 @@
   	padding-bottom: 260px;
 }
 
+.sketch-browser::-webkit-scrollbar {
+ display: none;
+}
+
 .sketch-file{
 	width: 368px;
 	height: 317px;
