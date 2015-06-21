@@ -38,6 +38,8 @@ $(document).ready(function() {
     $("#play_button").click(function(){
       $("#paper_canvas").addClass("shown");
       $(".right-side").addClass("hidden");
+      $("#paper_canvas").css('width', '200%');
+      $("#paper_canvas").css('height', '100%');
       execution_pane.run(canvas, true);
     });
 
@@ -59,9 +61,17 @@ $(document).ready(function() {
 
     window.location.hash = ''
     $("#paper_canvas").removeClass("shown");
+
+    //Needed for a webkit bug which causes the above to not force a redraw sometimes
+    $("#paper_canvas").css('width', '100%');
+    $("#paper_canvas").css('height', '50%');
+
     $("#paper_canvas").addClass("active");
     $("#paper_canvas").click(function(){
       $(this).removeClass("shown");
+      //Needed for a webkit bug which causes the above to not force a redraw sometimes
+      $("#paper_canvas").css('width', '100%');
+      $("#paper_canvas").css('height', '50%');
       $(".right-side").removeClass("hidden");
     });
     parameters.init_parameters();

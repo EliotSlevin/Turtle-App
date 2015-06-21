@@ -95,7 +95,6 @@
 #paper_canvas.shown{
   width: 200%;
   height: 100%;
-  z-index: 10000000 !important;
 }
 
 #paper_canvas.active{
