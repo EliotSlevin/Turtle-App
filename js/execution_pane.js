@@ -38,6 +38,9 @@ function run_execution(canvas, immediate){
       paper.sketch_layer.activate();
       paper.sketch_layer.removeChildren();
     }
+    else{
+      paper.project.activeLayer.removeChildren();
+    }
     if(paper.view.turtle)paper.view.turtle.opacity = 0;
     run_next_block(execution_pane);
   }

@@ -155,12 +155,11 @@ serverside.load_sketch = function(id){
       console.log(data);
       serverside.recompose_execution_pane(data.blocks);
       current_sketch.online = true;
-      current_sketch.sketchid = data.sketchid;
       current_sketch.author = data.by;
       if(data.by != localStorage.uuid){
         current_sketch.online = false;
-        current_sketch.online_sketch_id = null;
-        current_sketch.local_sketch_id = 500;
+        current_sketch.online_sketch_id = data.sketchid;
+        current_sketch.local_sketch_id = null;
       }
       current_sketch.name = data.name;
     },
