@@ -47,30 +47,39 @@ storage.load_local_sketch = function(id){
   * Saves the current sketch to load storage
   **/
 storage.save_local_sketch = function(){
-  var sketch = storage.decompose_current_sketch();
-  sketch.online_sketch_id = current_sketch.online_sketch_id;
-  sketch.local_sketch_id = current_sketch.local_sketch_id;
+  storage.decompose_current_sketch(function(sketch){;
+    sketch.online_sketch_id = current_sketch.online_sketch_id;
+    sketch.local_sketch_id = current_sketch.local_sketch_id;
 
-  local_sketches[current_sketch.local_sketch_id] = sketch;
-  localStorage.sketches = JSON.stringify(local_sketches);
-  if(sketch.local_sketch_id == localStorage.sketch_counter){
-    localStorage.sketch_counter = Number(localStorage.sketch_counter) + 1;
-  }
+    local_sketches[current_sketch.local_sketch_id] = sketch;
+    localStorage.sketches = JSON.stringify(local_sketches);
+    if(sketch.local_sketch_id == localStorage.sketch_counter){
+      localStorage.sketch_counter = Number(localStorage.sketch_counter) + 1;
+    }
+  });
 }
 
 /**
   * Decomposes the current sketch down into an object which can
   * be serialized
   **/
-storage.decompose_current_sketch = function(){
+storage.decompose_current_sketch = function(next){
   //Bollocks
+  paper = paper_contexts[1];
   execution_pane.run(undefined, true);
-  var preview = $("#paper_canvas")[0].toDataURL().substring("data:image/png;base64,".length);
-  var name = current_sketch.name;
-  var contents = JSON.stringify(decompose_execution_pane());
-  return {
-    sketch_name: name,
-    sketch_contents: contents,
-    sketch_demo_blob: preview
-  };
+  $("#big_canvas").show();
+  paper.view.draw();
+  paper_contexts[1].view.onFrame = function(){
+    var preview = document.getElementById('big_canvas').toDataURL().substring("data:image/png;base64,".length);
+    paper_contexts[1].view.onFrame = undefined;
+    $("#big_canvas").hide();
+    paper = paper_contexts[0];
+    var name = current_sketch.name;
+    var contents = JSON.stringify(decompose_execution_pane());
+    next({
+      sketch_name: name,
+      sketch_contents: contents,
+      sketch_demo_blob: preview
+    });
+  }
 }

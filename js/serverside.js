@@ -224,19 +224,20 @@ serverside.register_device = function(name, success, error){
   **/
 serverside.post_sketch = function(success, error){
   storage.get_auth_token(function(token){
-    var sendBlob = storage.decompose_current_sketch();
-    sendBlob.uuid = localStorage.uuid;
-    sendBlob.token = token;
+    storage.decompose_current_sketch(function(sendBlob){
+      sendBlob.uuid = localStorage.uuid;
+      sendBlob.token = token;
 
-    if(current_sketch.online_sketch_id !== null){
-      $.ajax(serverside.to_abs_url("/sketches/" + current_sketch.online_sketch_id), {
-        method: "PUT",
-        data: $.param(sendBlob)
-      }).done(function(data){success(JSON.parse(data));}).error(error);
-    }
-    else{
-      $.post(serverside.to_abs_url("/sketches"), $.param(sendBlob)).done(function(data){success(JSON.parse(data));}).error(error);
-    }
+      if(current_sketch.online_sketch_id !== null){
+        $.ajax(serverside.to_abs_url("/sketches/" + current_sketch.online_sketch_id), {
+          method: "PUT",
+          data: $.param(sendBlob)
+        }).done(function(data){success(JSON.parse(data));}).error(error);
+      }
+      else{
+        $.post(serverside.to_abs_url("/sketches"), $.param(sendBlob)).done(function(data){success(JSON.parse(data));}).error(error);
+      }
+    });
   });
 }
 

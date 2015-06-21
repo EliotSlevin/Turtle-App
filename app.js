@@ -9,6 +9,7 @@ current_sketch = {
 };
 
 local_sketches = [];
+paper_contexts = [];
 
 /* Maybe lets start the app from here */
 $(document).ready(function() {
@@ -32,8 +33,16 @@ $(document).ready(function() {
 
     browser.load_local_sketches(0);
 
-    var canvas = paper.setup(document.getElementById("paper_canvas"));
+    paper_contexts[0] = new paper.PaperScope();
+    paper_contexts[1] = new paper.PaperScope();
+
+    var canvas = paper_contexts[0].setup(document.getElementById("paper_canvas"));
     init_drawing(canvas);
+
+    paper_contexts[1].setup(document.getElementById("big_canvas"));
+    $("#big_canvas").hide();
+
+    paper = paper_contexts[0];
 
     $("#play_button").click(function(){
       $("#paper_canvas").addClass("shown");

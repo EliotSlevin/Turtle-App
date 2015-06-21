@@ -13,29 +13,29 @@ function init_execution_pane(){
 
 function run_execution(canvas, immediate){
   //Clear the canvas
-  paper.turtle_layer.removeChildren();
-  paper.turtle_layer.activate();
-  paper.view.turtle = new paper.Raster({source: "img/turtle.jpg"});
-  paper.view.turtle.position = paper.view.center;
-  paper.view.turtle.onLoad = function(){
-    paper.view.turtle.width = 50;
-    paper.view.turtle.height = 50;
-    if(context.speed === 100){
-      run_next_block(execution_pane);
+  if(typeof immediate === 'undefined'){
+    var context = make_default_context();
+    paper.turtle_layer.removeChildren();
+    paper.turtle_layer.activate();
+    paper.view.turtle = new paper.Raster({source: "img/turtle.jpg"});
+    paper.view.turtle.position = paper.view.center;
+    paper.view.turtle.onLoad = function(){
+      paper.view.turtle.width = 50;
+      paper.view.turtle.height = 50;
+      if(context.speed === 100){
+        run_next_block(execution_pane);
+      }
+      else{
+        run_next_block();
+      }
     }
-    else{
-      run_next_block();
-    }
-  }
-  paper.sketch_layer.activate();
-  paper.sketch_layer.removeChildren();
-
-  if(typeof immediate !== 'undefined'){
-    paper.view.turtle.opacity = 0;
-    var context = make_immediate_context();
+    paper.sketch_layer.activate();
+    paper.sketch_layer.removeChildren();
   }
   else{
-    var context = make_default_context();
+    var context = make_immediate_context();
+    if(paper.view.turtle)paper.view.turtle.opacity = 0;
+    run_next_block(execution_pane);
   }
 
   //Recurse down the program tree, waiting for each instruction to finish before running the next

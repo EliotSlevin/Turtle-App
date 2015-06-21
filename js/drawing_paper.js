@@ -14,11 +14,11 @@ function init_drawing(canvas){
 }
 
 function move_turtle(x, y){
-  paper.view.turtle.position = new paper.Point(x, y);
+  if(paper.view.turtle)paper.view.turtle.position = new paper.Point(x, y);
 }
 
 function rotate_turtle(theta){
-  paper.view.turtle.rotate(theta);
+  if(paper.view.turtle)paper.view.turtle.rotate(theta);
 }
 
 /**
@@ -27,8 +27,8 @@ function rotate_turtle(theta){
   **/
 function make_default_context(){
   var context =  {
-    pen_x: paper.view._bounds.width / 2, //The x position of the pen
-    pen_y: paper.view._bounds.height / 2, //The y position of the pen
+    pen_x: paper.view._viewSize.width / 2, //The x position of the pen
+    pen_y: paper.view._viewSize.height / 2, //The y position of the pen
     pen_angle: 0, //The angle of the pen
     fill_colour: new paper.Color(1, 1, 1, 1), //The current fill folour
     stroke_colour: new paper.Color(1, 1, 1, 1), //The current stroke colour
@@ -39,7 +39,7 @@ function make_default_context(){
     turtle: paper.view.turtle
   };
 
-  rotate_turtle(-context.turtle.rotation);
+  if(paper.view.turtle)rotate_turtle(-context.turtle.rotation);
 
   return context;
 }
