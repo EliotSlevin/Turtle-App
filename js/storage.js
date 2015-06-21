@@ -4,18 +4,6 @@
 storage = {};
 
 /**
-  * Saves any changes to the current sketch, updating the local representation
-  **/
-storage.flush_current_sketch = function(){
-  var sketch = storage.decompose_current_sketch();
-  sketch.online_sketch_id = current_sketch.online_sketch_id;
-  sketch.local_sketch_id = current_sketch.local_sketch_id;
-
-  local_sketches[current_sketch.local_sketch_id] = sketch;
-  localStorage.sketches = JSON.stringify(local_sketches);
-}
-
-/**
   * Gets the auth token stored for this device. If we haven't
   * registered yet then we register the device serverside before
   * calling next with the auth token
@@ -65,7 +53,9 @@ storage.save_local_sketch = function(){
 
   local_sketches[current_sketch.local_sketch_id] = sketch;
   localStorage.sketches = JSON.stringify(local_sketches);
-  localStorage.sketch_counter = Number(localStorage.sketch_counter) + 1;
+  if(sketch.local_sketch_id == localStorage.sketch_counter){
+    localStorage.sketch_counter = Number(localStorage.sketch_counter) + 1;
+  }
 }
 
 /**
@@ -73,9 +63,11 @@ storage.save_local_sketch = function(){
   * be serialized
   **/
 storage.decompose_current_sketch = function(){
+  //Bollocks
+  execution_pane.run(undefined, true);
+  var preview = $("#paper_canvas")[0].toDataURL().substring("data:image/png;base64,".length);
   var name = current_sketch.name;
   var contents = JSON.stringify(decompose_execution_pane());
-  var preview = $("#paper_canvas")[0].toDataURL().substring("data:image/png;base64,".length);
   return {
     sketch_name: name,
     sketch_contents: contents,
