@@ -19,9 +19,9 @@ parameters.init_parameters = function(){
   links["#triangle_modal_radius"] = "#triangle_rad_indic";
 
   for(var i in links){
-    var vomda = links[i];
+    $(i).attr('link', links[i]);
     $(i)[0].oninput = function(){
-      $(vomda).html($(this).val());
+      $($(this).attr('link')).html($(this).val());
     }
   }
 }
