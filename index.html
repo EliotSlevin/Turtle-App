@@ -58,271 +58,6 @@
     <div class="pt-page pt-page-2">
     <div class="status-bar"></div>
 
-
-<!--     Parameter modal -->
-
-<!-- Jump Modal -->
-<section class="modal--fade" id="jump_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
-    <div class="modal-inner">
-        <div class="modal-content">
-          <div class="modal_title">Move the turtle to (<span id="jump_x_indic" class="editable_amount">50</span>, <span id="jump_y_indic" class="editable_amount">50</span>)</div>
-
-          <div class="model_inputs">
-            <label for="jump_modal_x">X:</label>
-            <input type="range" id="jump_modal_x" class="range_input" min="0" max="512" />
-            <label for="jump_modal_y">Y:</label>
-            <input type="range" id="jump_modal_y" class="range_input" min="0" max="512" />
-          </div>
-
-          <div class="block_tip">
-            <hr>
-            <div class="block_tip_title">About the jump block</div>
-            <div class="block_tip_contents">
-              The jump block moves the turtle to a specified position, without drawing a line inbetween.
-            </div>
-          </div>
-        </div>
-        <footer>
-            
-       </footer>
-    </div>
-
-</section>
-
-
-
-
-
-
-
-<!-- Move Modal -->
-<section class="modal--fade" id="move_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
-    <div class="modal-inner">
-        <div class="modal-content">
-          <div class="modal-cap"></div>
-      
-          <div class="top-content">
-            <div class="md-left-side"><a href="#!" class="modal_cancel"><i class="fa fa-check"></i></a></div>
-            <div class="modal-center">
-              <h3>Move forward <span id="move_dist_indic" class="editable_amount">50</span> pixels</h3>
-              <div class="modal_inputs">
-                <input type="range" class="range_input" id="move_modal_dist" min="0" max="512" />
-              </div>
-            </div>
-            <div class="md-right-side"><a href="#!" class="modal_save"><i class="fa fa-times"></i></a></div>
-
-          </div> <!--End top content -->
-          
-
-          <div class="about-block">
-            <h4>About</h4>
-            <p>The move block moves the turtle forward a specified amount. If the pen is down, it will draw a line along its
-              path.</p>
-          </div>
-        </div>
-    </div>
-
-    <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">?</a>
-</section>
-
-
-
-
-
-
-
-
-
-
-<!-- Rotate Modal -->
-<section class="modal--fade" id="rotate_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
-    <div class="modal-inner">
-        <div class="modal-content">
-          <div class="modal_title">Rotate <span id="rotate_angle_indic" class="editable_amount">50</span> degrees</div>
-
-          <div class="modal_inputs">
-            <input type="range" class="range_input" id="rotate_modal_theta" min="-180" max="180" />
-          </div>
-
-          <div class="block_tip">
-            <hr>
-            <div class="block_tip_title">About the rotate block</div>
-            <div class="block_tip_contents">
-              The rotate block causes the turtle to rotate clockwise a specified amount.
-            </div>
-          </div>
-        </div>
-        <footer>
-            <a href="#!" class="modal_cancel">Cancel</a>
-            <a href="#!" class="modal_save">Save</a>
-       </footer>
-    </div>
-
-    <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">?</a>
-</section>
-
-<!-- Stroke Modal -->
-<section class="modal--fade" id="stroke_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
-    <div class="modal-inner">
-        <div class="modal-content">
-          <div class="modal_title">Jump</div>
-          <div class="block_tip">
-            This block sets the colour and size of the pen
-          </div>
-
-          <label for="stroke_modal_width">Stroke Width:</label>
-          <input type="number" id="stroke_modal_width" min="0" max="30" />
-
-          <label for="stroke_modal_colour">Stroke Colour:</label>
-          <input type="color" id="stroke_modal_colour" />
-        </div>
-        <footer>
-            <a href="#!" class="modal_cancel">Cancel</a>
-            <a href="#!" class="modal_save">Save</a>
-       </footer>
-    </div>
-
-    <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">?</a>
-</section>
-
-  <!-- Fill Colour Modal -->
-  <section class="modal--fade" id="fill_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
-      <div class="modal-inner">
-          <div class="modal-content">
-            <div class="modal_title">Fill</div>
-            <div class="block_tip">
-              This block sets the colour that shapes are filled in with!
-            </div>
-
-            <input type="color" class="colour_picker" id="fill_modal_colour_picker" />
-          </div>
-          <footer>
-              <a href="#!" class="modal_cancel">Cancel</a>
-              <a href="#!" class="modal_save">Save</a>
-         </footer>
-      </div>
-
-      <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">?</a>
-  </section>
-
-  <!-- Rectangle Modal -->
-<section class="modal--fade" id="rectangle_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
-    <div class="modal-inner">
-        <div class="modal-content">
-          <div class="modal-cap"></div>
-      
-          <div class="top-content">
-            <div class="md-left-side"><a href="#!" class="modal_cancel"><i class="fa fa-check"></i></a></div>
-            <div class="modal-center">
-              <h3>Draw a rectangle <span id="rect_width_indic" class="editable_amount">50</span> pixels
-            tall,<br> and <span id="rect_height_indic" class="editable_amount">50</span> pixels wide</h3>
-              <div class="modal_inputs">
-                
-              <label>Width</label>
-              <input type="range" id="rect_modal_width" class="range_input" />
-
-              <label>Height</label>
-              <input type="range" id="rect_modal_height" class="range_input" />
-
-              </div>
-            </div>
-            <div class="md-right-side"><a href="#!" class="modal_save"><i class="fa fa-times"></i></a></div>
-
-          </div> <!--End top content -->
-          
-
-          <div class="about-block">
-            <h4>About</h4>
-            <p>The rectangle block draws a rectangle, of a specified height and width, from the current turtle position.</p>
-          </div>
-        </div>
-    </div>
-
-    <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">?</a>
-</section>
-
-
-  <!-- Circle Modal -->
-  <section class="modal--fade" id="circle_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
-      <div class="modal-inner">
-          <div class="modal-content">
-            <div class="modal_title">Draw a circle, with a radius of <span id="circle_rad_indic" class="editable_amount">50</span> pixels</div>
-
-            <div class="modal_inputs">
-              <label for="circle_modal_radius">Radius: </label>
-              <input type="range" class="range_input" id="circle_modal_radius" />
-            </div>
-
-            <div class="block_tip">
-              <hr>
-              <div class="block_tip_title">About the circle block</div>
-              <div class="block_tip_contents">
-                The circle block draws a circle, centered at the current turtle position, with a specified radius.
-              </div>
-            </div>
-          </div>
-          <footer>
-              <a href="#!" class="modal_cancel">Cancel</a>
-              <a href="#!" class="modal_save">Save</a>
-         </footer>
-      </div>
-
-      <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">?</a>
-  </section>
-
-  <!-- Triangle Modal -->
-  <section class="modal--fade" id="triangle_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
-      <div class="modal-inner">
-          <div class="modal-content">
-            <div class="modal_title">Draw a triangle, with a sides <span id="triangle_rad_indic" class="editable_amount">50</span> pixels long</div>
-
-            <div class="modal_inputs">
-              <input type="range" class="range_input" id="triangle_modal_radius" />
-            </div>
-
-            <div class="block_tip">
-              <hr>
-              <div class="block_tip_title">About the triangle block</div>
-              <div class="block_tip_contents">
-                The triangle block draws an equilateral triangle, with all the sides of a specified length.
-              </div>
-            </div>
-          </div>
-          <footer>
-              <a href="#!" class="modal_cancel">Cancel</a>
-              <a href="#!" class="modal_save">Save</a>
-         </footer>
-      </div>
-
-      <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">?</a>
-  </section>
-
-  <!-- Loop Modal -->
-  <section class="modal--fade" id="loop_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
-      <div class="modal-inner">
-          <div class="modal-content">
-            <div class="modal_title">Loop <span id="loop_times_indic" class="editable_amount">50</span> times</div>
-
-            <input type="range" class="range_input" id="loop_modal_times" min="0" max="30" />
-
-            <div class="block_tip">
-              <hr>
-              <div class="block_tip_title">About the loop block</div>
-              <div class="block_tip_contents">
-                The loop block executes its contents a specified amount of times
-              </div>
-            </div>
-          </div>
-
-          <footer>
-              <a href="#!" class="modal_cancel">Cancel</a>
-              <a href="#!" class="modal_save">Save</a>
-         </footer>
-      </div>
-
-      <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">?</a>
-  </section>
-
     <canvas id="big_canvas" keepalive="true"></canvas>
 
         <div class="left-side">
@@ -420,6 +155,297 @@
         </div>
     </div> <!-- end page 2 -->
 </div> <!--end pt main-->
+
+
+
+
+<!--  /////////////// Parameter modals //////////////////////-->
+
+<!-- Jump Modal -->
+<section class="modal--fade" id="jump_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+    <div class="modal-inner">
+        <div class="modal-content">
+          <div class="modal-cap"></div>
+      
+          <div class="top-content">
+            <div class="md-left-side"><a href="#!" class="modal_cancel"><i class="fa fa-times"></i></a></div>
+            <div class="modal-center">
+              <h3>Move the turtle to (<span id="jump_x_indic" class="editable_amount">50</span>, <span id="jump_y_indic" class="editable_amount">50</span>)</h3>
+              <div class="modal_inputs">
+                <label for="jump_modal_x">X:</label>
+                <input type="range" id="jump_modal_x" class="range_input" min="0" max="512" />
+                <label for="jump_modal_y">Y:</label>
+                <input type="range" id="jump_modal_y" class="range_input" min="0" max="512" />
+              </div>
+            </div>
+            <div class="md-right-side"><a href="#!" class="modal_save"><i class="fa fa-check"></i></a></div>
+
+          </div> <!--End top content -->
+          
+
+          <div class="about-block">
+            <h4>About</h4>
+            <p>The jump block moves the turtle to a specified position, without drawing a line inbetween.</p>
+          </div>
+        </div>
+    </div>
+
+    <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">?</a>
+</section>
+
+<!-- Move Modal -->
+<section class="modal--fade" id="move_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+    <div class="modal-inner">
+        <div class="modal-content">
+          <div class="modal-cap"></div>
+      
+          <div class="top-content">
+            <div class="md-left-side"><a href="#!" class="modal_cancel"><i class="fa fa-times"></i></a></div>
+            <div class="modal-center">
+              <h3>Move forward <span id="move_dist_indic" class="editable_amount">50</span> pixels</h3>
+              <div class="modal_inputs">
+                <input type="range" class="range_input" id="move_modal_dist" min="0" max="512" />
+              </div>
+            </div>
+            <div class="md-right-side"><a href="#!" class="modal_save"><i class="fa fa-check"></i></a></div>
+
+          </div> <!--End top content -->
+          
+
+          <div class="about-block">
+            <h4>About</h4>
+            <p>The move block moves the turtle forward a specified amount. If the pen is down, it will draw a line along its
+              path.</p>
+          </div>
+        </div>
+    </div>
+
+    <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">?</a>
+</section>
+
+<!-- Rotate Modal -->
+<section class="modal--fade" id="rotate_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+    <div class="modal-inner">
+        <div class="modal-content">
+          <div class="modal-cap"></div>
+      
+          <div class="top-content">
+            <div class="md-left-side"><a href="#!" class="modal_cancel"><i class="fa fa-times"></i></a></div>
+            <div class="modal-center">
+              <h3>Rotate <span id="rotate_angle_indic" class="editable_amount">50</span> degrees</h3>
+              <div class="modal_inputs">
+                  <input type="range" class="range_input" id="rotate_modal_theta" min="-180" max="180" />
+              </div>
+            </div>
+            <div class="md-right-side"><a href="#!" class="modal_save"><i class="fa fa-check"></i></a></div>
+
+          </div> <!--End top content -->
+          
+
+          <div class="about-block">
+            <h4>About</h4>
+            <p>The rotate block causes the turtle to rotate clockwise a specified amount.</p>
+          </div>
+        </div>
+    </div>
+
+    <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">?</a>
+</section>
+
+<!-- Stroke Modal -->
+<section class="modal--fade" id="stroke_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+    <div class="modal-inner">
+        <div class="modal-content">
+          <div class="modal-cap"></div>
+      
+          <div class="top-content">
+            <div class="md-left-side"><a href="#!" class="modal_cancel"><i class="fa fa-times"></i></a></div>
+            <div class="modal-center">
+              <h3>Set the stroke width and color</h3>
+              <div class="modal_inputs">
+                <label for="stroke_modal_width">Stroke Width</label>
+                <input type="number" id="stroke_modal_width" min="0" max="30" />
+
+                <label for="stroke_modal_colour">Stroke Colour</label>
+                <input type="color" id="stroke_modal_colour" />
+              </div>
+            </div>
+            <div class="md-right-side"><a href="#!" class="modal_save"><i class="fa fa-check"></i></a></div>
+
+          </div> <!--End top content -->
+          
+
+          <div class="about-block">
+            <h4>About</h4>
+            <p>This block sets the colour and size of the pen stroke</p>
+          </div>
+        </div>
+    </div>
+
+    <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">?</a>
+</section>
+
+  <!-- Fill Colour Modal -->
+  <section class="modal--fade" id="fill_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+    <div class="modal-inner">
+        <div class="modal-content">
+          <div class="modal-cap"></div>
+      
+          <div class="top-content">
+            <div class="md-left-side"><a href="#!" class="modal_cancel"><i class="fa fa-times"></i></a></div>
+            <div class="modal-center">
+              <h3>Set fill color of objects</h3>
+              <div class="modal_inputs">
+                 <input type="color" class="colour_picker" id="fill_modal_colour_picker" />
+              </div>
+            </div>
+            <div class="md-right-side"><a href="#!" class="modal_save"><i class="fa fa-check"></i></a></div>
+
+          </div> <!--End top content -->
+          
+
+          <div class="about-block">
+            <h4>About</h4>
+            <p>This block sets the colour that shapes are filled in with.</p>
+          </div>
+        </div>
+    </div>
+
+    <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">?</a>
+</section>
+
+
+  <!-- Rectangle Modal -->
+<section class="modal--fade" id="rectangle_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+    <div class="modal-inner">
+        <div class="modal-content">
+          <div class="modal-cap"></div>
+      
+          <div class="top-content">
+            <div class="md-left-side"><a href="#!" class="modal_cancel"><i class="fa fa-times"></i></a></div>
+            <div class="modal-center">
+              <h3>Draw a rectangle <span id="rect_width_indic" class="editable_amount">50</span> pixels
+            tall,<br> and <span id="rect_height_indic" class="editable_amount">50</span> pixels wide</h3>
+              <div class="modal_inputs">
+                
+              <label>Width</label>
+              <input type="range" id="rect_modal_width" class="range_input" />
+
+              <label>Height</label>
+              <input type="range" id="rect_modal_height" class="range_input" />
+
+              </div>
+            </div>
+            <div class="md-right-side"><a href="#!" class="modal_save"><i class="fa fa-check"></i></a></div>
+
+          </div> <!--End top content -->
+    
+          <div class="about-block">
+            <h4>About</h4>
+            <p>The rectangle block draws a rectangle, of a specified height and width, from the current turtle position.</p>
+          </div>
+        </div>
+    </div>
+
+    <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">?</a>
+</section>
+
+<!-- Circle Modal -->
+<section class="modal--fade" id="circle_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+    <div class="modal-inner">
+        <div class="modal-content">
+          <div class="modal-cap"></div>
+      
+          <div class="top-content">
+            <div class="md-left-side"><a href="#!" class="modal_cancel"><i class="fa fa-times"></i></a></div>
+            <div class="modal-center">
+              <h3>Draw a circle with a radius of <span id="circle_rad_indic" class="editable_amount">50</span> pixels</h3>
+              <div class="modal_inputs">
+                
+              <input type="range" class="range_input" id="circle_modal_radius" />
+
+              </div>
+            </div>
+            <div class="md-right-side"><a href="#!" class="modal_save"><i class="fa fa-check"></i></a></div>
+
+          </div> <!--End top content -->
+        
+          <div class="about-block">
+            <h4>About</h4>
+            <p>The circle block draws a circle, centered at the current turtle position, with a specified radius.</p>
+          </div>
+        </div>
+    </div>
+
+    <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">?</a>
+</section>
+
+
+  <!-- Triangle Modal -->
+<section class="modal--fade" id="triangle_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+    <div class="modal-inner">
+        <div class="modal-content">
+          <div class="modal-cap"></div>
+      
+          <div class="top-content">
+            <div class="md-left-side"><a href="#!" class="modal_cancel"><i class="fa fa-times"></i></a></div>
+            <div class="modal-center">
+              <h3>Draw a triangle with <span id="triangle_rad_indic" class="editable_amount">50</span> pixel long sides</h3>
+              <div class="modal_inputs">
+                
+              <input type="range" class="range_input" id="triangle_modal_radius" />
+
+              </div>
+            </div>
+            <div class="md-right-side"><a href="#!" class="modal_save"><i class="fa fa-check"></i></a></div>
+
+          </div> <!--End top content -->
+          
+
+          <div class="about-block">
+            <h4>About</h4>
+            <p> The triangle block draws an equilateral triangle, with all the sides of a specified length.</p>
+          </div>
+        </div>
+    </div>
+
+    <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">?</a>
+</section>
+
+  <!-- Loop Modal -->
+<section class="modal--fade" id="loop_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+    <div class="modal-inner">
+        <div class="modal-content">
+          <div class="modal-cap"></div>
+      
+          <div class="top-content">
+            <div class="md-left-side"><a href="#!" class="modal_cancel"><i class="fa fa-times"></i></a></div>
+            <div class="modal-center">
+              <h3>Loop <span id="loop_times_indic" class="editable_amount">5</span> times</h3>
+              <div class="modal_inputs">
+                <input type="range" class="range_input" id="loop_modal_times" min="0" max="30" />
+              </div>
+            </div>
+            <div class="md-right-side"><a href="#!" class="modal_save"><i class="fa fa-check"></i></a></div>
+
+          </div> <!--End top content -->
+          
+
+          <div class="about-block">
+            <h4>About</h4>
+            <p>The loop block executes its contents a specified amount of times.</p>
+          </div>
+        </div>
+    </div>
+
+    <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">?</a>
+</section>
+
+<!-- End Modals -->
+
+
+
+
 
 <script id="sketch-browser-template" type="text/x-handlebars-template">
            {{#each sketches}}
