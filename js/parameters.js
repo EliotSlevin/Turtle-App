@@ -6,6 +6,9 @@ parameters.init_parameters = function(){
     parameters.current_editing = null;
     execution_pane.draw();
     storage.save_local_sketch();
+    if(current_sketch.online_sketch_id !== null && current_sketch.local_sketch_id !== null){
+      serverside.save_local_sketch(current_sketch);
+    }
   });
 
   var links = {};

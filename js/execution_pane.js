@@ -131,7 +131,13 @@ function draw_normal_code_block(parent_dom_object, parent_block_array, index){
   codeblock_div.draggable({helper: function(){
     var block =  parent_block_array.splice(index, 1);
     return codeblock_div.data('block_ref', block);
-  }, stop: function(){storage.save_local_sketch();execution_pane.draw();}, scroll:false, zindex: 2500, appendTo: "body"});
+  }, stop: function(){
+    storage.save_local_sketch();
+    if(current_sketch.online_sketch_id !== null && current_sketch.local_sketch_id !== null){
+      serverside.save_local_sketch(current_sketch);
+    }
+    execution_pane.draw();
+  }, scroll:false, zindex: 2500, appendTo: "body"});
 
   if(parent_dom_object)parent_dom_object.append(codeblock_div);
   else return codeblock_div;
@@ -193,7 +199,13 @@ function draw_multi_code_block(parent_dom_object, parent_block_array, index){
   multiblock_div.draggable({helper: function(){
     var block = parent_block_array.splice(index, 1);
     return multiblock_div.data('block_ref', block);
-  }, stop: function(){storage.save_local_sketch();execution_pane.draw();}, scroll:false, zindex: 2500, appendTo: "body"});
+  }, stop: function(){
+    storage.save_local_sketch();
+    if(current_sketch.online_sketch_id !== null && current_sketch.local_sketch_id !== null){
+      serverside.save_local_sketch(current_sketch);
+    }
+    execution_pane.draw();
+  }, scroll:false, zindex: 2500, appendTo: "body"});
 
   multiblock_div.append(contents_div);
 
