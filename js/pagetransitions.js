@@ -29,7 +29,13 @@ var PageTransitions = (function() {
 		$( "#backwards" ).click(function() {
 			var options = {animation: 2};
 			nextPage(options);
-			browser.load_local_sketches(0);
+
+			if($('#my_pins_button').hasClass('tab_selected')){
+				browser.load_local_sketches(0);
+			}
+			else{
+				browser.load_external_sketches(0);
+			}
 		});
 
 		$pages.each( function() {

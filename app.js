@@ -60,13 +60,17 @@ $(document).ready(function() {
       $(".tab_selected").removeClass("tab_selected");
       $(this).addClass("tab_selected");
       browser.load_external_sketches(0);
+      $('#search').show();
     });
 
     $("#my_pins_button").click(function(){
       $(".tab_selected").removeClass("tab_selected");
       $(this).addClass("tab_selected");
       browser.load_local_sketches(0);
-    })
+      $('#search').hide();
+    });
+
+    $('#search').hide();
 
     window.location.hash = ''
     $("#paper_canvas").removeClass("shown");

@@ -29,6 +29,7 @@ function renderSketches(data, online){
     if(online)serverside.load_sketch($(this).parent().attr("data-id"));
     else storage.load_local_sketch($(this).parent().attr("data-id"));
     PageTransitions.nextPage({animation:1});
+    paper.sketch_layer.removeChildren();
   });
 }
 

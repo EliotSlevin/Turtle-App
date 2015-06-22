@@ -36,6 +36,8 @@
                 <div id="my_pins_button" class="tab_selected">My Pins</div>
                 <div id="popular_button">Popular</div>
             </div>
+
+            <span id="search"><i class="fa fa-search"></i><input type="text" /></span>
         </div>
 
         <div class="sketch-browser"></div>
@@ -44,7 +46,7 @@
           <section class="modal--fade" id="settings_modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
               <div class="modal-inner">
                   <div class="modal-content">
-                      <h3 style="color:black;text-align:center;">Modal Settings</h3>
+                      <h3 style="color:black;text-align:center;">Pin Settings</h3>
                       <p><input type="text" class="settings-button" id="settings_modal_name" /></p>
                       <p class="settings-button button-off" id="settings_modal_published"><i class="fa fa-cloud-upload"></i>Not Published</p>
                       <p class="settings-button button-off" id="settings_modal_delete"><i class="fa fa-trash-o"></i>Delete</p>
@@ -325,15 +327,15 @@
           <div class="top-content">
             <div class="md-left-side"><a href="#!" class="modal_cancel"><i class="fa fa-times"></i></a></div>
             <div class="modal-center">
-              <h3>Draw a rectangle <span id="rect_width_indic" class="editable_amount">50</span> pixels
-            tall,<br> and <span id="rect_height_indic" class="editable_amount">50</span> pixels wide</h3>
+              <h3>Draw a rectangle <span id="rect_height_indic" class="editable_amount">50</span> pixels
+            tall,<br> and <span id="rect_width_indic" class="editable_amount">50</span> pixels wide</h3>
               <div class="modal_inputs">
 
               <label>Width</label>
-              <input type="range" id="rect_modal_width" class="range_input" />
+              <input type="range" id="rect_modal_width" class="range_input" min="0" max="600"/>
 
               <label>Height</label>
-              <input type="range" id="rect_modal_height" class="range_input" />
+              <input type="range" id="rect_modal_height" class="range_input" min="0" max="600" />
 
               </div>
             </div>
