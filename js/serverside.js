@@ -79,13 +79,77 @@ serverside.save_sketch = function(name){
 
   serverside.post_sketch(function(data){
     var sketch = data.sketch;
-    console.log(data);
     localStorage.auth_token = data.new_token;
     current_sketch.online_sketch_id = sketch.id;
     storage.flush_current_sketch();
   }, function(error){
     //We should do something better here. Maybe update the UI.
     console.log(error);
+  });
+}
+
+serverside.delete_local_sketch = function(sketch){
+  if(sketch.online_sketch_id === null)return;
+  storage.get_auth_token(function(token){
+    function _success(data){
+      localStorage.auth_token = data.new_token;
+      sketch.online_sketch_id = null;
+      localStorage.sketches = JSON.stringify(local_sketches);
+    }
+
+    function _error(err){
+      console.log(err);
+    }
+
+    var sendBlob = {
+      uuid: localStorage.uuid,
+      token: token
+    };
+
+    $.ajax(serverside.to_abs_url("/sketch/" + sketch.online_sketch_id), {
+      method: "DELETE",
+      data: $.param(sendBlob)
+    }).done(function(data){
+      _success(JSON.parse(data));
+    }).error(_error);
+  });
+}
+
+serverside.save_local_sketch = function(sketch){
+  storage.get_auth_token(function(token){
+    var sendBlob = {
+      sketch_name: sketch.sketch_name,
+      sketch_contents: sketch.sketch_contents,
+      sketch_demo_blob: sketch.sketch_demo_blob,
+      uuid: localStorage.uuid,
+      token: token
+    };
+
+    function _success(data){
+      console.log(data);
+      var returned_sketch = data.sketch;
+      localStorage.auth_token = data.new_token;
+      sketch.online_sketch_id = returned_sketch.id;
+      localStorage.sketches = JSON.stringify(local_sketches);
+    }
+
+    function _error(err){
+      console.log(err);
+    }
+
+    if(sketch.online_sketch_id !== null){
+      $.ajax(serverside.to_abs_url("/sketches/" + sketch.online_sketch_id), {
+        method: "PUT",
+        data: $.param(sendBlob)
+      }).done(function(data){
+        _success(JSON.parse(data));
+      }).error(_error);
+    }
+    else{
+      $.post(serverside.to_abs_url("/sketches"), $.param(sendBlob)).done(function(data){
+        _success(JSON.parse(data));
+      }).error(_error);
+    }
   });
 }
 

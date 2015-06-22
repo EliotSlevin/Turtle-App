@@ -9,12 +9,20 @@ function renderSketches(data, online){
   var template = Handlebars.compile(source);
   var html = template(data);
   $(".sketch-browser").html(html);
-  $(".meta-bar").click(function(){
-	   browser.load_userpage($(this).children(".username").html(),0);
-  });
+
+  if(online){
+    $(".meta-bar").click(function(){
+  	   browser.load_userpage($(this).children(".username").html(),0);
+    });
+    $(".settings_cog").hide();
+  }
 
   $(".settings_cog").click(function(){
-    window.location.hash = "settings_modal";
+    if(online)throw Error("Can't change settings of online sketches");
+    else{
+      var sketch = local_sketches[Number($(this).parent().parent().parent().attr("data-id"))];
+      load_settings_modal(sketch);
+    }
   });
 
   $(".open-sketch").click(function(){
@@ -22,6 +30,60 @@ function renderSketches(data, online){
     else storage.load_local_sketch($(this).parent().attr("data-id"));
     PageTransitions.nextPage({animation:1});
   });
+}
+
+function load_settings_modal(sketch){
+  var name_input = $("#settings_modal_name");
+  var published_button = $("#settings_modal_published");
+  var delete_button = $("#settings_modal_delete");
+
+  name_input.val(sketch.sketch_name);
+  delete_button.removeClass("sure").html('<i class="fa fa-trash-o"></i>Delete');
+
+  name_input.on('keyup change', function() {
+    sketch.sketch_name = $(this).val();
+    localStorage.sketches = JSON.stringify(local_sketches);
+    browser.load_local_sketches(0);
+  });
+
+  if(sketch.online_sketch_id !== null){
+    published_button.removeClass("button-off").addClass("button-on");
+    published_button.html('<i class="fa fa-cloud-upload"></i>Published');
+  }
+  else{
+    published_button.removeClass("button-on").addClass("button-off");
+    published_button.html('<i class="fa fa-cloud-upload"></i>Not Published');
+  }
+
+  published_button.off('click').click(function(){
+    if(sketch.online_sketch_id === null){
+      published_button.removeClass("button-off").addClass("button-on");
+      published_button.html('<i class="fa fa-cloud-upload"></i>Published');
+      serverside.save_local_sketch(sketch);
+    }
+    else{
+      published_button.removeClass("button-on").addClass("button-off");
+      published_button.html('<i class="fa fa-cloud-upload"></i>Not Published');
+      serverside.delete_local_sketch(sketch);
+    }
+  });
+
+  delete_button.off('click').click(function(){
+    if(!delete_button.hasClass("sure")){
+      delete_button.addClass("sure");
+      delete_button.html("<i class='fa fa-trash-o'></i>Sure?");
+    }
+    else{
+      if(sketch.online_sketch_id !== null){
+        serverside.delete_local_sketch(sketch);
+      }
+      delete local_sketches[sketch.local_sketch_id];
+      localStorage.sketches = JSON.stringify(local_sketches);
+      window.location.hash = "#!";
+      browser.load_local_sketches(0);
+    }
+  });
+  window.location.hash = "settings_modal";
 }
 
 function renderUserSketches(userName,data, online){
@@ -64,7 +126,6 @@ browser.load_external_sketches = function(offset){
 
     renderSketches(dataContext, true);
   });
-
 }
 
 
@@ -74,6 +135,7 @@ browser.load_local_sketches = function(offset){
   //use naive for loop
   for(var sketch_id in local_sketches){
     if(local_sketches.hasOwnProperty(sketch_id)){
+      if(local_sketches[sketch_id] === null)continue;
       var sketch = local_sketches[sketch_id];
       //Just translation from storage names to useful names
       dataContext.sketches.push({

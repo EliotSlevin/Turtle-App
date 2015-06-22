@@ -118,3 +118,31 @@
 .user-title-bar .return{
 	text-align: right;
 }
+
+#settings_modal .modal-inner{
+	width: 30%;
+	background-color: white;
+}
+
+a.settings-button{
+	color: black;
+}
+
+.settings-button{
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	padding: 10px;
+	margin: 0 auto;
+	margin-top: 20px;
+	display:block;
+	width: 50%;
+}
+
+.button-off{
+	background-color: red;
+}
+
+.button-on{
+	background-color: green;
+}
