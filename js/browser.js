@@ -98,6 +98,7 @@ function renderUserSketches(userName,data, online){
     else storage.load_local_sketch($(this).parent().attr("data-id"));
     PageTransitions.nextPage({animation:1});
   });
+  $(".settings_cog").hide();
 }
 
 browser.load_external_sketches = function(offset){
