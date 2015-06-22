@@ -133,9 +133,6 @@ function draw_normal_code_block(parent_dom_object, parent_block_array, index){
     return codeblock_div.data('block_ref', block);
   }, stop: function(){
     storage.save_local_sketch();
-    if(current_sketch.online_sketch_id !== null && current_sketch.local_sketch_id !== null){
-      serverside.save_local_sketch(current_sketch);
-    }
     execution_pane.draw();
   }, scroll:false, zindex: 2500, appendTo: "body"});
 
@@ -201,9 +198,6 @@ function draw_multi_code_block(parent_dom_object, parent_block_array, index){
     return multiblock_div.data('block_ref', block);
   }, stop: function(){
     storage.save_local_sketch();
-    if(current_sketch.online_sketch_id !== null && current_sketch.local_sketch_id !== null){
-      serverside.save_local_sketch(current_sketch);
-    }
     execution_pane.draw();
   }, scroll:false, zindex: 2500, appendTo: "body"});
 

@@ -57,6 +57,10 @@ storage.save_local_sketch = function(){
     if(sketch.local_sketch_id == localStorage.sketch_counter){
       localStorage.sketch_counter = Number(localStorage.sketch_counter) + 1;
     }
+
+    if(sketch.online_sketch_id !== null && sketch.local_sketch_id !== null){
+      serverside.save_local_sketch(sketch);
+    }
   });
 }
 
@@ -70,13 +74,17 @@ storage.decompose_current_sketch = function(next){
   execution_pane.run(undefined, true);
   $("#big_canvas").show();
   paper.view.draw();
+  console.log("Waiting for paper to finish its render loop");
   paper_contexts[1].view.onFrame = function(){
+    console.log("Constructing sketch");
     var preview = document.getElementById('big_canvas').toDataURL().substring("data:image/png;base64,".length);
     paper_contexts[1].view.onFrame = undefined;
     $("#big_canvas").hide();
     paper = paper_contexts[0];
     var name = current_sketch.name;
     var contents = JSON.stringify(decompose_execution_pane());
+    console.log("Finished Deconstructing");
+    console.log(next);
     next({
       sketch_name: name,
       sketch_contents: contents,

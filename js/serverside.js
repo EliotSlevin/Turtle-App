@@ -81,7 +81,7 @@ serverside.save_sketch = function(name){
     var sketch = data.sketch;
     localStorage.auth_token = data.new_token;
     current_sketch.online_sketch_id = sketch.id;
-    storage.flush_current_sketch();
+    browser.online.last_fetched_sketches = null;
   }, function(error){
     //We should do something better here. Maybe update the UI.
     console.log(error);
@@ -92,6 +92,7 @@ serverside.delete_local_sketch = function(sketch){
   if(sketch.online_sketch_id === null)return;
   storage.get_auth_token(function(token){
     function _success(data){
+      browser.online.last_fetched_sketches = null;
       localStorage.auth_token = data.new_token;
       sketch.online_sketch_id = null;
       localStorage.sketches = JSON.stringify(local_sketches);
@@ -116,6 +117,11 @@ serverside.delete_local_sketch = function(sketch){
 }
 
 serverside.save_local_sketch = function(sketch){
+  if(typeof sketch.sketch_contents === 'undefined'){
+    serverside.save_sketch();
+    return;
+  }
+
   storage.get_auth_token(function(token){
     var sendBlob = {
       sketch_name: sketch.sketch_name,
@@ -127,6 +133,7 @@ serverside.save_local_sketch = function(sketch){
 
     function _success(data){
       console.log(data);
+      browser.online.last_fetched_sketches = null;
       var returned_sketch = data.sketch;
       localStorage.auth_token = data.new_token;
       sketch.online_sketch_id = returned_sketch.id;
