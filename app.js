@@ -31,6 +31,10 @@ $(document).ready(function() {
       current_sketch.local_sketch_id = Number(localStorage.sketch_counter);
     }
 
+    $("#search_form").submit(function(){
+      browser.load_search_results($("#search_input").val(), 0);
+    });
+
     browser.load_local_sketches(0);
 
     paper_contexts[0] = new paper.PaperScope();

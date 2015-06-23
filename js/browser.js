@@ -99,6 +99,45 @@ function renderUserSketches(userName,data, online){
     PageTransitions.nextPage({animation:1});
   });
   $(".settings_cog").hide();
+  $(".return").click(function(){
+    browser.load_external_sketches(0);
+  });
+}
+
+function renderSearchSketches(search, data, online){
+  var source   = $("#sketch-browser-template").html();
+  var template = Handlebars.compile(source);
+  var html = template(data);
+  $(".sketch-browser").html(html);
+  $(".sketch-browser").prepend("<div></div><div class=\"user-title-bar\"><h2>Search results for \""+search+"\"</h2><h2 class=\"return\"><i class=\"fa fa-arrow-left\"></i></h2></div><div></div>");
+  $(".open-sketch").click(function(){
+    if(online)serverside.load_sketch($(this).parent().attr("data-id"));
+    else storage.load_local_sketch($(this).parent().attr("data-id"));
+    PageTransitions.nextPage({animation:1});
+  });
+  $(".settings_cog").hide();
+  $(".return").click(function(){
+    browser.load_external_sketches(0);
+  });
+}
+
+browser.load_search_results = function(search, offset){
+  serverside.search_sketches(search, 20, offset, function(data){
+    var dataContext = {sketches:[]};
+    for(var i = 0;i < data.sketches.length;i ++){
+      var sketch = data.sketches[i];
+      dataContext.sketches.push({
+        name: sketch.sketch_name,
+        preview: sketch.preview,
+        sketchid: sketch.sketchid,
+        username: sketch.by
+      });
+    }
+
+    renderSearchSketches(search, dataContext, true);
+  }, function(err){
+    console.log(err);
+  });
 }
 
 browser.load_external_sketches = function(offset){
