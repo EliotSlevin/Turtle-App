@@ -1,4 +1,7 @@
-var turtle_frames = ["img/turtle/CursorI-01.png"];
+var turtle_frames = ["img/turtle/CursorI-01.png", "img/turtle/CursorI-02.png", "img/turtle/CursorI-03.png",
+                     "img/turtle/CursorI-04.png", "img/turtle/CursorI-05.png", "img/turtle/CursorI-06.png",
+                     "img/turtle/CursorI-07.png", "img/turtle/CursorI-08.png"];
+                     
 function init_drawing(canvas){
   paper.turtle_layer = new paper.Layer();
   paper.turtle_layer.activate();

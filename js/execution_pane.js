@@ -19,16 +19,38 @@ function run_execution(canvas, immediate){
     paper.turtle_layer.activate();
     paper.view.turtle = new paper.Raster({source: turtle_frames[0]});
     paper.view.turtle.position = paper.view.center;
+    paper.view.turtle.current_frame = 0;
+    paper.view.turtle.frame_count = 0;
+    var started = false;
     paper.view.turtle.onLoad = function(){
       paper.view.turtle.width = 100;
       paper.view.turtle.height = 100;
-      if(context.speed === 100){
-        run_next_block(execution_pane);
-      }
-      else{
-        run_next_block();
+      if(!started){
+        started = true;
+        if(context.speed === 100){
+          run_next_block(execution_pane);
+        }
+        else{
+          run_next_block();
+        }
       }
     }
+
+    paper.view.turtle.onFrame = function(){
+      var turtle = paper.view.turtle;
+      turtle.frame_count ++;
+      if(turtle.frame_count >= 4){
+        turtle.frame_count = 0;
+        turtle.current_frame = (turtle.current_frame + 1) % turtle_frames.length;
+        var rotation = turtle.rotation;
+        turtle.source = turtle_frames[turtle.current_frame];
+        console.log(rotation + " " + turtle.rotation);
+        paper.view.turtle.width = 100;
+        paper.view.turtle.height = 100;
+        console.log(turtle.current_frame);
+      }
+    }
+
     rotate_turtle(180);
     paper.sketch_layer.activate();
     paper.sketch_layer.removeChildren();
