@@ -7,6 +7,7 @@ function init_drawing(canvas){
     paper.view.turtle.width = 50;
     paper.view.turtle.height = 50;
   }
+  rotate_turtle(180);
 
   paper.sketch_layer = new paper.Layer();
   paper.turtle_layer.bringToFront();

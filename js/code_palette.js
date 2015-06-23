@@ -98,7 +98,7 @@ function(parameter_block){
 }, {distance: 50});
 
 var rotate = new CodeBlock("rotate", "#rotate", "rotate_modal", function(drawing_context, canvas, next){
-  drawing_context.pen_angle += this.parameters.theta;
+  drawing_context.pen_angle -= this.parameters.theta;
   var change = 0;
   var self = this;
   var oldRotation = (paper.view.turtle.rotation < 0 ? 360 + paper.view.turtle.rotation : paper.view.turtle.rotation);
@@ -117,7 +117,7 @@ var rotate = new CodeBlock("rotate", "#rotate", "rotate_modal", function(drawing
     }
   }
 }, function(drawing_context, canvas){
-  drawing_context.pen_angle += this.parameters.theta;
+  drawing_context.pen_angle -= this.parameters.theta;
 }, function(){//On Open Modal
   $("#rotate_angle_indic").html(this.parameters.theta);
   $("#rotate_modal_theta").val(this.parameters.theta);

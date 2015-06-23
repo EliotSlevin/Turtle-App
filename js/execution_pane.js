@@ -29,6 +29,7 @@ function run_execution(canvas, immediate){
         run_next_block();
       }
     }
+    rotate_turtle(180);
     paper.sketch_layer.activate();
     paper.sketch_layer.removeChildren();
   }
