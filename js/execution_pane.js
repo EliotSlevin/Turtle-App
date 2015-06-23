@@ -47,7 +47,6 @@ function run_execution(canvas, immediate){
         console.log(rotation + " " + turtle.rotation);
         paper.view.turtle.width = 100;
         paper.view.turtle.height = 100;
-        console.log(turtle.current_frame);
       }
     }
 

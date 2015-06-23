@@ -110,7 +110,6 @@ var rotate = new CodeBlock("rotate", "#rotate", "rotate_modal", function(drawing
     if(change >= self.parameters.theta){
       change = self.parameters.theta;
       var norm_rotation = (paper.view.turtle.rotation < 0 ? 360 + paper.view.turtle.rotation : paper.view.turtle.rotation);
-      console.log("Error: " + (norm_rotation - oldRotation - self.parameters.theta));
       rotate_turtle(-(norm_rotation - oldRotation - self.parameters.theta));
       paper.view.turtle.onFrame = old_on_frame;
       if(next)next();
