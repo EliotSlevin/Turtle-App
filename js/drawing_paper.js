@@ -1,11 +1,12 @@
+var turtle_frames = ["img/turtle/CursorI-01.png"];
 function init_drawing(canvas){
   paper.turtle_layer = new paper.Layer();
   paper.turtle_layer.activate();
-  paper.view.turtle = new paper.Raster({source: "img/turtle.jpg"});
+  paper.view.turtle = new paper.Raster({source: turtle_frames[0]});
   paper.view.turtle.position = paper.view.center;
   paper.view.turtle.onLoad = function(){
-    paper.view.turtle.width = 50;
-    paper.view.turtle.height = 50;
+    paper.view.turtle.width = 100;
+    paper.view.turtle.height = 100;
   }
   rotate_turtle(180);
 

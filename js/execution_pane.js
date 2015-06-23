@@ -17,11 +17,11 @@ function run_execution(canvas, immediate){
     var context = make_default_context();
     paper.turtle_layer.removeChildren();
     paper.turtle_layer.activate();
-    paper.view.turtle = new paper.Raster({source: "img/turtle.jpg"});
+    paper.view.turtle = new paper.Raster({source: turtle_frames[0]});
     paper.view.turtle.position = paper.view.center;
     paper.view.turtle.onLoad = function(){
-      paper.view.turtle.width = 50;
-      paper.view.turtle.height = 50;
+      paper.view.turtle.width = 100;
+      paper.view.turtle.height = 100;
       if(context.speed === 100){
         run_next_block(execution_pane);
       }
