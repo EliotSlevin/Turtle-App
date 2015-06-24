@@ -187,29 +187,53 @@
 }
 
 #settings_modal .modal-inner{
-	width: 30%;
-	background-color: white;
+	width: 400px;
+	background-color: #474747;
+	border: 5px solid #CDFFAE;
+	color: white;
+	padding: 50px;
 }
+
+#settings_modal h3{
+	margin-top: 0px;
+	font-size: 25px;
+	font-weight: 600;
+}
+
+#settings_modal .modal-inner{
+	margin-left: -200px;
+}
+
+#settings_modal input{
+	font-size: 18px;
+	padding: 10px;
+	padding-left: 0px;
+	border: none;
+	border-bottom: 1px dashed white;
+	background-color: rgba(255, 255, 255, 0.0);
+	color: white;
+}
+
+
+
 
 a.settings-button{
 	color: black;
 }
 
 .settings-button{
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
+	border: none;
 	padding: 10px;
 	margin: 0 auto;
 	margin-top: 20px;
 	display:block;
-	width: 50%;
+	width: 100%;
 }
 
 .button-off{
-	background-color: red;
+	background-color: rgb(255, 74, 74);
 }
 
 .button-on{
-	background-color: green;
+	background-color: #5B9E31;
 }
