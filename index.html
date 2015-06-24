@@ -471,6 +471,43 @@
             {{/each}}
 </script>
 
+<script id="sketch-browser-template-popular" type="text/x-handlebars-template">
+           {{#each sketches}}
+                <div class="sketch-file popular" data-id="{{sketchid}}">
+                    <div class="meta-bar open-userpage">
+                      <p>{{name}}</p>
+                      <p class="username">{{username}}</p>
+                    </div>
+
+                    <img class="open-sketch" src="{{preview}}">
+                </div>
+            {{/each}}
+</script>
+
+<script id="sketch-browser-template-local" type="text/x-handlebars-template">
+           {{#each sketches}}
+                <div class="sketch-file local" data-id="{{sketchid}}">
+                    <div class="meta-bar open-userpage">
+                      <p>{{name}}</p>
+                      <p class="username">Settings <img src="img/settings_cog.svg" class="settings_cog"></p>
+                    </div>
+
+                    <img class="open-sketch" src="{{preview}}">
+                </div>
+            {{/each}}
+</script>
+
+<script id="sketch-browser-template-plain" type="text/x-handlebars-template">
+           {{#each sketches}}
+                <div class="sketch-file plain" data-id="{{sketchid}}">
+                    <div class="meta-bar">
+                      <p>{{name}}</p>
+                    </div>
+
+                    <img class="open-sketch" src="{{preview}}">
+                </div>
+            {{/each}}
+</script>
 
 <script src="lib/fastclick.js"></script>
 <script src="lib/jquery-1.9.1.min.js"></script>
