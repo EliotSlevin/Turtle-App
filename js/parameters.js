@@ -24,4 +24,15 @@ parameters.init_parameters = function(){
       $($(this).attr('link')).html($(this).val());
     }
   }
+
+  var values = $(".fill_color");
+  values[0].oninput = values[1].oninput = values[2].oninput = function(){
+    var red = $("#fill_color_red").val();
+    var green = $("#fill_color_green").val();
+    var blue = $("#fill_color_blue").val();
+
+    var val = parseInt(red) << 16 | parseInt(green) << 8 | parseInt(blue);
+    $("#fill_colour_indic").html("#" + val.toString(16).toUpperCase().padZero(6));
+    $("#fill_colour_indic").css('color', "#" + val.toString(16).padZero(6));
+  };
 }

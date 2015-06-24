@@ -13,6 +13,12 @@ paper_contexts = [];
 
 current_page = "home";
 
+String.prototype.padZero= function(len, c){
+    var s= '', c= c || '0', len= (len || 2)-this.length;
+    while(s.length<len) s+= c;
+    return s+this;
+}
+
 /* Maybe lets start the app from here */
 $(document).ready(function() {
     palette.init();

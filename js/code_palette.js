@@ -158,9 +158,19 @@ var set_fill = new CodeBlock("set_fill", "#set_fill", "fill_modal",  function(dr
   drawing_context.fill_colour = new paper.Color(this.parameters.colour);
   if(next)next();
 }, undefined, function(){
-  $("#fill_modal_colour_picker").val(parameters.current_editing.parameters.colour);
+  var val = parseInt(this.parameters.colour.substring(1), 16);
+  $("#fill_color_red").val(val >> 16 & 0xFF);
+  $("#fill_color_green").val(val >> 8 & 0xFF);
+  $("#fill_color_blue").val(val >> 0 & 0xFF);
+  $("#fill_colour_indic").html(this.parameters.colour);
+  $("#fill_colour_indic").css('color', this.parameters.colour);
 }, function(){
-  parameters.current_editing.parameters.colour = $("#fill_modal_colour_picker").val();
+  var red = $("#fill_color_red").val();
+  var green = $("#fill_color_green").val();
+  var blue = $("#fill_color_blue").val();
+
+  var val = parseInt(red) << 16 | parseInt(green) << 8 | parseInt(blue);
+  this.parameters.colour = "#" + val.toString(16).toUpperCase().padZero(6);
 }, function(parameter_block){
   parameter_block.html(this.parameters.colour);
 }, {colour: "#FFFFFF"});
