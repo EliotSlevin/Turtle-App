@@ -82,6 +82,7 @@ function run_execution(canvas, immediate){
         else return;
         if(++i >= execution_pane.blocks.length){
           $(".running").removeClass("running");
+          paper.view.turtle.onFrame = undefined;
           return;
         }
         run_next_block();
