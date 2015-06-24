@@ -30,13 +30,6 @@ var PageTransitions = (function() {
 		$( "#backwards" ).click(function() {
 			var options = {animation: 2};
 			nextPage(options);
-
-			if($('#my_pins_button').hasClass('tab_selected')){
-				browser.load_local_sketches(0);
-			}
-			else{
-				browser.load_external_sketches(0);
-			}
 		});
 
 		$pages.each( function() {
