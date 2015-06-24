@@ -85,17 +85,40 @@
 	left: calc(50% - 150px);
 }
 
-.pills div{
+.pill{
 	width: 150px;
-	text-align: center;
-	padding: 10px;
+	height: 50px;
 	float: left;
-	border: 1px solid white;
 }
 
-.pills div:nth-child(1){
-		border-top-left-radius: 5px;
-		border-bottom-left-radius: 5px;
+.pill .tab{
+	text-align: center;
+	float: left;
+	height: 50px;
+  	line-height: 43px;
+	padding: 0px;
+	width: 133px;
+	border-top: 3px solid #9ed0e7;
+	border-bottom: 3px solid #9ed0e7;
+	font-weight: 200;
+}
+
+.pill:nth-child(1) .tab{
+	padding-right: 17px;
+}
+
+.pill:nth-child(2) .tab{
+	padding-left: 17px;
+}
+
+.pill_selected .tab{
+	background-color: #9ed0e7;
+	color: #333;
+	font-weight: 500;
+}
+
+.pill_selected .left-pill-cap, .pill_selected .right-pill-cap{
+	background-position-y: 100%;
 }
 
 .pills div.tab_selected{
@@ -103,10 +126,23 @@
 	background-color: white;
 }
 
-.pills div:nth-child(2){
-	border-top-right-radius: 5px;
-	border-bottom-right-radius: 5px;
+.left-pill-cap, .right-pill-cap{
+	float: left;
+	background-size: 100%, 200%;
 }
+
+.left-pill-cap{
+	height: 50px;
+	width: 17px;
+	background-image: url("../img/left-pill-cap.png");
+}
+
+.right-pill-cap{
+	height: 50px;
+	width: 17px;
+	background-image: url("../img/right-pill-cap.png");
+}
+
 
 .user-title-bar{
 	width: 100%;
