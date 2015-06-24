@@ -35,6 +35,7 @@ $(document).ready(function() {
       e.preventDefault();
       if($("#search_input").val() === "")return;
       browser.load_search_results($("#search_input").val(), 0);
+      $("#search_input").blur();
     });
 
     browser.load_local_sketches(0);
