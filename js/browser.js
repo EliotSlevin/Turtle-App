@@ -26,7 +26,7 @@ function renderSketches(data, online){
   $(".open-settings").click(function(){
     if(online)throw Error("Can't change settings of online sketches");
     else{
-      var sketch = local_sketches[Number($(this).parent().parent().parent().attr("data-id"))];
+      var sketch = local_sketches[Number($(this).parent().attr("data-id"))];
       load_settings_modal(sketch);
     }
   });
