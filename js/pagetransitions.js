@@ -30,6 +30,12 @@ var PageTransitions = (function() {
 		$( "#backwards" ).click(function() {
 			var options = {animation: 2};
 			nextPage(options);
+			if(current_page === "home"){
+				browser.load_local_sketches(0);
+			}
+			else if(current_page === "popular"){
+				browser.load_external_sketches(0);
+			}
 		});
 
 		$pages.each( function() {

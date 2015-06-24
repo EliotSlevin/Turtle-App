@@ -11,6 +11,8 @@ current_sketch = {
 local_sketches = [];
 paper_contexts = [];
 
+current_page = "home";
+
 /* Maybe lets start the app from here */
 $(document).ready(function() {
     palette.init();
@@ -36,6 +38,7 @@ $(document).ready(function() {
       if($("#search_input").val() === "")return;
       browser.load_search_results($("#search_input").val(), 0);
       $("#search_input").blur();
+      current_page = "search";
     });
 
     browser.load_local_sketches(0);
@@ -68,6 +71,7 @@ $(document).ready(function() {
       $(this).addClass("pill_selected");
       browser.load_external_sketches(0);
       $('#search').show();
+      current_page = "popular";
     });
 
     $("#my_pins_button").click(function(){
@@ -75,6 +79,7 @@ $(document).ready(function() {
       $(this).addClass("pill_selected");
       browser.load_local_sketches(0);
       $('#search').hide();
+      current_page = "home";
     });
 
     $('#search').hide();

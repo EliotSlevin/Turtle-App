@@ -11,16 +11,16 @@ function renderSketches(data, online){
     source = $("#sketch-browser-template-popular").html();
   }else{
     source = $("#sketch-browser-template-local").html();
-  } 
+  }
 
   var template = Handlebars.compile(source);
   var html = template(data);
-
 
   $(".sketch-browser").html(html);
 
   $(".open-userpage").click(function(){
        browser.load_userpage($(this).children(".username").html(),0);
+       current_page = "userpage";
   });
 
   $(".open-settings").click(function(){
