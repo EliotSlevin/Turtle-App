@@ -17,6 +17,7 @@ parameters.init_parameters = function(){
   links["#rect_modal_height"] = "#rect_height_indic";
   links["#circle_modal_radius"] = "#circle_rad_indic";
   links["#triangle_modal_radius"] = "#triangle_rad_indic";
+  links["#stroke_modal_width"] = "#stroke_width_indic";
 
   for(var i in links){
     $(i).attr('link', links[i]);
@@ -34,5 +35,17 @@ parameters.init_parameters = function(){
     var val = parseInt(red) << 16 | parseInt(green) << 8 | parseInt(blue);
     $("#fill_colour_indic").html("#" + val.toString(16).toUpperCase().padZero(6));
     $("#fill_colour_indic").css('color', "#" + val.toString(16).padZero(6));
+  };
+
+  values = $(".stroke_color");
+  values[0].oninput = values[1].oninput = values[2].oninput = function(){
+    var red = $("#stroke_color_red").val();
+    var green = $("#stroke_color_green").val();
+    var blue = $("#strok_color_blue").val();
+
+    var val = parseInt(red) << 16 | parseInt(green) << 8 | parseInt(blue);
+
+    $("#stroke_color_indic").html("#" + val.toString(16).toUpperCase().padZero(6));
+    $("#stroke_color_indic").css('color', "#" + val.toString(16).padZero(6));
   };
 }

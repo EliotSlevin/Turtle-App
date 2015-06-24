@@ -146,10 +146,22 @@ var set_stroke = new CodeBlock("set_stroke", "#set_stroke", "stroke_modal", func
   if(next)next();
 }, undefined, function(){
   $("#stroke_modal_width").val(this.parameters.width);
-  $("#stroke_modal_colour").val(this.parameters.colour);
+  $("#stroke_width_indic").html(this.parameters.width);
+
+  var val = parseInt(this.parameters.colour.substring(1), 16);
+  $("#stroke_color_red").val(val >> 16 & 0xFF);
+  $("#stroke_color_green").val(val >> 8 & 0xFF);
+  $("#stroke_color_blue").val(val >> 0 & 0xFF);
+  $("#stroke_color_indic").html(this.parameters.colour);
+  $("#stroke_color_indic").css('color', this.parameters.colour);
 }, function(){
   this.parameters.width = Number($("#stroke_modal_width").val());
-  this.parameters.colour = $("#stroke_modal_colour").val();
+  var red = $("#stroke_color_red").val();
+  var green = $("#stroke_color_green").val();
+  var blue = $("#stroke_color_blue").val();
+
+  var val = parseInt(red) << 16 | parseInt(green) << 8 | parseInt(blue);
+  this.parameters.colour = "#" + val.toString(16).toUpperCase().padZero(6);
 }, function(parameter_block){
   parameter_block.html("Colour: " + this.parameters.colour + ", Width: " + this.parameters.width);
 }, {width: 2, colour: "#FFFFFF"});

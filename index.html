@@ -272,13 +272,20 @@
           <div class="top-content">
             <div class="md-left-side"><a href="#!" class="modal_cancel"><i class="fa fa-times"></i></a></div>
             <div class="modal-center">
-              <h3>Set the stroke width and color</h3>
+              <h3>Set the stroke width to <span class="editable_amount" id="stroke_width_indic"> 30</span> and color <span id="stroke_color_indic">0xFFFFFF</span></h3>
               <div class="modal_inputs">
                 <label for="stroke_modal_width">Stroke Width</label>
-                <input type="number" id="stroke_modal_width" min="0" max="30" />
+                <input type="range" class="range_input" id="stroke_modal_width" min="0" max="30" />
 
-                <label for="stroke_modal_colour">Stroke Colour</label>
-                <input type="color" id="stroke_modal_colour" />
+                <label for="stroke_modal_colour">Stroke Colour</label><br>
+                <label for="stroke_color_red">Red</label>
+                <input type="range" class="range_input stroke_color" id="stroke_color_red" value="0" min="0" max="255" />
+
+                <label for="stroke_color_green">Green</label>
+                <input type="range" class="range_input stroke_color" id="stroke_color_green"  value="0" min="0" max="255" />
+
+                <label for="stroke_color_blue">Blue</label>
+                <input type="range" class="range_input stroke_color" id="stroke_color_blue"  value="0" min="0" max="255" />
               </div>
             </div>
             <div class="md-right-side"><a href="#!" class="modal_save"><i class="fa fa-check"></i></a></div>
@@ -310,10 +317,10 @@
                   <label for="fill_color_red">Red</label>
                   <input type="range" class="range_input fill_color" id="fill_color_red" value="0" min="0" max="255" />
 
-                  <label for="fill_color_red">Green</label>
+                  <label for="fill_color_green">Green</label>
                   <input type="range" class="range_input fill_color" id="fill_color_green"  value="0" min="0" max="255" />
 
-                  <label for="fill_color_red">Blue</label>
+                  <label for="fill_color_blue">Blue</label>
                   <input type="range" class="range_input fill_color" id="fill_color_blue"  value="0" min="0" max="255" />
               </div>
             </div>
