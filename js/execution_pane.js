@@ -268,6 +268,7 @@ function drop_on(dropped, dropped_on, parent_block, index){
       parent_block.blocks.splice(index, 0, new_execution_block);
     }
   }
+  storage.save_local_sketch();
   draw_execution_pane();
 }
 

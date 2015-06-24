@@ -22,6 +22,7 @@ var PageTransitions = (function() {
 	function init() {
 		$( "#forward" ).click(function() {
 			execution_pane.clear();
+	    paper.sketch_layer.removeChildren();
 			var options = {animation: 1};
 			nextPage(options);
 		});
