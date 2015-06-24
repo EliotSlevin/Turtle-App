@@ -105,9 +105,8 @@ function draw_execution_pane(){
   var src = "";
   var i = 0;
 
-  var parent_dom_element = $(".program");
+  var parent_dom_element = $("<div>");//$(".program");
   //Construct Execution Pane DOM
-  parent_dom_element.html("");
   parent_dom_element.append(createSpacer(execution_pane, -1));//Droppable for between blocks (pretty hacky, yeah)
   for(var i = 0;i < execution_pane.blocks.length;i ++){
     var block = execution_pane.blocks[i];
@@ -120,6 +119,8 @@ function draw_execution_pane(){
 
     parent_dom_element.append(createSpacer(execution_pane, i));//Droppable for between blocks (pretty hacky, yeah)
   }
+
+  $(".program").empty().append(parent_dom_element);
 
   $(".multiblock").droppable({
     drop: on_drop_on_multi_block,
