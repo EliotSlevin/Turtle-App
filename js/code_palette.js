@@ -33,6 +33,7 @@ var CodeBlock = function(name, palette_id, modal_id, action, immediate_action, o
 var jump = new CodeBlock("jump", "#jump", "jump_modal", function(drawing_context, canvas, next){
   drawing_context.pen_x = this.parameters.x;
   drawing_context.pen_y = this.parameters.y;
+  move_turtle(this.parameters.x, this.parameters.y);
   if(next)next();
 }, undefined, function(){
   $("#jump_modal_x").val(this.parameters.x);
