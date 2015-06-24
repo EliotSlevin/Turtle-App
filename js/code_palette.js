@@ -222,11 +222,18 @@ var rectangle = new CodeBlock("rectangle", "#rectangle", "rectangle_modal", func
 var triangle = new CodeBlock("triangle", "#triangle", "triangle_modal", function(drawing_context, canvas, next){
   draw_triangle(canvas, drawing_context.pen_x, drawing_context.pen_y, this.parameters.radius, next, drawing_context);
 }, function(drawing_context, canvas){
+  var path = new paper.Path();
+  path.strokeColor = drawing_context.stroke_colour;
+  path.strokeWidth = drawing_context.stroke_weight;
+  var color = drawing_context.fill_colour._components;
+  path.fillColor = new paper.Color(color[0], color[1], color[2], 255);
+  var x = drawing_context.pen_x;
+  var y = drawing_context.pen_y;
   path.moveTo(new paper.Point(x, y));
   for(var i = 0;i < 3;i ++){
-    var angle = ((image_context.pen_angle + i * 120) % 360) * (Math.PI / 180);
-    var dist_x = Math.sin(angle) * radius;
-    var dist_y = Math.cos(angle) * radius;
+    var angle = ((drawing_context.pen_angle + i * 120) % 360) * (Math.PI / 180);
+    var dist_x = Math.sin(angle) * this.parameters.radius;
+    var dist_y = Math.cos(angle) * this.parameters.radius;
     path.lineTo(x + dist_x, y + dist_y);
     x += dist_x;
     y += dist_y;
