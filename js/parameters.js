@@ -41,7 +41,7 @@ parameters.init_parameters = function(){
   values[0].oninput = values[1].oninput = values[2].oninput = function(){
     var red = $("#stroke_color_red").val();
     var green = $("#stroke_color_green").val();
-    var blue = $("#strok_color_blue").val();
+    var blue = $("#stroke_color_blue").val();
 
     var val = parseInt(red) << 16 | parseInt(green) << 8 | parseInt(blue);
 
