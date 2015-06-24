@@ -29,6 +29,7 @@ var PageTransitions = (function() {
 
 		$( "#backwards" ).click(function() {
 			var options = {animation: 2};
+		  storage.save_local_sketch();
 			nextPage(options);
 			if(current_page === "home"){
 				browser.load_local_sketches(0);

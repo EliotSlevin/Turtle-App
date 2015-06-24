@@ -5,7 +5,6 @@ parameters.init_parameters = function(){
     parameters.current_editing.on_close_modal();
     parameters.current_editing = null;
     execution_pane.draw();
-    storage.save_local_sketch();
   });
 
   var links = {};

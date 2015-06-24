@@ -154,7 +154,6 @@ function draw_normal_code_block(parent_dom_object, parent_block_array, index){
     var block =  parent_block_array.splice(index, 1);
     return codeblock_div.data('block_ref', block);
   }, stop: function(){
-    storage.save_local_sketch();
     execution_pane.draw();
   }, scroll:false, zindex: 2500, appendTo: "body"});
 
@@ -219,7 +218,6 @@ function draw_multi_code_block(parent_dom_object, parent_block_array, index){
     var block = parent_block_array.splice(index, 1);
     return multiblock_div.data('block_ref', block);
   }, stop: function(){
-    storage.save_local_sketch();
     execution_pane.draw();
   }, scroll:false, zindex: 2500, appendTo: "body"});
 
@@ -268,7 +266,6 @@ function drop_on(dropped, dropped_on, parent_block, index){
       parent_block.blocks.splice(index, 0, new_execution_block);
     }
   }
-  storage.save_local_sketch();
   draw_execution_pane();
 }
 
