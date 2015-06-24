@@ -59,7 +59,7 @@ storage.save_local_sketch = function(next){
     }
 
     if(sketch.online_sketch_id !== null && sketch.local_sketch_id !== null){
-      serverside.save_local_sketch(sketch);
+      serverside.save_local_sketch(sketch, next);
     }
     else{
         if(next)next();

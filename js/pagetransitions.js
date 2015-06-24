@@ -29,18 +29,22 @@ var PageTransitions = (function() {
 
 		$( "#backwards" ).click(function() {
 			var options = {animation: 2};
-			if(current_page === "home"){
 
-			}
-		  storage.save_local_sketch(function(){
+			if(current_sketch.local_sketch_id !== null){
 				nextPage(options);
-				if(current_page === "home"){
-					browser.load_local_sketches(0);
-				}
-				else if(current_page === "popular"){
-					browser.load_external_sketches(0);
-				}
-			});
+				storage.save_local_sketch(function(){
+					if(current_page === "home"){
+						browser.load_local_sketches(0);
+					}
+					else if(current_page === "popular"){
+						browser.load_external_sketches(0);
+					}
+				});
+			}
+			else{
+				nextPage(options);
+			}
+
 		});
 
 		$pages.each( function() {
