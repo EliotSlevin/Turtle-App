@@ -106,14 +106,14 @@ function renderUserSketches(userName,data, online){
     else storage.load_local_sketch($(this).parent().attr("data-id"));
     PageTransitions.nextPage({animation:1});
   });
-  $(".settings_cog").hide();
+
   $(".return").click(function(){
     browser.load_external_sketches(0);
   });
 }
 
 function renderSearchSketches(search, data, online){
-  var source   = $("#sketch-browser-template-plain").html();
+  var source   = $("#sketch-browser-template-popular").html();
   var template = Handlebars.compile(source);
   var html = template(data);
   $(".sketch-browser").html(html);
@@ -123,7 +123,11 @@ function renderSearchSketches(search, data, online){
     else storage.load_local_sketch($(this).parent().attr("data-id"));
     PageTransitions.nextPage({animation:1});
   });
-  $(".settings_cog").hide();
+
+  $(".open-userpage").click(function(){
+       browser.load_userpage($(this).children(".username").html(),0);
+  });
+
   $(".return").click(function(){
     browser.load_external_sketches(0);
   });
