@@ -62,15 +62,15 @@ $(document).ready(function() {
     });
 
     $("#popular_button").click(function(){
-      $(".tab_selected").removeClass("tab_selected");
-      $(this).addClass("tab_selected");
+      $(".pill_selected").removeClass("pill_selected");
+      $(this).addClass("pill_selected");
       browser.load_external_sketches(0);
       $('#search').show();
     });
 
     $("#my_pins_button").click(function(){
-      $(".tab_selected").removeClass("tab_selected");
-      $(this).addClass("tab_selected");
+      $(".pill_selected").removeClass("pill_selected");
+      $(this).addClass("pill_selected");
       browser.load_local_sketches(0);
       $('#search').hide();
     });
