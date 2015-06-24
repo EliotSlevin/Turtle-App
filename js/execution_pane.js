@@ -44,7 +44,6 @@ function run_execution(canvas, immediate){
         turtle.current_frame = (turtle.current_frame + 1) % turtle_frames.length;
         var rotation = turtle.rotation;
         turtle.source = turtle_frames[turtle.current_frame];
-        console.log(rotation + " " + turtle.rotation);
         paper.view.turtle.width = 100;
         paper.view.turtle.height = 100;
       }

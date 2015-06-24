@@ -32,6 +32,7 @@ $(document).ready(function() {
     }
 
     $("#search_form").submit(function(){
+      if($("#search_input").val() === "")return;
       browser.load_search_results($("#search_input").val(), 0);
     });
 
