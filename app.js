@@ -31,7 +31,8 @@ $(document).ready(function() {
       current_sketch.local_sketch_id = Number(localStorage.sketch_counter);
     }
 
-    $("#search_form").submit(function(){
+    $("#search_form").submit(function(e){
+      e.preventDefault();
       if($("#search_input").val() === "")return;
       browser.load_search_results($("#search_input").val(), 0);
     });
