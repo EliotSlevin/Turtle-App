@@ -46,7 +46,7 @@ storage.load_local_sketch = function(id){
 /**
   * Saves the current sketch to load storage
   **/
-storage.save_local_sketch = function(){
+storage.save_local_sketch = function(next){
   if(current_sketch.local_sketch_id == null)return;
   storage.decompose_current_sketch(function(sketch){
     sketch.online_sketch_id = current_sketch.online_sketch_id;
@@ -60,6 +60,9 @@ storage.save_local_sketch = function(){
 
     if(sketch.online_sketch_id !== null && sketch.local_sketch_id !== null){
       serverside.save_local_sketch(sketch);
+    }
+    else{
+        if(next)next();
     }
   });
 }

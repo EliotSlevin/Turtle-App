@@ -29,14 +29,18 @@ var PageTransitions = (function() {
 
 		$( "#backwards" ).click(function() {
 			var options = {animation: 2};
-		  storage.save_local_sketch();
-			nextPage(options);
 			if(current_page === "home"){
-				browser.load_local_sketches(0);
+
 			}
-			else if(current_page === "popular"){
-				browser.load_external_sketches(0);
-			}
+		  storage.save_local_sketch(function(){
+				nextPage(options);
+				if(current_page === "home"){
+					browser.load_local_sketches(0);
+				}
+				else if(current_page === "popular"){
+					browser.load_external_sketches(0);
+				}
+			});
 		});
 
 		$pages.each( function() {

@@ -74,14 +74,13 @@ function recompose_block(server_block){
   * Saves the current sketch to the server under the given name
   * @param name - The name to save the sketch under
   **/
-serverside.save_sketch = function(name){
-  if(name)current_sketch.name = name;
-
+serverside.save_sketch = function(next){
   serverside.post_sketch(function(data){
     var sketch = data.sketch;
     localStorage.auth_token = data.new_token;
     current_sketch.online_sketch_id = sketch.id;
     browser.online.last_fetched_sketches = null;
+    next();
   }, function(error){
     //We should do something better here. Maybe update the UI.
     console.log(error);
@@ -116,9 +115,9 @@ serverside.delete_local_sketch = function(sketch){
   });
 }
 
-serverside.save_local_sketch = function(sketch){
+serverside.save_local_sketch = function(sketch, next){
   if(typeof sketch.sketch_contents === 'undefined'){
-    serverside.save_sketch();
+    serverside.save_sketch(next);
     return;
   }
 
@@ -138,6 +137,7 @@ serverside.save_local_sketch = function(sketch){
       localStorage.auth_token = data.new_token;
       sketch.online_sketch_id = returned_sketch.id;
       localStorage.sketches = JSON.stringify(local_sketches);
+      if(next)next();
     }
 
     function _error(err){
