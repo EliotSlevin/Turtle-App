@@ -3,7 +3,7 @@
  "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
 <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="128.000000pt" height="128.000000pt" viewBox="0 0 128.000000 128.000000" preserveAspectRatio="xMidYMid meet">
 	<rect x="0" y="0" width="300" height="100" stroke="transparent" stroke-width="1" fill="none" />
-	<g transform="translate(0.000000,128.000000) scale(0.100000,-0.100000)" fill="#999999" stroke="none">
+	<g transform="translate(0.000000,128.000000) scale(0.100000,-0.100000)" fill="#ffffff" stroke="none">
 		<path d="M530 1071 c-5 -11 -10 -30 -10 -43 0 -32 -8 -41 -63 -73 l-48 -27
 		-46 17 -46 18 -24 -29 c-30 -39 -83 -138 -83 -157 0 -9 16 -29 35 -44 33 -27
 		35 -31 35 -89 0 -59 -2 -63 -35 -88 -19 -15 -35 -34 -35 -43 0 -21 68 -148 91

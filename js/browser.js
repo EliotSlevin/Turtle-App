@@ -5,19 +5,25 @@ browser.online.last_fetch_time = 0;
 browser.online.last_fetched_sketches = null;
 
 function renderSketches(data, online){
-  var source   = $("#sketch-browser-template").html();
-  var template = Handlebars.compile(source);
-  var html = template(data);
-  $(".sketch-browser").html(html);
+  var source;
 
   if(online){
-    $(".meta-bar").click(function(){
-  	   browser.load_userpage($(this).children(".username").html(),0);
-    });
-    $(".settings_cog").hide();
-  }
+    source = $("#sketch-browser-template-popular").html();
+  }else{
+    source = $("#sketch-browser-template-local").html();
+  } 
 
-  $(".settings_cog").click(function(){
+  var template = Handlebars.compile(source);
+  var html = template(data);
+
+
+  $(".sketch-browser").html(html);
+
+  $(".open-userpage").click(function(){
+       browser.load_userpage($(this).children(".username").html(),0);
+  });
+
+  $(".open-settings").click(function(){
     if(online)throw Error("Can't change settings of online sketches");
     else{
       var sketch = local_sketches[Number($(this).parent().parent().parent().attr("data-id"))];
@@ -31,6 +37,8 @@ function renderSketches(data, online){
     PageTransitions.nextPage({animation:1});
     paper.sketch_layer.removeChildren();
   });
+
+
 }
 
 function load_settings_modal(sketch){
@@ -88,7 +96,7 @@ function load_settings_modal(sketch){
 }
 
 function renderUserSketches(userName,data, online){
-  var source   = $("#sketch-browser-template").html();
+  var source   = $("#sketch-browser-template-plain").html();
   var template = Handlebars.compile(source);
   var html = template(data);
   $(".sketch-browser").html(html);
@@ -105,7 +113,7 @@ function renderUserSketches(userName,data, online){
 }
 
 function renderSearchSketches(search, data, online){
-  var source   = $("#sketch-browser-template").html();
+  var source   = $("#sketch-browser-template-plain").html();
   var template = Handlebars.compile(source);
   var html = template(data);
   $(".sketch-browser").html(html);

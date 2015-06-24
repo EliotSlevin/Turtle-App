@@ -27,6 +27,10 @@
 	margin: 1em;
 }
 
+.sketch-file.plain .meta-bar p{
+	line-height: 40px;
+}
+
 .sketch-file:nth-child(3n - 2){
 	position: relative;
     top: 172px;
@@ -41,6 +45,11 @@
 
 .sketch-file img{
 	width: 100%;
+}
+.settings_cog{
+	width: 24px !important;
+  	display: inline-block;
+ 	margin-bottom: -7px;
 }
 
 
