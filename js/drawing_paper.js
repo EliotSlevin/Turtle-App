@@ -1,7 +1,7 @@
 var turtle_frames = ["img/turtle/CursorI-01.png", "img/turtle/CursorI-02.png", "img/turtle/CursorI-03.png",
                      "img/turtle/CursorI-04.png", "img/turtle/CursorI-05.png", "img/turtle/CursorI-06.png",
                      "img/turtle/CursorI-07.png", "img/turtle/CursorI-08.png"];
-                     
+
 function init_drawing(canvas){
   paper.turtle_layer = new paper.Layer();
   paper.turtle_layer.activate();
@@ -151,7 +151,7 @@ function draw_rect(canvas, x, y, w, h, next, image_context){
       //If we are still drawing the outline
       if(path.amount < 100){
         path.removeSegments();
-        make_rect_path(path, x, y, w, h, path.amount += image_context.speed);
+        make_rect_path(path, x, y, w, h, path.amount += image_context.speed / 4);
         paper.view.draw();
       }
 
@@ -247,6 +247,7 @@ function draw_triangle(canvas, x, y, radius, next, image_context){
       var dist_x = Math.sin(angle) * dist;
       var dist_y = Math.cos(angle) * dist;
       path.lineTo(x + dist_x, y + dist_y);
+      move_turtle(x + dist_x, y + dist_y);
       if(total_length < radius){
         break;
       }
@@ -269,7 +270,7 @@ function draw_triangle(canvas, x, y, radius, next, image_context){
     //If we are still drawing the outside
     if(path.amount < 100){
       path.removeSegments();
-      make_triangle_path(path, x, y, radius, path.amount += image_context.speed);
+      make_triangle_path(path, x, y, radius, path.amount += image_context.speed / 3);
       paper.view.draw();
     }
     //If we are drawing the inside
