@@ -160,6 +160,7 @@
 	overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   padding: 20px;
+    background: #f7f7f7 url("../img/background-light.png") no-repeat center top;
 }
 
 .program .command{
@@ -274,4 +275,10 @@ footer .cancel{
 	width: 100%;
 	height: 20px;
 	background-color: #333333;
+}
+
+.running{
+  margin-left: 10px;
+  border-left: #FF9500 5px solid;
+  padding-left: 10px;
 }
