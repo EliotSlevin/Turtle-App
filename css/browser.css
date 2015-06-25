@@ -21,6 +21,7 @@
 	float: left;
 	background-color: black;
 	position: relative;
+	overflow: hidden;
 
 	-webkit-clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%, 25% 0%);
 	clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%, 25% 0%);
@@ -174,6 +175,7 @@
 .user-title-bar{
 	width: 100%;
   	border-bottom: 1px solid rgba(0,0,0,0.2);
+  	background-color: rgb(247, 247, 247);
   	overflow: hidden;
 }
 

@@ -78,8 +78,6 @@
       border: 0; }
   .modal--fade .modal-content, .modal--show .modal-content {
     position: relative;
-    max-height: 400px;
-    max-height: 60vh;
     overflow-x: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch; }
@@ -169,12 +167,10 @@
           margin-left: 0; } }
   @media screen and (max-height: 46em) and (min-width: 30em) {
     .modal--fade .modal-content, .modal--show .modal-content {
-      max-height: 340px;
-      max-height: 50vh; } }
+   } }
   @media screen and (max-height: 36em) and (min-width: 30em) {
     .modal--fade .modal-content, .modal--show .modal-content {
-      max-height: 265px;
-      max-height: 40vh; } }
+    } }
   .is-stacked.modal--fade, .is-stacked.modal--show {
     -webkit-transform: translate(0, 0) scale(1, 1);
     -moz-transform: translate(0, 0) scale(1, 1);
