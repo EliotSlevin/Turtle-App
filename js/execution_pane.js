@@ -75,7 +75,13 @@ function run_execution(canvas, immediate){
       }
     }
     else{
-      if(execution_pane.blocks[i])execution_pane.blocks[i].dom_element.addClass("running");
+      if(execution_pane.blocks[i]){
+        execution_pane.blocks[i].dom_element.addClass("running");
+        var program = $(".program");
+        var offset = Math.max((program.height() - execution_pane.blocks[i].dom_element.height()) / 2, 60);
+        console.log(offset);
+        program.scrollTo(execution_pane.blocks[i].dom_element, {duration:40, easing:'linear', offsetTop:offset});
+      }
       else return;
       execution_pane.blocks[i].action(context, canvas, function(){
         if(execution_pane.blocks[i])execution_pane.blocks[i].dom_element.removeClass("running");
