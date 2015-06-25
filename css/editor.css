@@ -228,12 +228,6 @@
 	background-color: #f4c1d4;
 }
 
-.running{
-	/*opacity: 0.8;*/
-	/*background-color: red;*/
-	/*Gotta find something cooler*/
-}
-
 hr{
 	border: none;
 	background-color: rgba(0,0,0,0.2);
@@ -278,7 +272,7 @@ footer .cancel{
 }
 
 .running{
-  margin-left: 10px;
+  margin-left: -11px;
   border-left: #FF9500 5px solid;
-  padding-left: 10px;
+  padding-left: 7px;
 }
