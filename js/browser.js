@@ -162,7 +162,7 @@ browser.load_external_sketches = function(offset){
     }
   }
 
-  serverside.load_popular_sketches(9, offset, "popular", function(data){
+  serverside.load_popular_sketches(15, offset, "popular", function(data){
     var dataContext = {sketches:[]};
     for(var i = 0;i < data.sketches.length;i ++){
       var sketch = data.sketches[i];
