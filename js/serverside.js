@@ -131,7 +131,6 @@ serverside.save_local_sketch = function(sketch, next){
     };
 
     function _success(data){
-      console.log(data);
       browser.online.last_fetched_sketches = null;
       var returned_sketch = data.sketch;
       localStorage.auth_token = data.new_token;
@@ -223,7 +222,6 @@ serverside.load_popular_sketches = function(num, offset, sorting_mech, success, 
 serverside.load_sketch = function(id){
   serverside.get_sketch(id,
     function(data){
-      console.log(data);
       serverside.recompose_execution_pane(data.blocks);
       current_sketch.online = true;
       current_sketch.author = data.by;

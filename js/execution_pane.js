@@ -79,7 +79,6 @@ function run_execution(canvas, immediate){
         execution_pane.blocks[i].dom_element.addClass("running");
         var program = $(".program");
         var offset = Math.max((program.height() - execution_pane.blocks[i].dom_element.height()) / 2, 60);
-        console.log(offset);
         program.scrollTo(execution_pane.blocks[i].dom_element, {duration:40, easing:'linear', offsetTop:offset});
       }
       else return;
@@ -136,6 +135,7 @@ function draw_execution_pane(){
 
   $(".parameter").click(function(){
     parameters.current_editing = $(this).parent().data('execution_pane_reference');
+    if(!parameters.current_editing.on_open_modal)return;
     parameters.current_editing.on_open_modal();
     window.location.hash = $(this).parent().data('execution_pane_reference').modal_id;
   });
@@ -179,12 +179,14 @@ function createSpacer(parent_block, i){
     over: function(){
       $(this).addClass("execution_pane_spacer_highlight");
       //Need to check whether $(this).parent().parent() is actually droppable
-      $(this).parent().parent().droppable("disable");
+      var elem = $(this).parent().parent();
+      if(elem.hasClass('ui-droppable'))elem.droppable("disable");
     },
     out: function(){
       $(this).removeClass("execution_pane_spacer_highlight");
       //Need to check whether $(this).parent().parent() is actually droppable
-      $(this).parent().parent().droppable("enable");
+      var elem = $(this).parent().parent();
+      if(elem.hasClass('ui-droppable'))elem.droppable("enable");
     },
     drop: on_drop_on_spacer
   });

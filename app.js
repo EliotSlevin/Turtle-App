@@ -47,8 +47,10 @@ $(document).ready(function() {
     if(typeof localStorage.sketches === "undefined"){
       //Totally secure way of generating a uuid if we dont have one (i.e. not running on device)
       localStorage.uuid = (typeof device !== 'undefined') ? device.uuid : Math.floor(Math.random() * 1000000);
-      localStorage.sketches = JSON.stringify(local_sketches);
-      localStorage.sketch_counter = 0;
+      localStorage.sketches = tutorial.sketches;
+      local_sketches = JSON.parse(localStorage.sketches);
+
+      localStorage.sketch_counter = local_sketches.length;
       current_sketch.local_sketch_id = 0;
       localStorage.username = generate_random_name();
     }

@@ -37,7 +37,12 @@ storage.get_auth_token = function(next){
   **/
 storage.load_local_sketch = function(id){
   var sketch = local_sketches[id];
-  serverside.recompose_execution_pane(JSON.parse(sketch.sketch_contents));
+  if(typeof sketch.sketch_contents === 'string'){
+    serverside.recompose_execution_pane(JSON.parse(sketch.sketch_contents));
+  }
+  else{
+    serverside.recompose_execution_pane(sketch.sketch_contents);
+  }
   current_sketch.online_sketch_id = sketch.online_sketch_id;
   current_sketch.local_sketch_id = Number(id);
   current_sketch.name = sketch.sketch_name;
@@ -72,22 +77,17 @@ storage.save_local_sketch = function(next){
   * be serialized
   **/
 storage.decompose_current_sketch = function(next){
-  //Bollocks
   paper = paper_contexts[1];
   execution_pane.run(undefined, true);
   $("#big_canvas").show();
   paper.view.draw();
-  console.log("Waiting for paper to finish its render loop");
   paper_contexts[1].view.onFrame = function(){
-    console.log("Constructing sketch");
     var preview = document.getElementById('big_canvas').toDataURL().substring("data:image/png;base64,".length);
     paper_contexts[1].view.onFrame = undefined;
     $("#big_canvas").hide();
     paper = paper_contexts[0];
     var name = current_sketch.name;
     var contents = JSON.stringify(decompose_execution_pane());
-    console.log("Finished Deconstructing");
-    console.log(next);
     next({
       sketch_name: name,
       sketch_contents: contents,
