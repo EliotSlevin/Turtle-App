@@ -43,7 +43,7 @@ html {
 }
 
 .pt-page-1{
-	background-color: #f7f7f7;
+	background: #f7f7f7 url("../img/background.png") no-repeat center top;
 }
 
 .pt-page-2{
