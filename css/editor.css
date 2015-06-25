@@ -8,6 +8,10 @@
 	display: none;
 }
 
+#comment{
+  display: none;
+}
+
 #big_canvas{
   width: 100%;
   height: 100%;

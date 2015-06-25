@@ -30,6 +30,12 @@ var CodeBlock = function(name, palette_id, modal_id, action, immediate_action, o
 /**
   * CODE BLOCK DEFINITIONS
   **/
+var comment = new CodeBlock("comment", "#comment", "__invalid__", function(drawing_context, canvas, next){
+  if(next)next();
+},undefined, undefined, undefined, function(parameter_block){
+  parameter_block.html(this.parameters.comment);
+}, {comment: ""});
+
 var jump = new CodeBlock("jump", "#jump", "jump_modal", function(drawing_context, canvas, next){
   drawing_context.pen_x = this.parameters.x;
   drawing_context.pen_y = this.parameters.y;
@@ -339,7 +345,8 @@ palette = {
     circle,
     rectangle,
     loop,
-    triangle
+    triangle,
+    comment
   ],
   init: init_palette
 };
